@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tycoon Club — Choose a Theme</title>
+  <meta name="description" content="Preview and open one of the Tycoon Club website themes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Inter+Tight:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Neutral picker frame */
+      --frame-bg: #07090d;
+      --frame-bg-soft: #0e1118;
+      --frame-card: #131722;
+      --frame-border: #232a3a;
+      --frame-text: #ECEAE2;
+      --frame-text-soft: #b6b1a3;
+      --frame-text-muted: #6b6859;
+
+      /* V1 tokens (CJC theme) */
+      --v1-bg: hsl(220 20% 6%);
+      --v1-card: hsl(220 18% 10%);
+      --v1-border: hsl(220 15% 18%);
+      --v1-gold: hsl(36 90% 55%);
+      --v1-gold-light: hsl(40 85% 68%);
+      --v1-gold-dark: hsl(32 90% 40%);
+      --v1-text: hsl(40 20% 92%);
+
+      /* V2 tokens (Editorial / Newsletter theme) */
+      --v2-bg: #0A0E14;
+      --v2-card: #11161F;
+      --v2-border: #232B3A;
+      --v2-gold: #C9A961;
+      --v2-gold-bright: #E5C77A;
+      --v2-gold-deep: #8B7340;
+      --v2-crimson: #B33A3A;
+      --v2-text: #EFEAE0;
+      --v2-text-soft: #C8C2B5;
+
+      /* V3 tokens (Fintech theme) */
+      --v3-bg: #0A0B0F;
+      --v3-card: #16181F;
+      --v3-border: rgba(255, 255, 255, 0.08);
+      --v3-lime: #C5F84F;
+      --v3-lime-bright: #DCFF6E;
+      --v3-lime-deep: #9DD630;
+      --v3-blue: #3E80FF;
+      --v3-text: #FFFFFF;
+
+      /* V4 tokens (Forsage-inspired) */
+      --v4-bg: #07081A;
+      --v4-card: #11142E;
+      --v4-border: rgba(124, 116, 255, 0.16);
+      --v4-cyan: #00E0FF;
+      --v4-cyan-bright: #5EF1FF;
+      --v4-violet: #7B5BFF;
+      --v4-pink: #FF5BB8;
+      --v4-text: #F0F2FF;
+      --v4-grad: linear-gradient(135deg, #00E0FF 0%, #7B5BFF 50%, #FF5BB8 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      background: var(--frame-bg);
+      color: var(--frame-text);
+      font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    body {
+      background-image:
+        radial-gradient(ellipse at top, rgba(201,169,97,0.05) 0%, transparent 55%),
+        radial-gradient(ellipse at bottom, rgba(0,224,255,0.04) 0%, transparent 60%);
+    }
+    a { text-decoration: none; color: inherit; }
+
+    .wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 56px 32px 80px;
+    }
+
+    /* HEADER */
+    .hdr { text-align: center; margin-bottom: 56px; }
+    .hdr .crest {
+      width: 32px; height: 32px;
+      border: 1px solid var(--v2-gold);
+      transform: rotate(45deg);
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-bottom: 22px;
+    }
+    .hdr .crest::after {
+      content: "";
+      width: 10px; height: 10px;
+      background: var(--v2-gold);
+      transform: rotate(-45deg);
+    }
+    .hdr .eyebrow {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--v2-gold);
+      margin-bottom: 14px;
+      display: block;
+    }
+    .hdr h1 {
+      font-family: "Bodoni Moda", serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(36px, 5vw, 60px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--frame-text);
+      margin-bottom: 16px;
+    }
+    .hdr h1 em { font-style: normal; color: var(--v2-gold); font-weight: 500; }
+    .hdr p {
+      max-width: 720px; margin: 0 auto;
+      color: var(--frame-text-soft);
+      font-size: 1.04rem;
+      line-height: 1.7;
+    }
+
+    /* GRID OF THEMES */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+    @media (max-width: 1020px) { .grid { grid-template-columns: 1fr; } }
+
+    /* SHARED CARD SHELL */
+    .theme-card {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--frame-border);
+      background: var(--frame-card);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .theme-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5);
+    }
+
+    .preview {
+      padding: 40px 32px 36px;
+      position: relative;
+      min-height: 280px;
+      overflow: hidden;
+    }
+    .preview-label {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: inline-block;
+    }
+    .preview-title {
+      margin-bottom: 10px;
+      font-size: 30px;
+      line-height: 1.1;
+    }
+    .preview-sub {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 22px;
+      max-width: 380px;
+    }
+    .swatch-row { display: flex; gap: 8px; align-items: center; }
+    .swatch {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* ====== V1 (CJC) ====== */
+    .preview.v1 {
+      background:
+        radial-gradient(ellipse at 50% 0%, hsl(36 90% 55% / 0.16), transparent 55%),
+        var(--v1-bg);
+      font-family: "Rajdhani", sans-serif;
+      color: var(--v1-text);
+      border-bottom: 1px solid var(--v1-border);
+    }
+    .preview.v1 .preview-label { font-family: "Orbitron", sans-serif; color: var(--v1-gold); font-weight: 600; }
+    .preview.v1 .preview-title { font-family: "Orbitron", sans-serif; font-weight: 700; letter-spacing: 0.02em; }
+    .preview.v1 .preview-title .accent {
+      background: linear-gradient(135deg, var(--v1-gold-light), var(--v1-gold), var(--v1-gold-dark));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .preview.v1 .preview-sub { color: hsl(40 20% 92% / 0.7); }
+    .preview.v1 .swatch.s1 { background: var(--v1-gold); }
+    .preview.v1 .swatch.s2 { background: var(--v1-gold-light); }
+    .preview.v1 .swatch.s3 { background: var(--v1-gold-dark); }
+    .preview.v1 .swatch.s4 { background: var(--v1-bg); border-color: var(--v1-border); }
+
+    /* ====== V2 (Editorial) ====== */
+    .preview.v2 {
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(229,199,122,0.12), transparent 55%),
+        var(--v2-bg);
+      font-family: "Inter Tight", sans-serif;
+      color: var(--v2-text);
+      border-bottom: 1px solid var(--v2-border);
+      position: relative;
+    }
+    .preview.v2::after {
+      content: "";
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        radial-gradient(1px 1px at 18% 32%, rgba(229,199,122,0.6), transparent 60%),
+        radial-gradient(1px 1px at 68% 22%, rgba(201,169,97,0.5), transparent 60%),
+        radial-gradient(1.4px 1.4px at 84% 64%, rgba(229,199,122,0.5), transparent 60%),
+        radial-gradient(1px 1px at 28% 78%, rgba(201,169,97,0.5), transparent 60%),
+        radial-gradient(1px 1px at 54% 52%, rgba(229,199,122,0.4), transparent 60%);
+    }
+    .preview.v2 .preview-label { font-family: "JetBrains Mono", monospace; color: var(--v2-gold); font-weight: 500; }
+    .preview.v2 .preview-title { font-family: "Bodoni Moda", serif; font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+    .preview.v2 .preview-title .accent { font-style: normal; color: var(--v2-gold); font-weight: 500; }
+    .preview.v2 .preview-sub { color: var(--v2-text-soft); }
+    .preview.v2 .swatch.s1 { background: var(--v2-gold); }
+    .preview.v2 .swatch.s2 { background: var(--v2-gold-bright); }
+    .preview.v2 .swatch.s3 { background: var(--v2-gold-deep); }
+    .preview.v2 .swatch.s4 { background: var(--v2-crimson); }
+    .preview.v2 .swatch.s5 { background: var(--v2-bg); border-color: var(--v2-border); }
+
+    /* ====== V3 (Fintech) ====== */
+    .preview.v3 {
+      background:
+        radial-gradient(circle at 80% 0%, rgba(197, 248, 79, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 20% 100%, rgba(62, 128, 255, 0.15) 0%, transparent 45%),
+        var(--v3-bg);
+      font-family: "Inter", sans-serif;
+      color: var(--v3-text);
+      border-bottom: 1px solid var(--v3-border);
+    }
+    .preview.v3 .preview-label {
+      background: rgba(197, 248, 79, 0.1);
+      border: 1px solid rgba(197, 248, 79, 0.3);
+      color: var(--v3-lime);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    .preview.v3 .preview-title { font-family: "Inter", sans-serif; font-weight: 700; letter-spacing: -0.03em; }
+    .preview.v3 .preview-title .accent { color: var(--v3-lime); }
+    .preview.v3 .preview-sub { color: rgba(255,255,255,0.7); }
+    .preview.v3 .swatch.s1 { background: var(--v3-lime); }
+    .preview.v3 .swatch.s2 { background: var(--v3-lime-bright); }
+    .preview.v3 .swatch.s3 { background: var(--v3-lime-deep); }
+    .preview.v3 .swatch.s4 { background: var(--v3-blue); }
+    .preview.v3 .swatch.s5 { background: var(--v3-bg); border-color: var(--v3-border); }
+
+    /* ====== V4 (Forsage) ====== */
+    .preview.v4 {
+      background:
+        radial-gradient(circle at 50% 0%, rgba(0, 224, 255, 0.18) 0%, rgba(123, 91, 255, 0.10) 30%, transparent 60%),
+        var(--v4-bg);
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--v4-text);
+      border-bottom: 1px solid var(--v4-border);
+      position: relative;
+    }
+    .preview.v4::after {
+      content: "";
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: radial-gradient(rgba(124, 116, 255, 0.12) 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+    .preview.v4 .preview-label {
+      background: rgba(0, 224, 255, 0.08);
+      border: 1px solid rgba(0, 224, 255, 0.3);
+      color: var(--v4-cyan);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    .preview.v4 .preview-title { font-family: "Space Grotesk", sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+    .preview.v4 .preview-title .accent {
+      background: var(--v4-grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .preview.v4 .preview-sub { color: rgba(240, 242, 255, 0.7); }
+    .preview.v4 .swatch.s1 { background: var(--v4-cyan); box-shadow: 0 0 12px var(--v4-cyan); }
+    .preview.v4 .swatch.s2 { background: var(--v4-cyan-bright); }
+    .preview.v4 .swatch.s3 { background: var(--v4-violet); }
+    .preview.v4 .swatch.s4 { background: var(--v4-pink); }
+    .preview.v4 .swatch.s5 { background: var(--v4-bg); border-color: var(--v4-border); }
+
+    /* CARD META */
+    .meta {
+      padding: 24px 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 0.76rem;
+      color: var(--frame-text-muted);
+      font-family: "JetBrains Mono", monospace;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .meta-row span strong { color: var(--frame-text); font-weight: 500; }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      flex: 1;
+      min-width: 140px;
+      padding: 13px 18px;
+      border-radius: 8px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn.primary.v1 {
+      background: linear-gradient(135deg, var(--v1-gold-dark), var(--v1-gold), var(--v1-gold-light));
+      color: hsl(220 20% 6%);
+    }
+    .btn.primary.v1:hover { opacity: 0.92; }
+    .btn.primary.v2 { background: var(--v2-gold); color: var(--v2-bg); }
+    .btn.primary.v2:hover { background: var(--v2-gold-bright); }
+    .btn.primary.v3 { background: var(--v3-lime); color: var(--v3-bg); border-radius: 999px; }
+    .btn.primary.v3:hover { background: var(--v3-lime-bright); }
+    .btn.primary.v4 {
+      background: var(--v4-grad);
+      color: var(--v4-bg);
+      box-shadow: 0 0 18px rgba(0, 224, 255, 0.25);
+    }
+    .btn.primary.v4:hover { box-shadow: 0 0 28px rgba(0, 224, 255, 0.4); }
+    .btn.ghost {
+      background: transparent;
+      border-color: var(--frame-border);
+      color: var(--frame-text-soft);
+    }
+    .btn.ghost:hover {
+      border-color: var(--frame-text-soft);
+      color: var(--frame-text);
+    }
+
+    /* IFRAME PREVIEW */
+    .iframe-wrap {
+      display: none;
+      border-top: 1px solid var(--frame-border);
+      background: #000;
+      position: relative;
+    }
+    .iframe-wrap.is-open { display: block; }
+    .iframe-wrap iframe {
+      width: 100%;
+      height: 520px;
+      border: 0;
+      display: block;
+    }
+    .iframe-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      background: var(--frame-bg-soft);
+      border-bottom: 1px solid var(--frame-border);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--frame-text-muted);
+    }
+    .iframe-bar a {
+      color: var(--frame-text-soft);
+      border-bottom: 1px dashed var(--frame-text-muted);
+      padding-bottom: 1px;
+    }
+    .iframe-bar a:hover { color: var(--v2-gold); border-color: var(--v2-gold); }
+
+    /* COMPARE TABLE */
+    .compare {
+      margin-top: 80px;
+      border: 1px solid var(--frame-border);
+      border-radius: 12px;
+      overflow: hidden;
+      overflow-x: auto;
+    }
+    .compare h2 {
+      font-family: "Bodoni Moda", serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 28px;
+      color: var(--frame-text);
+      padding: 28px 32px 20px;
+      border-bottom: 1px solid var(--frame-border);
+      letter-spacing: -0.01em;
+    }
+    .compare h2 em { color: var(--v2-gold); font-style: normal; font-weight: 500; }
+    .compare table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      min-width: 760px;
+    }
+    .compare th, .compare td {
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid var(--frame-border);
+      color: var(--frame-text-soft);
+      line-height: 1.5;
+      vertical-align: top;
+    }
+    .compare th {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--frame-text-muted);
+      font-weight: 500;
+      background: var(--frame-bg-soft);
+      white-space: nowrap;
+    }
+    .compare th.is-v1 { color: var(--v1-gold); }
+    .compare th.is-v2 { color: var(--v2-gold); }
+    .compare th.is-v3 { color: var(--v3-lime); }
+    .compare th.is-v4 { color: var(--v4-cyan); }
+    .compare tr:last-child td { border-bottom: 0; }
+
+    .foot {
+      margin-top: 56px;
+      text-align: center;
+      color: var(--frame-text-muted);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hdr">
+      <span class="crest" aria-hidden="true"></span>
+      <span class="eyebrow">Theme Picker &middot; 4 Versions</span>
+      <h1>Choose a face for <em>Tycoon Club</em>.</h1>
+      <p>
+        Four visual treatments of the same compliant Tycoon Club website. Same compliance content,
+        same access form, same KYC gate &mdash; different design language. Preview each inline,
+        then enter the one you prefer.
+      </p>
+    </header>
+
+    <div class="grid">
+
+      <!-- =================== V1 (CJC) =================== -->
+      <article class="theme-card" id="card-v1">
+        <a href="../tycoon-club/index.html" class="preview v1" target="_blank" rel="noopener">
+          <span class="preview-label">Version 01 &middot; CJC-Aligned</span>
+          <div class="preview-title">A community for <span class="accent">competitive gaming</span>.</div>
+          <p class="preview-sub">Gaming-forward, bright orange-gold, Orbitron display. Reads as a sibling of the CJC Race website.</p>
+          <div class="swatch-row" aria-label="V1 palette swatches">
+            <span class="swatch s1"></span>
+            <span class="swatch s2"></span>
+            <span class="swatch s3"></span>
+            <span class="swatch s4"></span>
+          </div>
+        </a>
+
+        <div class="meta">
+          <div class="meta-row">
+            <span>Theme&nbsp;<strong>CJC-aligned</strong></span>
+            <span>Font&nbsp;<strong>Orbitron</strong></span>
+          </div>
+          <div class="meta-row">
+            <span>Accent&nbsp;<strong>Bright Gold</strong></span>
+            <span>Folder&nbsp;<strong>tycoon-club/</strong></span>
+          </div>
+          <div class="actions">
+            <a class="btn primary v1" href="../tycoon-club/index.html" target="_blank" rel="noopener">Enter Version 01 &rarr;</a>
+            <button class="btn ghost" data-preview="v1" type="button">Preview Inline</button>
+          </div>
+        </div>
+
+        <div class="iframe-wrap" data-iframe="v1">
+          <div class="iframe-bar">
+            <span>Inline Preview</span>
+            <a href="../tycoon-club/index.html" target="_blank" rel="noopener">Open in new tab &nearr;</a>
+          </div>
+          <iframe data-src="../tycoon-club/index.html" loading="lazy" title="Version 01 preview"></iframe>
+        </div>
+      </article>
+
+      <!-- =================== V2 (Editorial) =================== -->
+      <article class="theme-card" id="card-v2">
+        <a href="../tycoon-club-v2/index.html" class="preview v2" target="_blank" rel="noopener">
+          <span class="preview-label">Version 02 &middot; Newsletter</span>
+          <div class="preview-title">A house for <span class="accent">competitive gaming</span>.</div>
+          <p class="preview-sub">Editorial, antique gold, Bodoni italics. Reads as a sibling of the Tycoon Brief newsletter.</p>
+          <div class="swatch-row" aria-label="V2 palette swatches">
+            <span class="swatch s1"></span>
+            <span class="swatch s2"></span>
+            <span class="swatch s3"></span>
+            <span class="swatch s4"></span>
+            <span class="swatch s5"></span>
+          </div>
+        </a>
+
+        <div class="meta">
+          <div class="meta-row">
+            <span>Theme&nbsp;<strong>Editorial</strong></span>
+            <span>Font&nbsp;<strong>Bodoni Moda</strong></span>
+          </div>
+          <div class="meta-row">
+            <span>Accent&nbsp;<strong>Antique Gold</strong></span>
+            <span>Folder&nbsp;<strong>tycoon-club-v2/</strong></span>
+          </div>
+          <div class="actions">
+            <a class="btn primary v2" href="../tycoon-club-v2/index.html" target="_blank" rel="noopener">Enter Version 02 &rarr;</a>
+            <button class="btn ghost" data-preview="v2" type="button">Preview Inline</button>
+          </div>
+        </div>
+
+        <div class="iframe-wrap" data-iframe="v2">
+          <div class="iframe-bar">
+            <span>Inline Preview</span>
+            <a href="../tycoon-club-v2/index.html" target="_blank" rel="noopener">Open in new tab &nearr;</a>
+          </div>
+          <iframe data-src="../tycoon-club-v2/index.html" loading="lazy" title="Version 02 preview"></iframe>
+        </div>
+      </article>
+
+      <!-- =================== V3 (Fintech) =================== -->
+      <article class="theme-card" id="card-v3">
+        <a href="../tycoon-club-v3/index.html" class="preview v3" target="_blank" rel="noopener">
+          <span class="preview-label">Version 03 &middot; Fintech</span>
+          <div class="preview-title">A house for skill-based <span class="accent">competition</span>.</div>
+          <p class="preview-sub">Premium fintech / exchange. Lime accent, bento grid cards, big bold sans-serif. Polished and professional.</p>
+          <div class="swatch-row" aria-label="V3 palette swatches">
+            <span class="swatch s1"></span>
+            <span class="swatch s2"></span>
+            <span class="swatch s3"></span>
+            <span class="swatch s4"></span>
+            <span class="swatch s5"></span>
+          </div>
+        </a>
+
+        <div class="meta">
+          <div class="meta-row">
+            <span>Theme&nbsp;<strong>Fintech/Exchange</strong></span>
+            <span>Font&nbsp;<strong>Inter</strong></span>
+          </div>
+          <div class="meta-row">
+            <span>Accent&nbsp;<strong>Lime Green</strong></span>
+            <span>Folder&nbsp;<strong>tycoon-club-v3/</strong></span>
+          </div>
+          <div class="actions">
+            <a class="btn primary v3" href="../tycoon-club-v3/index.html" target="_blank" rel="noopener">Enter Version 03 &rarr;</a>
+            <button class="btn ghost" data-preview="v3" type="button">Preview Inline</button>
+          </div>
+        </div>
+
+        <div class="iframe-wrap" data-iframe="v3">
+          <div class="iframe-bar">
+            <span>Inline Preview</span>
+            <a href="../tycoon-club-v3/index.html" target="_blank" rel="noopener">Open in new tab &nearr;</a>
+          </div>
+          <iframe data-src="../tycoon-club-v3/index.html" loading="lazy" title="Version 03 preview"></iframe>
+        </div>
+      </article>
+
+      <!-- =================== V4 (Forsage) =================== -->
+      <article class="theme-card" id="card-v4">
+        <a href="../tycoon-club-v4/index.html" class="preview v4" target="_blank" rel="noopener">
+          <span class="preview-label">Version 04 &middot; Web3</span>
+          <div class="preview-title">A community for <span class="accent">skill-based competition</span>.</div>
+          <p class="preview-sub">Web3 neon. Cyan + violet gradient, hex grid backdrop, gradient glow. Loud and crypto-native.</p>
+          <div class="swatch-row" aria-label="V4 palette swatches">
+            <span class="swatch s1"></span>
+            <span class="swatch s2"></span>
+            <span class="swatch s3"></span>
+            <span class="swatch s4"></span>
+            <span class="swatch s5"></span>
+          </div>
+        </a>
+
+        <div class="meta">
+          <div class="meta-row">
+            <span>Theme&nbsp;<strong>Web3 / Crypto</strong></span>
+            <span>Font&nbsp;<strong>Space Grotesk</strong></span>
+          </div>
+          <div class="meta-row">
+            <span>Accent&nbsp;<strong>Cyan + Violet</strong></span>
+            <span>Folder&nbsp;<strong>tycoon-club-v4/</strong></span>
+          </div>
+          <div class="actions">
+            <a class="btn primary v4" href="../tycoon-club-v4/index.html" target="_blank" rel="noopener">Enter Version 04 &rarr;</a>
+            <button class="btn ghost" data-preview="v4" type="button">Preview Inline</button>
+          </div>
+        </div>
+
+        <div class="iframe-wrap" data-iframe="v4">
+          <div class="iframe-bar">
+            <span>Inline Preview</span>
+            <a href="../tycoon-club-v4/index.html" target="_blank" rel="noopener">Open in new tab &nearr;</a>
+          </div>
+          <iframe data-src="../tycoon-club-v4/index.html" loading="lazy" title="Version 04 preview"></iframe>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- =================== COMPARISON TABLE =================== -->
+    <section class="compare" aria-label="Side-by-side comparison">
+      <h2>What&rsquo;s the same &amp; what&rsquo;s <em>different</em></h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 18%;">Element</th>
+            <th class="is-v1">V01 &middot; CJC</th>
+            <th class="is-v2">V02 &middot; Editorial</th>
+            <th class="is-v3">V03 &middot; Fintech</th>
+            <th class="is-v4">V04 &middot; Web3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color: var(--frame-text);">Display font</strong></td>
+            <td>Orbitron</td>
+            <td>Bodoni Moda italic</td>
+            <td>Inter (bold)</td>
+            <td>Space Grotesk</td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--frame-text);">Body font</strong></td>
+            <td>Rajdhani</td>
+            <td>Inter Tight</td>
+            <td>Inter</td>
+            <td>Inter</td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--frame-text);">Accent</strong></td>
+            <td>Bright orange-gold</td>
+            <td>Antique gold + crimson</td>
+            <td>Lime green</td>
+            <td>Cyan + violet gradient</td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--frame-text);">Layout style</strong></td>
+            <td>Glass-card / blur</td>
+            <td>Hairline cells, roman numerals</td>
+            <td>Bento grid + pill buttons</td>
+            <td>Hex orbs + neon glow</td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--frame-text);">Feel</strong></td>
+            <td>Gaming</td>
+            <td>Editorial / luxury</td>
+            <td>Premium fintech / exchange</td>
+            <td>Web3 / crypto-native</td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--frame-text);">Compliance content</strong></td>
+            <td colspan="4" style="color: var(--frame-text);">Identical across all four &mdash; same Risk Notice, same 5-checkbox form gate, same restricted-jurisdiction block (US/CN/KP/IR/SY/CU), same KYC requirement.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <p class="foot">4 themes &middot; 1 compliance backbone &middot; Pick the face that reads right for the brand</p>
+  </div>
+
+  <script>
+    document.querySelectorAll("[data-preview]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.getAttribute("data-preview");
+        const wrap = document.querySelector(`[data-iframe="${key}"]`);
+        if (!wrap) return;
+        const iframe = wrap.querySelector("iframe");
+        const opening = !wrap.classList.contains("is-open");
+        if (opening && !iframe.src) iframe.src = iframe.getAttribute("data-src");
+        wrap.classList.toggle("is-open");
+        btn.textContent = opening ? "Hide Preview" : "Preview Inline";
+        if (opening) wrap.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+    });
+  </script>
+</body>
+</html>

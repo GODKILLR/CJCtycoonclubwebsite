@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Request Access — Tycoon Club</title>
+  <meta name="description" content="Apply for access to Tycoon Club. Membership is by application, subject to identity verification, jurisdictional eligibility and acceptance of our terms." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">T</span> TYCOON CLUB
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="access.html">Request Access</a>
+        <a href="team.html">Team</a>
+        <a href="compliance.html">Compliance</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="nav-cta-primary" href="access.html">Request Access</a>
+      </div>
+      <button class="mobile-toggle" aria-label="Open menu">&#9776;</button>
+    </div>
+  </header>
+  <div class="nav-spacer" aria-hidden="true"></div>
+
+  <section style="padding-top: 80px;">
+    <div class="container">
+      <div style="text-align:center; max-width: 720px; margin: 0 auto 40px;">
+        <span class="eyebrow">Application Form</span>
+        <h1><span class="text-gradient-gold">Request access</span> to the<br/>Tycoon Club information packet</h1>
+        <p>
+          Tycoon Club operates as an application-based private members community. To receive a
+          detailed information packet describing how the community works, please complete the form
+          below. We use this information to perform a preliminary eligibility check &mdash; not to
+          sell, promote or solicit any investment.
+        </p>
+      </div>
+
+      <div class="notice">
+        <span class="icon">&#9888;</span>
+        <div>
+          <h4>Before you continue</h4>
+          <p>
+            By submitting this form you are requesting <em>information</em>, not enrolling and not
+            making any payment. No membership or contest entry is offered through this page. Final
+            membership is subject to KYC, jurisdictional eligibility and our published terms.
+          </p>
+        </div>
+      </div>
+
+      <div id="form-blocked" class="notice hidden" style="background: rgba(255, 80, 80, 0.08); border-color: rgba(255, 80, 80, 0.4);">
+        <span class="icon" style="color:#ff8a8a;">&#9888;</span>
+        <div>
+          <h4>Access is not available in your jurisdiction</h4>
+          <p>
+            Based on your stated jurisdiction, we are not able to make Tycoon Club available to you at
+            this time. Please consult the <a href="compliance.html#restricted">Restricted Jurisdictions</a>
+            section for more information.
+          </p>
+        </div>
+      </div>
+
+      <form id="access-form" class="form-shell" novalidate>
+        <div id="form-fields">
+          <div class="form-row">
+            <div class="field">
+              <label for="fullName">Full name *</label>
+              <input id="fullName" name="fullName" type="text" required autocomplete="name" />
+            </div>
+            <div class="field">
+              <label for="email">Email *</label>
+              <input id="email" name="email" type="email" required autocomplete="email" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="jurisdiction">Country of residence *</label>
+              <select id="jurisdiction" name="jurisdiction" required>
+                <option value="">Select &hellip;</option>
+                <option value="AE">United Arab Emirates</option>
+                <option value="GB">United Kingdom</option>
+                <option value="SG">Singapore</option>
+                <option value="AU">Australia</option>
+                <option value="CA">Canada</option>
+                <option value="DE">Germany</option>
+                <option value="FR">France</option>
+                <option value="JP">Japan</option>
+                <option value="IN">India</option>
+                <option value="BR">Brazil</option>
+                <option value="ZA">South Africa</option>
+                <option value="OTHER">Other</option>
+                <option value="US">United States (restricted)</option>
+                <option value="CN">China (restricted)</option>
+                <option value="KP">North Korea (restricted)</option>
+                <option value="IR">Iran (restricted)</option>
+                <option value="SY">Syria (restricted)</option>
+                <option value="CU">Cuba (restricted)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="referredBy">Referred by (optional)</label>
+              <input id="referredBy" name="referredBy" type="text" placeholder="Member ID or name" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="note">Anything you&rsquo;d like us to know? (optional)</label>
+            <textarea id="note" name="note" rows="3" placeholder="Tell us a little about your interest in skill-based gaming"></textarea>
+          </div>
+
+          <div class="divider"></div>
+
+          <p class="small muted" style="margin-bottom: 12px;">
+            Please confirm each of the following before submitting:
+          </p>
+
+          <label class="checkbox">
+            <input type="checkbox" data-required required />
+            <span>I am at least 18 years old (or the legal age of majority in my jurisdiction).</span>
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" data-required required />
+            <span>I understand that Tycoon Club is <strong>not</strong> an investment, securities offering, fund, yield product or multi-level marketing scheme, and that no &ldquo;passive&rdquo;, &ldquo;guaranteed&rdquo; or &ldquo;unlimited&rdquo; income is offered or implied.</span>
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" data-required required />
+            <span>I understand that participation in any contest involves risk, including the loss of entry fees and/or digital assets, and that historical results are not indicative of future outcomes.</span>
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" data-required required />
+            <span>I understand that membership is subject to identity verification (KYC), jurisdictional eligibility checks and applicable law, and that Tycoon Club may decline my application at its sole discretion.</span>
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" data-required required />
+            <span>I have read and accept the <a href="compliance.html">Compliance Notice</a>, including the Risk Notice and Restricted Jurisdictions list.</span>
+          </label>
+
+          <div style="margin-top: 24px;">
+            <button class="btn btn-primary btn-block" type="submit" disabled>Request my information packet</button>
+          </div>
+
+          <p class="small muted text-center" style="margin-top: 16px;">
+            Your details will be reviewed by the Tycoon Club operations team. Submitting this form
+            does not create a membership, a contract or any obligation to onboard.
+          </p>
+        </div>
+
+        <!-- Success state: shows what Tycoon Club actually is -->
+        <div id="form-success" class="hidden">
+          <span class="eyebrow">Application received</span>
+          <h2>Thank you &mdash; your information packet is on the way.</h2>
+          <p>
+            We&rsquo;ve received your request and our operations team will be in touch by email,
+            usually within 3&ndash;5 business days. In the meantime, here&rsquo;s a clear summary of
+            what Tycoon Club actually is &mdash; in plain language.
+          </p>
+
+          <div class="divider"></div>
+
+          <h3 class="text-gold">What Tycoon Club really is</h3>
+          <p>
+            Tycoon Club is a <strong>private members community</strong> for adults interested in
+            skill-based competitive gaming and digital entertainment. Approved members get access
+            to:
+          </p>
+          <ul class="muted small" style="line-height:1.8;">
+            <li>Tournaments and leagues with published rules, fixed entry fees and pre-defined prize pools.</li>
+            <li>Member-only events, AMAs and educational sessions with the operating team.</li>
+            <li>A community growth programme that pays a <em>one-time</em>, capped credit per eligible referral &mdash; not a recurring share of other members&rsquo; activity.</li>
+            <li>Transparent reporting on contest outcomes and rewards distribution.</li>
+          </ul>
+
+          <h3 class="text-gold">What it is not</h3>
+          <ul class="muted small" style="line-height:1.8;">
+            <li>Not an investment, fund, securities offering, yield product or token sale.</li>
+            <li>Not a multi-level marketing or pyramid structure. There are no &ldquo;tiers&rdquo; that pay you ongoing income based on the downstream activity of other members.</li>
+            <li>Not a source of guaranteed, &ldquo;passive&rdquo; or &ldquo;unlimited&rdquo; income. Outcomes in any contest depend on skill and luck and can result in losses.</li>
+          </ul>
+
+          <h3 class="text-gold">Your next steps</h3>
+          <ol class="muted small" style="line-height:1.8;">
+            <li>Check your inbox (and spam folder) for our information packet.</li>
+            <li>If your application is shortlisted, you will be invited to complete KYC.</li>
+            <li>After successful KYC and jurisdictional review, you will receive a membership offer with the full terms attached.</li>
+          </ol>
+
+          <p class="small muted" style="margin-top: 24px;">
+            Need to update your details or withdraw your request? Email
+            <a href="mailto:compliance@tycoonclub.example">compliance@tycoonclub.example</a> at any
+            time. We will action data requests in line with our <a href="compliance.html#privacy">Privacy</a> commitments.
+          </p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="brand" style="margin-bottom: 12px;"><span class="brand-mark">T</span> TYCOON CLUB</div>
+        <p class="muted small" style="max-width: 380px;">
+          Membership is by application only and subject to KYC, jurisdictional eligibility and
+          applicable law. Nothing on this site is an offer of securities or financial products.
+        </p>
+      </div>
+      <div>
+        <h5>Navigate</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="access.html">Request Access</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="compliance.html">Compliance</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="compliance.html#risk">Risk Notice</a></li>
+          <li><a href="compliance.html#terms">Terms Summary</a></li>
+          <li><a href="compliance.html#privacy">Privacy</a></li>
+          <li><a href="compliance.html#restricted">Restricted Jurisdictions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Tycoon Club. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>
