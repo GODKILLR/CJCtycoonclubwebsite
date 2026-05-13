@@ -262,13 +262,13 @@ def build() -> Path:
     add_paragraph(doc, "The form on /access.html is the load-bearing piece. Requirements:")
     for b in [
         "Required fields: full name, email, country of residence.",
-        "Optional fields: referrer code/name, free-text note.",
+        "Optional fields: free-text note. (A referrer field was present in earlier drafts and has been removed — the public site no longer surfaces a referral programme at all; see §7.3.)",
         "Five mandatory acknowledgements (submit button disabled until all five are checked):",
     ]:
         add_bullet(doc, b)
     for ack in [
         "18+ or local age of majority.",
-        "Understands Tycoon Club is not an investment, securities offering, fund, yield product, or MLM.",
+        "Understands Tycoon Club is not an investment, securities offering, fund or yield product.",
         "Understands participation involves risk including loss of entry fees.",
         "Understands membership is subject to KYC and jurisdictional review.",
         "Accepts the Compliance Notice.",
@@ -276,7 +276,7 @@ def build() -> Path:
         p = doc.add_paragraph(style="List Number 2")
         p.add_run(ack).font.size = Pt(11)
     for b in [
-        "Restricted-jurisdiction gate: if the selected country is on the restricted list (US, CN, KP, IR, SY, CU in v1), the form refuses submission and surfaces a “not available in your jurisdiction” notice with a deep-link to the Compliance §6 section.",
+        "Restricted-jurisdiction gate: if the selected country is on the restricted list (US, CN, KP, IR, SY, CU in v1), the form refuses submission and surfaces a “not available in your jurisdiction” notice with a deep-link to the Restricted Jurisdictions section of the Compliance Notice.",
         "Success state: the form swaps to a plain-English description of “what Tycoon Club really is” and “what it is not”, with three next-step bullets explaining the post-form workflow (information packet, KYC invitation, membership offer with full terms).",
         "No payment, no enrolment, no contest entry is offered through the form. This is documented in copy directly above the submit button.",
     ]:
@@ -335,22 +335,21 @@ def build() -> Path:
     for b in [
         "An investment, fund, securities offering, derivative or yield product.",
         "A source of guaranteed, “passive” or “unlimited” income.",
-        "A multi-level marketing or pyramid structure paying ongoing income from others’ activity.",
+        "A public marketplace — access is restricted to approved members only.",
         "Available to residents of restricted jurisdictions or persons under 18.",
     ]:
         add_bullet(doc, b)
 
-    add_heading(doc, "7.3 Referral programme framing", 2)
+    add_heading(doc, "7.3 Referral programme — public-site silence", 2)
     add_paragraph(doc,
-        "The old site’s tiered commission structure is removed entirely. The replacement is a one-time, capped community credit per KYC-verified referral. No tiers, no recurring percentages, no “alliances”, no income claims tied to referral activity.")
+        "The old site’s tiered commission structure was framed earlier in this project as a “one-time, capped community credit”. On reflection that framing still constituted a public claim about a referral compensation programme — and any public claim invites consistency-checks against the actual operational model. The public website is therefore silent on referral compensation in both directions: it does not advertise a referral programme, and it does not deny one. The “Community Growth Programme” landing-page section has been removed and replaced with a neutral “Member Privileges” block (curated events, private community, members-only content) modelled on standard private-club marketing. The optional “referrer” field has been removed from the access form, and the MLM-specific wording has been dropped from the form acknowledgements. Whatever the operational referral model is, it is governed by the member terms and operated outside the public website.")
 
     add_heading(doc, "7.4 Risk Notice / Compliance Ledger", 2)
-    add_paragraph(doc, "Ten numbered sections on /compliance.html, deep-linked from every footer:")
+    add_paragraph(doc, "Nine numbered sections on /compliance.html, deep-linked from every footer:")
     for i, t in enumerate([
         ("Not an investment", "explicit denial of securities, contracts, funds, yield products."),
         ("No guaranteed returns", "flags “guaranteed/passive/unlimited/lifetime/risk-free” as red-flag language."),
         ("Risk Notice", "entry fees at risk, digital asset volatility, past performance disclaimer."),
-        ("Community Growth Programme", "one-time capped credit, not MLM."),
         ("Eligibility & KYC", "identity verification, sanctions/PEP screening, jurisdictional review, 18+."),
         ("Restricted Jurisdictions", "US, CN, KP, IR, SY, CU plus any comprehensive-sanctions country. List may be updated without notice."),
         ("Terms Summary", "full ToS governs contest rules, anti-cheat, dispute resolution, voiding."),
@@ -479,7 +478,7 @@ def build() -> Path:
         rows=[
             ["1", "Final operating entity name, registration number, registered address.", "Founders + counsel", "Open"],
             ["2", "Final restricted-jurisdictions list and sanctions-screening posture.", "Counsel + compliance", "Open"],
-            ["3", "Referral programme: confirm the one-time-credit cap and the eligibility definition. If commercial requirements change the model, the marketing must be reviewed before reintroduction.", "Founders + counsel", "Open"],
+            ["3", "Whether to reintroduce any public reference to a referral programme. The public site is now silent on referral compensation (see §7.3). Any reintroduction — positive or negative — must be reviewed against the actual operational model before going live.", "Founders + counsel", "Open"],
             ["4", "Privacy / data-controller entity and full Privacy Notice.", "Counsel", "Open"],
             ["5", "Whether any contest formats trigger gambling-licence requirements in target markets.", "Counsel", "Open"],
             ["6", "Backend handover — which vendor receives form submissions and what is the data-retention policy?", "Engineering + compliance", "Open"],
@@ -519,6 +518,8 @@ def build() -> Path:
                 "The final list is counsel’s call; we surfaced a defensible starting point so the UX could be built end-to-end."],
             ["2026-05", "Drop the third-party brand name from the V03 theme label (renamed to “Fintech”)",
                 "Naming a theme after a third-party brand is needlessly confusing and could imply affiliation."],
+            ["2026-05", "Go silent on the referral programme on the public website",
+                "The previous “one-time, capped community credit” framing was still a public claim about a referral compensation model. Any public claim invites consistency-checks against the actual operational model. The public site is now silent in both directions: it does not advertise a referral programme, and it does not deny one. The “Community Growth Programme” section is replaced with a neutral “Member Privileges” block; the referrer field is removed from the access form; the MLM-specific wording is removed from the form acknowledgements and the Compliance Notice section about referrals is deleted. Whatever the operational referral model is, it is governed by the member terms and operated outside the public site."],
         ],
         col_widths=[2.0, 5.5, 9.0],
     )

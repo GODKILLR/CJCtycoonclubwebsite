@@ -36,15 +36,15 @@ python -m http.server 5173
 | "Get Your FREE Membership"                            | "Request Access" application form                                     |
 | "Total USDT Distributed: $258,026.57" jackpot ticker  | Removed entirely; no historical-payout vanity numbers                 |
 | "Sustainable passive income / Lifetime Earning"       | Skill-based contests with published rules, no income claims           |
-| "Alliances" + tiered referral percentages (1/5/10%)   | One-time, capped community credit per KYC-verified referral           |
-| Achievement tiers tied to recruited buddies           | Removed; no MLM-style structure                                       |
+| "Alliances" + tiered referral percentages (1/5/10%)   | Removed; the public website makes no referral-compensation claims     |
+| Achievement tiers tied to recruited buddies           | Removed; replaced with neutral "Member Privileges" framing            |
 | No risk disclosure, no jurisdictional gating          | Explicit Risk Notice, Restricted Jurisdictions list, KYC requirement  |
 
 ## Access form behaviour
 
-`access.html` collects: name, email, country of residence, optional referrer,
-optional note, and five mandatory acknowledgements (age 18+, not-an-investment,
-risk understood, KYC subject, accepts Compliance Notice).
+`access.html` collects: name, email, country of residence, optional note, and
+five mandatory acknowledgements (age 18+, not-an-investment, risk understood,
+KYC subject, accepts Compliance Notice).
 
 - The submit button is disabled until **all five checkboxes** are ticked.
 - Selecting a country on the restricted list (US, CN, KP, IR, SY, CU) triggers
@@ -70,10 +70,10 @@ informed consent before the request leaves the browser.
    placeholder copy on the compliance page).
 2. The exact restricted-jurisdiction list — this should reflect your chosen
    licensing posture and any sanctions screening you rely on.
-3. The wording of the referral programme. The current copy intentionally
-   frames it as a one-time, capped credit per KYC-verified referral with no
-   recurring/tiered compensation; if commercial requirements change that, the
-   marketing **must** be reviewed before the structure is reintroduced.
+3. Whether to reintroduce any reference to a referral programme on the public
+   site. The current copy is intentionally silent on referral compensation; any
+   reintroduction (positive or negative) must be reviewed against the actual
+   operational model before going live.
 4. Privacy / data-handling commitments and the controller entity.
 5. Any gambling / gaming licence(s) required for the contest format(s) you
    intend to operate, in each target jurisdiction.
