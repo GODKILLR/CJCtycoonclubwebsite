@@ -3,12 +3,124 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tycoon Club — A Private Members Community</title>
-  <meta name="description" content="Tycoon Club is a private members community for skill-based competitive gaming and digital entertainment. Membership is by application and subject to eligibility, KYC and jurisdictional review." />
+  <title>The Tycoon Club</title>
+  <meta name="description" content="The Tycoon Club is a private members' club. Members join, take their place, and share in what the Club distributes." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    /* Page-only additions: data table, FAQ accordion, hero centred, CTA banner */
+    .hero.hero-centered .container { text-align: center; }
+    .hero.hero-centered h1 { max-width: 880px; margin-left: auto; margin-right: auto; }
+    .hero.hero-centered p.lead { max-width: 660px; margin: 24px auto 32px; text-align: center; }
+    .hero.hero-centered .hero-actions { justify-content: center; }
+
+    .pull-quote {
+      border-left: 2px solid var(--lime);
+      padding: 6px 0 6px 20px;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--lime-bright);
+      margin: 24px 0;
+      line-height: 1.4;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 32px;
+      font-size: 0.95rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .data-table th {
+      text-align: left;
+      padding: 14px 18px;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-soft);
+    }
+    .data-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    .data-table th:last-child,
+    .data-table td:last-child { text-align: right; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table .num { font-family: var(--mono); font-size: 0.9rem; }
+    .table-caption {
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+    }
+
+    .faq-list { border-top: 1px solid var(--border); margin-top: 8px; }
+    .faq-item { padding: 28px 0; border-bottom: 1px solid var(--border); }
+    .faq-q {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .faq-q::before {
+      content: 'Q.';
+      color: var(--lime);
+      font-family: var(--mono);
+      margin-right: 12px;
+      font-weight: 500;
+    }
+    .faq-a { color: var(--text-soft); line-height: 1.7; padding-left: 30px; font-size: 0.96rem; }
+
+    .cta-banner {
+      background: linear-gradient(135deg, var(--bg-card), var(--bg-elevated));
+      border: 1px solid rgba(197, 248, 79, 0.25);
+      border-radius: var(--radius);
+      padding: 64px 32px;
+      text-align: center;
+      margin-top: 32px;
+    }
+    .cta-banner h2 {
+      font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+      margin-bottom: 16px;
+    }
+    .cta-banner h2 .lime { color: var(--lime); }
+    .cta-banner .cta-sub {
+      font-style: italic;
+      max-width: 540px;
+      margin: 0 auto 32px;
+      color: var(--text-soft);
+      font-size: 1.05rem;
+    }
+    .cta-banner .cta-buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .full-disclaimer {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 28px 0 0;
+      border-top: 1px solid var(--border);
+      font-size: 0.84rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+    .full-disclaimer p { margin-bottom: 12px; }
+    .full-disclaimer strong { color: var(--text); font-weight: 500; }
+  </style>
 </head>
 <body>
   <header class="nav">
@@ -18,204 +130,211 @@
         <span>Tycoon Club</span>
       </a>
       <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="access.html">Request Access</a>
-        <a href="team.html">Team</a>
-        <a href="compliance.html">Compliance</a>
+        <a href="#about">About</a>
+        <a href="#record">The Record</a>
+        <a href="#faq">Questions</a>
+        <a href="access.html">Contact</a>
       </nav>
-      <a class="nav-cta" href="access.html">Request Access</a>
+      <a class="nav-cta" href="access.html">Register Interest</a>
       <button class="mobile-toggle" aria-label="Open menu">&#9776;</button>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero">
+  <!-- MASTHEAD -->
+  <section class="hero hero-centered">
     <div class="container">
-      <div class="hero-grid">
-        <div>
-          <span class="eyebrow-pill">Application-Only Members Community</span>
-          <h1>A house for skill-based <span class="lime">competition</span>.</h1>
-          <p class="lead">
-            Tycoon Club is a private members community for competitive gaming and digital
-            entertainment. Membership is by application, subject to identity verification and
-            jurisdictional review. We are not an investment scheme and do not offer guaranteed,
-            &ldquo;passive&rdquo; or &ldquo;unlimited&rdquo; income.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="access.html">Request Access &rarr;</a>
-            <a class="btn btn-secondary" href="compliance.html">Read the Compliance Notice</a>
-          </div>
-        </div>
-
-        <div class="hero-visual">
-          <div class="hero-orb" aria-hidden="true"></div>
-          <div class="hero-stat-card sc-1">
-            <div class="label">Status</div>
-            <div class="value lime">Application Only</div>
-          </div>
-          <div class="hero-stat-card sc-2">
-            <div class="label">KYC</div>
-            <div class="value">Required</div>
-          </div>
-        </div>
+      <span class="eyebrow-pill">A Private Members' Club</span>
+      <h1>The <span class="lime">Tycoon</span> Club.</h1>
+      <p class="lead">A club for members who want to be early, and want to be rewarded for it.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="access.html">Register Interest &rarr;</a>
+        <a class="btn btn-secondary" href="#about">About the Club</a>
       </div>
     </div>
   </section>
 
-  <!-- STAT STRIP -->
-  <section style="padding-top: 56px;">
-    <div class="container">
-      <div class="stat-strip">
-        <div class="stat-cell">
-          <div class="label">Membership Model</div>
-          <div class="value">By application</div>
-          <p class="hint">Reviewed by the operations team.</p>
-        </div>
-        <div class="stat-cell">
-          <div class="label">Eligibility</div>
-          <div class="value lime">18+ &middot; KYC</div>
-          <p class="hint">Identity verification before activation.</p>
-        </div>
-        <div class="stat-cell">
-          <div class="label">Returns</div>
-          <div class="value">None promised</div>
-          <p class="hint">No yield, no &ldquo;passive&rdquo;, no &ldquo;unlimited&rdquo;.</p>
-        </div>
-        <div class="stat-cell">
-          <div class="label">Access</div>
-          <div class="value lime">Members only</div>
-          <p class="hint">Not a public marketplace; granted on application.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PUBLIC NOTICE -->
-  <section style="padding-top: 56px; padding-bottom: 0;">
-    <div class="container">
-      <div class="notice">
-        <span class="icon">!</span>
-        <div>
-          <h4>This is not an investment product.</h4>
-          <p>
-            Tycoon Club does not sell securities, offer investment contracts, guarantee profit, or
-            promise &ldquo;passive&rdquo; or &ldquo;unlimited&rdquo; income. Participation in any
-            contest or community programme involves risk, including the risk of losing entry fees
-            or digital assets. Please read our <a href="compliance.html">Compliance Notice</a> in
-            full before applying.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- IS / IS NOT -->
-  <section>
+  <!-- ABOUT -->
+  <section id="about">
     <div class="container">
       <div class="section-head">
-        <span class="section-tag">Setting Expectations</span>
-        <h2>What Tycoon Club <span class="lime">is</span> &mdash; and isn&rsquo;t.</h2>
-        <p class="section-sub">Transparency about scope is part of our standards. Read both columns before applying.</p>
+        <span class="section-tag">About</span>
+        <h2>What the Club <span class="lime">is</span>, in plain terms.</h2>
       </div>
+
       <div class="dual">
         <div class="dual-card is-yes">
-          <span class="badge">What it is</span>
-          <h3>A private members community for skill-based competition.</h3>
-          <ul>
-            <li>A members community for skill-based gaming and digital entertainment.</li>
-            <li>An access platform for tournaments and leagues with published, transparent rules.</li>
-            <li>Contests with prize pools funded from defined entry fees and sponsorships.</li>
-            <li>Application-based with KYC, eligibility checks and jurisdictional review.</li>
-          </ul>
+          <span class="badge">In short</span>
+          <p style="font-size: 1.15rem; line-height: 1.55; color: var(--text); margin: 0;">
+            The Tycoon Club is a <strong style="color: var(--lime);">private members' club</strong>. Members join, take their place, and share in what the Club distributes.
+          </p>
+          <div class="pull-quote">The earlier you join, the better your standing in the Club.</div>
         </div>
-        <div class="dual-card is-not">
-          <span class="badge">What it is not</span>
-          <h3>Not a scheme, not a yield product, not a public marketplace.</h3>
-          <ul>
-            <li>Not an investment, fund, securities offering, derivative or yield product.</li>
-            <li>Not a source of guaranteed, &ldquo;passive&rdquo; or &ldquo;unlimited&rdquo; income.</li>
-            <li>Not a public marketplace &mdash; access is restricted to approved members only.</li>
-            <li>Not available to residents of restricted jurisdictions or persons under 18.</li>
-          </ul>
+        <div class="dual-card">
+          <span class="badge">The longer read</span>
+          <p>Every member is admitted to a register. Your place in that register is set at the moment you join and stays yours for as long as your membership is active.</p>
+          <p>The Club runs a reward distribution programme funded from its own operating activity. Active members receive payouts in USDT, settled on the Arbitrum network. The full record of what has been distributed is published below.</p>
+          <p>The Club is not a fund and does not hold member capital. Members join with a one-time entry, and any rewards that follow are a benefit of being a member in good standing.</p>
+        </div>
+      </div>
+
+      <!-- 4 principles using stat-strip -->
+      <div class="stat-strip" style="margin-top: 40px;">
+        <div class="stat-cell">
+          <div class="label">Principle 01</div>
+          <div class="value" style="font-size: 1.15rem; line-height: 1.25;">Your place is yours.</div>
+          <p class="hint">Once you are in the register, your position is fixed at the time of joining and held for as long as your membership is active.</p>
+        </div>
+        <div class="stat-cell">
+          <div class="label">Principle 02</div>
+          <div class="value" style="font-size: 1.15rem; line-height: 1.25;">The record is public.</div>
+          <p class="hint">All member payouts settle on a public ledger. The distribution record is published openly and refreshed regularly.</p>
+        </div>
+        <div class="stat-cell">
+          <div class="label">Principle 03</div>
+          <div class="value" style="font-size: 1.15rem; line-height: 1.25;">Members stay private.</div>
+          <p class="hint">Members are never publicly named. Top earners are shown by rank and amount only, never by name or wallet.</p>
+        </div>
+        <div class="stat-cell">
+          <div class="label">Principle 04</div>
+          <div class="value" style="font-size: 1.15rem; line-height: 1.25;">Active members earn.</div>
+          <p class="hint">Payouts go to members who stay active in the Club. Dormant memberships do not draw rewards.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- BENTO -->
-  <section class="dark">
+  <!-- THE RECORD -->
+  <section id="record" class="dark">
     <div class="container">
-      <div class="section-head center">
-        <span class="section-tag">Member Experience</span>
-        <h2>A focused, well-governed community.</h2>
-        <p class="section-sub">Approved members get access to skill-based contests, community events and a structured rewards programme operated under published, audited rules.</p>
+      <div class="section-head">
+        <span class="section-tag">The Record</span>
+        <h2>What the Club <span class="lime">has paid</span> its members.</h2>
+        <p class="section-sub" style="max-width: 680px;">The figures below are a record of real payouts to members between November 2025 and February 2026. They describe what happened, not what will happen.</p>
       </div>
 
-      <div class="bento">
-        <div class="bento-cell col-4 row-2 feature">
-          <span class="icon-chip">★</span>
-          <h3>Skill-Based Contests</h3>
-          <p>Competitive events with published rules, fixed entry fees and prize pools fully defined in advance. Outcomes depend on skill &mdash; not on the activity of other members.</p>
-          <div style="margin-top: 28px;">
-            <a class="btn btn-secondary" href="access.html">Apply to Join &rarr;</a>
-          </div>
+      <div class="stat-strip">
+        <div class="stat-cell">
+          <div class="label">Paid to Date</div>
+          <div class="value lime">419,362</div>
+          <p class="hint">USDT &middot; YTD &middot; Across all member reward programmes, Nov 2025 to Feb 2026.</p>
         </div>
-        <div class="bento-cell col-2">
-          <span class="icon-chip">T</span>
-          <h3>Tournaments &amp; Leagues</h3>
-          <p>Seasonal leagues with transparent leaderboards and audited results.</p>
+        <div class="stat-cell">
+          <div class="label">Members Earning</div>
+          <div class="value">512</div>
+          <p class="hint">Active &middot; Members who received at least one payout during the period.</p>
         </div>
-        <div class="bento-cell col-2">
-          <span class="icon-chip">E</span>
-          <h3>Member Events</h3>
-          <p>AMAs and educational sessions with the operating team. Information &mdash; not solicitation.</p>
+        <div class="stat-cell">
+          <div class="label">February 2026</div>
+          <div class="value lime">45,986</div>
+          <p class="hint">USDT &middot; Month &middot; The most recent month of record across all programmes.</p>
         </div>
-        <div class="bento-cell col-2">
-          <span class="icon-chip">K</span>
-          <h3>KYC &amp; Eligibility</h3>
-          <p>Identity verification and jurisdictional review before activation.</p>
+        <div class="stat-cell">
+          <div class="label">Median Member</div>
+          <div class="value">~ 820</div>
+          <p class="hint">USDT &middot; YTD &middot; Median payout per active member over the period.</p>
         </div>
-        <div class="bento-cell col-2">
-          <span class="icon-chip">R</span>
-          <h3>Transparent Reporting</h3>
-          <p>Where contests use digital assets, settlement details are made available.</p>
+      </div>
+
+      <div class="notice" style="margin-top: 32px;">
+        <span class="icon">!</span>
+        <div>
+          <h4>Past Results &mdash; Not a Forecast</h4>
+          <p>These figures describe what has already been paid. They are not a projection, a guarantee, or a representation of what any future member will receive. Individual results have varied widely &mdash; some members received many multiples of the median, others received less. Future payouts depend on operating activity and member behaviour, and may change. Past results are not a guide to future results.</p>
         </div>
-        <div class="bento-cell col-2">
-          <span class="icon-chip">S</span>
-          <h3>Responsible Participation</h3>
-          <p>Self-limits and cooling-off tools. Never spend more than you can afford to lose.</p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Period</th>
+            <th>Programme A</th>
+            <th>Programme B</th>
+            <th>Members Earning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>YTD (Nov 2025 &mdash; Feb 2026)</td>
+            <td class="num">114,247 USDT</td>
+            <td class="num">305,115 USDT</td>
+            <td class="num">295 / 217</td>
+          </tr>
+          <tr>
+            <td>February 2026</td>
+            <td class="num">29,454 USDT</td>
+            <td class="num">16,532 USDT</td>
+            <td class="num">249 / 62</td>
+          </tr>
+          <tr>
+            <td>Top 10 payout range</td>
+            <td class="num">2,848 &mdash; 13,663</td>
+            <td class="num">8,324 &mdash; 40,170</td>
+            <td class="num">&mdash;</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="table-caption">Source: Club settlement records on the Arbitrum network. All payouts are verifiable on-chain.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Questions</span>
+        <h2>Things people <span class="lime">ask us</span>.</h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3 class="faq-q">Is the Tycoon Club an investment?</h3>
+          <p class="faq-a">No. The Tycoon Club is a private members' club. Members join with a one-time entry to be added to the register. Any payouts that follow are a benefit of being an active member, not a return on invested capital. The Club is not registered as an investment product and does not present itself as one.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q">How are member payouts funded?</h3>
+          <p class="faq-a">Payouts are funded from the Club's own operating activity. They are not funded from new-member entries pooled together. All payouts settle on the Arbitrum network and can be verified on-chain. Members can request the relevant wallet addresses for independent checking.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q">Are the past payouts a guarantee of future results?</h3>
+          <p class="faq-a">No. The figures shown describe payouts between November 2025 and February 2026. They are a record of past events. They are not a forecast or a promise for any future period. Individual results have varied widely and will continue to vary. New members should expect that their results may differ from any past figure shown.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q">What happens if I stop being active?</h3>
+          <p class="faq-a">Membership in good standing requires staying active in the Club. Long dormancy or failure to keep membership current can result in reduced payouts or suspension. Full terms are provided when a member joins.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q">Can I buy a higher position in the register?</h3>
+          <p class="faq-a">No. Positions in the register are assigned in the order members join, and cannot be bought, sold, or moved out of sequence.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q">How do I join?</h3>
+          <p class="faq-a">Joining is by enquiry and conversation. Prospective members register their interest, the Club gets in touch directly, and the right entry path is discussed one-on-one. The Club is not open to automatic sign-up, and reserves the right to decline an enquiry.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- MEMBER PRIVILEGES -->
-  <section>
+  <!-- CTA -->
+  <section id="contact">
     <div class="container">
-      <div class="section-head center">
-        <span class="section-tag">Member Privileges</span>
-        <h2>What membership <span class="lime">unlocks</span>.</h2>
-        <p class="section-sub">Approved members receive access to a curated calendar of experiences and a private community of fellow members. Membership is granted at our discretion and is not transferable.</p>
-      </div>
-      <div class="bento">
-        <div class="bento-cell col-2">
-          <span class="icon-chip">01</span>
-          <h3>Curated events</h3>
-          <p>A seasonal programme of tournaments, live broadcasts, watch-parties and members-only gatherings.</p>
-        </div>
-        <div class="bento-cell col-2">
-          <span class="icon-chip">02</span>
-          <h3>Private community</h3>
-          <p>Member-only channels for conversation with the operating team and fellow approved members.</p>
-        </div>
-        <div class="bento-cell col-2">
-          <span class="icon-chip">03</span>
-          <h3>Members-only content</h3>
-          <p>Briefings, interviews and editorial material from the operating team &mdash; not investment or income guidance.</p>
+      <div class="cta-banner">
+        <span class="section-tag" style="color: var(--lime);">Enquiries Open</span>
+        <h2 style="margin-top: 16px;">Register your <span class="lime">interest</span>.</h2>
+        <p class="cta-sub">Early movers sit highest. Considered movers sit longest. The Club welcomes both.</p>
+        <div class="cta-buttons">
+          <a class="btn btn-primary" href="access.html">Register Interest &rarr;</a>
+          <a class="btn btn-secondary" href="#faq">Read the Questions</a>
         </div>
       </div>
-      <div style="text-align:center; margin-top: 48px;">
-        <a class="btn btn-primary" href="access.html">Request Access &rarr;</a>
+    </div>
+  </section>
+
+  <!-- FULL DISCLAIMER -->
+  <section style="padding-top: 0;">
+    <div class="container">
+      <div class="full-disclaimer">
+        <p><strong>Important risk information.</strong> The Tycoon Club is a private members' organisation. It is not an investment scheme, securities offering, or regulated financial product. The Club does not solicit deposits or hold member capital. No representation is made that any member will receive any specific payout. Past payouts described on this page are a historical record only and are not a forecast of future results. Membership involves the use of digital assets, including the volatility and technical risks associated with them. Nothing on this page is financial, legal, tax, or investment advice. Prospective members should take their own advice before joining.</p>
+        <p>Eligibility is determined on enquiry. Some applicants may not be eligible to join depending on their personal circumstances and the laws that apply to them. It is the responsibility of the prospective member to confirm eligibility before joining.</p>
       </div>
     </div>
   </section>
@@ -227,29 +346,26 @@
           <span class="brand-mark">T</span>
           <span>Tycoon Club</span>
         </div>
-        <p>Membership is by application only and subject to KYC, jurisdictional eligibility and applicable law. Nothing on this site is an offer of securities or financial products.</p>
+        <p style="font-style: italic;">A private members' club, founded 2025.</p>
       </div>
       <div>
-        <h5>Navigate</h5>
+        <h5>The Club</h5>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="access.html">Request Access</a></li>
-          <li><a href="team.html">Team</a></li>
-          <li><a href="compliance.html">Compliance</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#record">The Record</a></li>
+          <li><a href="#faq">Questions</a></li>
+          <li><a href="access.html">Register Interest</a></li>
         </ul>
       </div>
       <div>
-        <h5>Legal</h5>
+        <h5>Contact</h5>
         <ul>
-          <li><a href="compliance.html#risk">Risk Notice</a></li>
-          <li><a href="compliance.html#terms">Terms Summary</a></li>
-          <li><a href="compliance.html#privacy">Privacy</a></li>
-          <li><a href="compliance.html#restricted">Restricted Jurisdictions</a></li>
+          <li><a href="mailto:contact@tycoonclub.example">contact@tycoonclub.example</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      &copy; 2026 Tycoon Club. All rights reserved. Past performance of contests, prize pools or digital assets is not indicative of future results.
+      &copy; 2026 The Tycoon Club &middot; Last updated May 2026
     </div>
   </footer>
 
