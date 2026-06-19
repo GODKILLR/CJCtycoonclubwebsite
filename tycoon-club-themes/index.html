@@ -294,6 +294,24 @@
     .preview.v4 .swatch.s4 { background: var(--v4-pink); }
     .preview.v4 .swatch.s5 { background: var(--v4-bg); border-color: var(--v4-border); }
 
+    /* ====== TEAM-PICK BADGE on a card ====== */
+    .theme-card { position: relative; }
+    .pick-flag {
+      position: absolute;
+      top: 16px; right: 16px;
+      z-index: 4;
+      background: linear-gradient(135deg, #00E0FF 0%, #7B5BFF 50%, #FF5BB8 100%);
+      color: #07081A;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      box-shadow: 0 0 14px rgba(0, 224, 255, 0.4);
+    }
+
     /* CARD META */
     .meta {
       padding: 24px 32px 28px;
@@ -457,7 +475,7 @@
   <div class="wrap">
     <header class="hdr">
       <span class="crest" aria-hidden="true"></span>
-      <span class="eyebrow">Theme Picker &middot; 4 Versions</span>
+      <span class="eyebrow">Theme Picker &middot; 5 Versions</span>
       <h1>Choose a face for <em>Tycoon Club</em>.</h1>
       <p>
         Four visual treatments of the same compliant Tycoon Club website. Same compliance content,
@@ -623,6 +641,46 @@
         </div>
       </article>
 
+      <!-- =================== V4.1 (Rewards Distribution) =================== -->
+      <article class="theme-card" id="card-v4-1">
+        <span class="pick-flag">&starf; Team Pick</span>
+        <a href="../tycoon-club-v4-1/index.html" class="preview v4" target="_blank" rel="noopener">
+          <span class="preview-label">Version 4.1 &middot; Rewards Distribution</span>
+          <div class="preview-title">The <span class="accent">Tycoon Club</span>. A rewards distribution system.</div>
+          <p class="preview-sub">V04 theme, redesigned homepage. Distribution counter in the hero, Recognition tiers (1-Star &mdash; Legendary), on-chain settlement framing. Nav: Home / Recognition / News &amp; Updates.</p>
+          <div class="swatch-row" aria-label="V4.1 palette swatches">
+            <span class="swatch s1"></span>
+            <span class="swatch s2"></span>
+            <span class="swatch s3"></span>
+            <span class="swatch s4"></span>
+            <span class="swatch s5"></span>
+          </div>
+        </a>
+
+        <div class="meta">
+          <div class="meta-row">
+            <span>Theme&nbsp;<strong>Web3 / Crypto</strong></span>
+            <span>Font&nbsp;<strong>Space Grotesk</strong></span>
+          </div>
+          <div class="meta-row">
+            <span>Positioning&nbsp;<strong>Rewards Distribution</strong></span>
+            <span>Folder&nbsp;<strong>tycoon-club-v4-1/</strong></span>
+          </div>
+          <div class="actions">
+            <a class="btn primary v4" href="../tycoon-club-v4-1/index.html" target="_blank" rel="noopener">Enter Version 4.1 &rarr;</a>
+            <button class="btn ghost" data-preview="v4-1" type="button">Preview Inline</button>
+          </div>
+        </div>
+
+        <div class="iframe-wrap" data-iframe="v4-1">
+          <div class="iframe-bar">
+            <span>Inline Preview</span>
+            <a href="../tycoon-club-v4-1/index.html" target="_blank" rel="noopener">Open in new tab &nearr;</a>
+          </div>
+          <iframe data-src="../tycoon-club-v4-1/index.html" loading="lazy" title="Version 4.1 preview"></iframe>
+        </div>
+      </article>
+
     </div>
 
     <!-- =================== COMPARISON TABLE =================== -->
@@ -631,11 +689,12 @@
       <table>
         <thead>
           <tr>
-            <th style="width: 18%;">Element</th>
+            <th style="width: 16%;">Element</th>
             <th class="is-v1">V01 &middot; CJC</th>
             <th class="is-v2">V02 &middot; Editorial</th>
             <th class="is-v3">V03 &middot; Fintech</th>
             <th class="is-v4">V04 &middot; Web3</th>
+            <th class="is-v4">V4.1 &middot; Rewards</th>
           </tr>
         </thead>
         <tbody>
@@ -645,11 +704,13 @@
             <td>Bodoni Moda italic</td>
             <td>Inter (bold)</td>
             <td>Space Grotesk</td>
+            <td>Space Grotesk</td>
           </tr>
           <tr>
             <td><strong style="color: var(--frame-text);">Body font</strong></td>
             <td>Rajdhani</td>
             <td>Inter Tight</td>
+            <td>Inter</td>
             <td>Inter</td>
             <td>Inter</td>
           </tr>
@@ -659,6 +720,7 @@
             <td>Antique gold + crimson</td>
             <td>Lime green</td>
             <td>Cyan + violet gradient</td>
+            <td>Cyan + violet gradient</td>
           </tr>
           <tr>
             <td><strong style="color: var(--frame-text);">Layout style</strong></td>
@@ -666,23 +728,41 @@
             <td>Hairline cells, roman numerals</td>
             <td>Bento grid + pill buttons</td>
             <td>Hex orbs + neon glow</td>
+            <td>Hex orbs + big distribution counter</td>
           </tr>
           <tr>
-            <td><strong style="color: var(--frame-text);">Feel</strong></td>
-            <td>Gaming</td>
-            <td>Editorial / luxury</td>
-            <td>Premium fintech / exchange</td>
-            <td>Web3 / crypto-native</td>
+            <td><strong style="color: var(--frame-text);">Positioning</strong></td>
+            <td>Private members community</td>
+            <td>Private members community</td>
+            <td>Private members' club</td>
+            <td>Private members' club</td>
+            <td><strong style="color: var(--frame-text);">Rewards distribution system</strong></td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--frame-text);">Top nav</strong></td>
+            <td>Home / Access / Team / Compliance</td>
+            <td>Home / Petition / Office / Ledger</td>
+            <td>Home / About / Record / Questions / Contact</td>
+            <td>Home / About / How It Works / Record / Questions / Contact</td>
+            <td><strong>Home / Recognition / News &amp; Updates</strong></td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--frame-text);">Signature section</strong></td>
+            <td>Member experience grid</td>
+            <td>Numbered ledger</td>
+            <td>4-stat record + data table</td>
+            <td>3-step "How it works"</td>
+            <td><strong>8-tier Recognition system + distribution counter</strong></td>
           </tr>
           <tr>
             <td><strong style="color: var(--frame-text);">Compliance content</strong></td>
-            <td colspan="4" style="color: var(--frame-text);">Identical across all four &mdash; same Risk Notice, same 5-checkbox form gate, same restricted-jurisdiction block (US/CN/KP/IR/SY/CU), same KYC requirement.</td>
+            <td colspan="5" style="color: var(--frame-text);">Same compliance spine across all versions &mdash; risk notice / "Past Results &mdash; Not a Promise" / 5-checkbox form gate / restricted-jurisdictions block (US/CN/KP/IR/SY/CU) / KYC requirement. V4.1 keeps these and adds the restricted-jurisdictions list inline in the footer disclaimer.</td>
           </tr>
         </tbody>
       </table>
     </section>
 
-    <p class="foot">4 themes &middot; 1 compliance backbone &middot; Pick the face that reads right for the brand</p>
+    <p class="foot">5 versions &middot; 1 compliance backbone &middot; V4.1 is the team's chosen direction</p>
   </div>
 
   <script>
