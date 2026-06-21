@@ -1,0 +1,1030 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script>document.documentElement.className += " js-anim";</script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Tycoon Club — A Rewards Distribution System</title>
+  <meta name="description" content="A private members' rewards distribution system. The Tycoon Club pays its members in USDT, settled on Arbitrum, with the full payout history publicly verifiable on-chain." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    /* V4.2 page-only additions */
+    .hero-centered .container { text-align: center; position: relative; z-index: 2; }
+    .hero-centered h1 { max-width: 980px; margin-left: auto; margin-right: auto; }
+    .hero-centered p.lead { max-width: 720px; margin: 24px auto 32px; text-align: center; }
+    .hero-centered .hero-actions { justify-content: center; }
+
+    /* Distribution counter */
+    .distribution-counter {
+      max-width: 760px;
+      margin: 56px auto 0;
+      padding: 40px 44px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .distribution-counter::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 24px; right: 24px;
+      height: 2px;
+      background: var(--grad);
+      opacity: 0.85;
+    }
+    .distribution-counter .label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+    .distribution-counter .value {
+      font-family: var(--display);
+      font-size: clamp(3rem, 6.5vw, 5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .distribution-counter .unit {
+      font-family: var(--mono);
+      font-size: 0.86rem;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .distribution-counter .hint {
+      color: var(--text-soft);
+      font-size: 0.92rem;
+      margin-top: 14px;
+    }
+    .distribution-counter .verify-line {
+      margin-top: 18px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(0, 224, 255, 0.3);
+      display: inline-block;
+      padding-bottom: 2px;
+    }
+    .distribution-counter .verify-line:hover { color: var(--cyan-bright); border-color: var(--cyan-bright); }
+
+    /* The Register two-column block */
+    .register-block {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    @media (max-width: 820px) { .register-block { grid-template-columns: 1fr; gap: 32px; } }
+    .register-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .register-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 24px; right: 24px; height: 2px;
+      background: var(--grad);
+      opacity: 0.7;
+    }
+    .register-card .header-line {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      display: flex; justify-content: space-between;
+    }
+    .register-card .entry-row {
+      display: grid;
+      grid-template-columns: 60px 1fr 1fr;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px dashed var(--border);
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      align-items: center;
+    }
+    .register-card .entry-row:last-child { border-bottom: none; }
+    .register-card .entry-row .num { color: var(--cyan); }
+    .register-card .entry-row .name { color: var(--text); }
+    .register-card .entry-row .meta { color: var(--text-muted); text-align: right; }
+    .register-card .entry-row.active .name::after {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      margin-left: 8px;
+      box-shadow: 0 0 10px var(--cyan);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.45; }
+    }
+
+    /* Verification block */
+    .verify-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .verify-block::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: var(--radius);
+      background: var(--grad);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      padding: 1px;
+      pointer-events: none;
+      opacity: 0.4;
+    }
+    .verify-receipt {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px 28px;
+      font-family: var(--mono);
+      font-size: 0.84rem;
+      line-height: 1.85;
+      color: var(--text-soft);
+      margin: 24px 0 8px;
+    }
+    .verify-receipt .key { color: var(--text-muted); }
+    .verify-receipt .val { color: var(--cyan); }
+    .verify-receipt .val-text { color: var(--text); }
+
+    /* Full disclaimer */
+    .full-disclaimer {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 28px 0 0;
+      border-top: 1px solid var(--border);
+      font-size: 0.84rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+    .full-disclaimer p { margin-bottom: 12px; }
+    .full-disclaimer strong { color: var(--text); font-weight: 500; }
+
+    /* Purpose band — animated */
+    .purpose-band {
+      padding: 100px 0;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .purpose-tag {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      display: inline-block;
+      margin-bottom: 24px;
+    }
+    .purpose-head {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      max-width: 900px;
+      margin: 0 auto 20px;
+      color: var(--text);
+    }
+    .purpose-sub {
+      max-width: 660px;
+      margin: 0 auto;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.6;
+      color: var(--text-soft);
+    }
+    .grad {
+      background: linear-gradient(90deg, #00E0FF, #7B5BFF, #FF5BB8, #00E0FF);
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 6s linear infinite;
+      font-style: normal;
+    }
+    @keyframes shimmer { to { background-position: 300% 0; } }
+
+    /* Flow diagram */
+    .flow-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(10px, 3vw, 34px);
+      margin-top: 60px;
+      flex-wrap: wrap;
+    }
+    .fd-col { display: flex; flex-direction: column; gap: 18px; }
+    .fd-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      min-width: clamp(78px, 14vw, 112px);
+      padding: 18px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+      animation: floaty 5s ease-in-out infinite;
+    }
+    .fd-col .fd-node:nth-child(2) { animation-delay: -2.5s; }
+    @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    .fd-ic {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-weight: 700; font-size: 0.95rem;
+      background: var(--grad); color: var(--bg);
+    }
+    .fd-lbl {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      white-space: nowrap;
+    }
+    .fd-hub .fd-ic { box-shadow: 0 0 20px rgba(0, 224, 255, 0.5); }
+    .fd-proof { border-color: rgba(0, 224, 255, 0.4); box-shadow: 0 0 30px -8px rgba(0, 224, 255, 0.3); }
+    .fd-conn {
+      width: clamp(40px, 7vw, 92px);
+      height: 2px;
+      background: linear-gradient(90deg, rgba(0, 224, 255, 0.22), rgba(123, 91, 255, 0.22));
+      position: relative;
+      border-radius: 2px;
+    }
+    .fd-conn::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 0;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan);
+      transform: translateY(-50%);
+      animation: travel 2s linear infinite;
+    }
+    .fd-conn.delay::after { animation-delay: 0.7s; }
+    @keyframes travel {
+      0% { left: 0; opacity: 0; }
+      12% { opacity: 1; }
+      88% { opacity: 1; }
+      100% { left: 100%; opacity: 0; }
+    }
+
+    /* Scroll reveal — only hides when JS confirms it's active (progressive enhancement) */
+    .js-anim .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+      transition-delay: var(--d, 0s);
+    }
+    .js-anim .reveal.in { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 600px) {
+      .flow-diagram { flex-direction: column; }
+      .fd-col { flex-direction: row; }
+      .fd-conn { width: 2px; height: 30px; }
+      .fd-conn::after { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fd-node { animation: none; }
+      .fd-conn::after { animation: none; opacity: 0; }
+      .grad { animation: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* The Arena — orbital diagram */
+    .orbital {
+      position: relative;
+      width: 100%;
+      max-width: 720px;
+      margin: 56px auto 0;
+      aspect-ratio: 1 / 1;
+    }
+    .orbit-ring {
+      position: absolute;
+      inset: 6%;
+      border: 1px dashed rgba(0, 224, 255, 0.16);
+      border-radius: 50%;
+      animation: orbitspin 70s linear infinite;
+    }
+    .orbit-ring.ring2 {
+      inset: 26%;
+      border-color: rgba(123, 91, 255, 0.18);
+      animation-duration: 50s;
+      animation-direction: reverse;
+    }
+    @keyframes orbitspin { to { transform: rotate(360deg); } }
+
+    .hub {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 34%;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 34% 28%, rgba(0, 224, 255, 0.5), transparent 55%),
+        radial-gradient(circle at 72% 76%, rgba(255, 91, 184, 0.32), transparent 55%),
+        radial-gradient(circle at 50% 50%, #11142E, #07081A);
+      border: 1px solid rgba(0, 224, 255, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 60px rgba(0, 224, 255, 0.22), inset 0 0 40px rgba(123, 91, 255, 0.2);
+      z-index: 2;
+    }
+    .hub-label {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(0.95rem, 2.6vw, 1.55rem);
+      text-align: center;
+      line-height: 1.1;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
+      padding: 0 6px;
+    }
+    .node {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      z-index: 3;
+      text-align: center;
+      width: max-content;
+    }
+    .node .orb {
+      width: clamp(26px, 5.5vw, 42px);
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      background: radial-gradient(circle at 34% 30%, rgba(0, 224, 255, 0.42), rgba(123, 91, 255, 0.16) 60%, transparent);
+      border: 1px solid var(--border-strong);
+    }
+    .node .node-label {
+      font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+      color: var(--text-soft);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .node .tag {
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 999px;
+    }
+    .node .tag.live { background: rgba(0, 224, 255, 0.16); color: var(--cyan); }
+    .node .tag.soon { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); }
+    .node.live .orb { background: var(--grad); box-shadow: 0 0 18px rgba(0, 224, 255, 0.5); }
+    .node.live .node-label { color: var(--cyan-bright); font-weight: 600; }
+
+    .arena-grid { display: none; }
+    .arena-foot {
+      text-align: center;
+      margin: 40px auto 0;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-style: italic;
+      max-width: 680px;
+      line-height: 1.6;
+    }
+
+    @media (prefers-reduced-motion: reduce) { .orbit-ring { animation: none; } }
+
+    @media (max-width: 600px) {
+      .orbital { display: none; }
+      .arena-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 36px;
+      }
+      .arena-cell {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 16px 14px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .arena-cell .orb {
+        width: 26px; height: 26px; flex-shrink: 0;
+        border-radius: 50%;
+        background: radial-gradient(circle at 34% 30%, rgba(0,224,255,0.42), rgba(123,91,255,0.16) 60%, transparent);
+        border: 1px solid var(--border-strong);
+      }
+      .arena-cell.live { border-color: rgba(0,224,255,0.35); }
+      .arena-cell.live .orb { background: var(--grad); box-shadow: 0 0 14px rgba(0,224,255,0.5); }
+      .arena-cell .nm { font-size: 0.84rem; color: var(--text); line-height: 1.25; }
+      .arena-cell .tag { font-family: var(--mono); font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); display: block; margin-top: 2px; }
+      .arena-cell.live .tag { color: var(--cyan); }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">T</span>
+        <span>Tycoon Club</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="#recognition">Recognition</a>
+        <a href="#news">News &amp; Updates</a>
+      </nav>
+      <a class="nav-cta" href="access.html">Register Enquiry</a>
+      <button class="mobile-toggle" aria-label="Open menu">&#9776;</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero hero-centered">
+    <div class="hex-orb left" aria-hidden="true">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hg1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#00E0FF"/>
+            <stop offset="100%" stop-color="#7B5BFF"/>
+          </linearGradient>
+        </defs>
+        <polygon points="100,20 175,60 175,140 100,180 25,140 25,60" fill="none" stroke="url(#hg1)" stroke-width="2"/>
+        <polygon points="100,50 145,75 145,125 100,150 55,125 55,75" fill="none" stroke="url(#hg1)" stroke-width="1.5" opacity="0.6"/>
+        <polygon points="100,75 125,90 125,110 100,125 75,110 75,90" fill="url(#hg1)" opacity="0.3"/>
+      </svg>
+    </div>
+    <div class="hex-orb right" aria-hidden="true">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hg2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#7B5BFF"/>
+            <stop offset="100%" stop-color="#FF5BB8"/>
+          </linearGradient>
+        </defs>
+        <polygon points="100,20 175,60 175,140 100,180 25,140 25,60" fill="none" stroke="url(#hg2)" stroke-width="2"/>
+        <polygon points="100,50 145,75 145,125 100,150 55,125 55,75" fill="url(#hg2)" opacity="0.25"/>
+      </svg>
+    </div>
+    <div class="hex-orb small" aria-hidden="true">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,20 175,60 175,140 100,180 25,140 25,60" fill="none" stroke="#00E0FF" stroke-width="1.5" opacity="0.5"/>
+      </svg>
+    </div>
+
+    <div class="container">
+      <span class="eyebrow-pill">On-Chain Rewards &middot; Members Only</span>
+      <h1>The most rewarding club<br/><span class="gradient-text">on-chain</span>.</h1>
+      <p class="lead">
+        Public ledger, private club. Members participate; the Tycoon Club distributes rewards in
+        USDT on Arbitrum, on a published schedule &mdash; every payout verifiable on-chain, every
+        member kept off it.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="access.html">Register Enquiry &rarr;</a>
+        <a class="btn btn-secondary" href="#record">See the Record</a>
+      </div>
+
+      <!-- Distribution counter -->
+      <div class="distribution-counter">
+        <div class="label">Distributed to Members</div>
+        <div class="value">258,026.57</div>
+        <div class="unit">USDT &middot; YTD &middot; Nov 2025 – Feb 2026</div>
+        <p class="hint">Every distribution settled on the Arbitrum network. Every transaction publicly verifiable on-chain.</p>
+        <a href="#verify" class="verify-line">&rarr; How to verify on-chain</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PURPOSE BAND — animated -->
+  <section class="purpose-band" id="purpose">
+    <div class="container">
+      <span class="purpose-tag reveal" style="--d:0s">// Purpose</span>
+      <h2 class="purpose-head reveal" style="--d:0.1s">A rewards programme that can <em class="grad">prove itself</em>.</h2>
+      <p class="purpose-sub reveal" style="--d:0.2s">
+        What you earn is decided by your <em class="grad">play</em> &mdash; and the
+        <em class="grad">network</em> you bring in. Settled on-chain: public by record, private by member.
+      </p>
+
+      <div class="flow-diagram reveal" style="--d:0.34s">
+        <div class="fd-col">
+          <div class="fd-node"><span class="fd-ic">&#9654;</span><span class="fd-lbl">Play</span></div>
+          <div class="fd-node"><span class="fd-ic">&#11041;</span><span class="fd-lbl">Network</span></div>
+        </div>
+        <div class="fd-conn"></div>
+        <div class="fd-node fd-hub"><span class="fd-ic">0x</span><span class="fd-lbl">On-Chain</span></div>
+        <div class="fd-conn delay"></div>
+        <div class="fd-node fd-proof"><span class="fd-ic">&#10003;</span><span class="fd-lbl">Public Proof</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §1 ANSWERS "WHAT THIS IS / WHAT IT'S FOR" -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">// The System</span>
+        <h2>Built to <span class="gradient-text">pay members</span>. Designed to be verified.</h2>
+        <p class="section-sub" style="max-width: 700px;">
+          Most reward programmes advertise their best case and hide the maths. Most private
+          clubs advertise access but not what members actually receive. Tycoon Club inverts both:
+          the distribution record sits on a public chain, while the membership stays inside a
+          private register. Three things make that work.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <span class="icon-hex">$</span>
+          <h3>Members are paid in USDT</h3>
+          <p>Distributions are not paid in a token whose price has to climb for the reward to be worth something. Members receive USDT &mdash; a dollar-stable instrument they can hold, swap, or withdraw.</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon-hex">&#x29C9;</span>
+          <h3>Settlement is on Arbitrum</h3>
+          <p>Every distribution settles on Arbitrum One, an Ethereum Layer 2. Fees are small, settlement is fast, and the public ledger inherits Ethereum-grade security.</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon-hex">&#10003;</span>
+          <h3>Every payout is on-chain</h3>
+          <p>Every distribution the Club has made is a public, immutable transaction. Members verify the Club&rsquo;s history themselves, using addresses provided in the Member Pack.</p>
+        </div>
+      </div>
+
+      <p style="text-align:center; margin-top: 32px; color: var(--text-muted); font-size: 0.88rem;">
+        The Tycoon Club is not a fund. It does not pool member capital, hold deposits, or sell tokens. Distributions are payments to active members from the Club&rsquo;s own operating activity.
+      </p>
+    </div>
+  </section>
+
+  <!-- THE ARENA — orbital ecosystem -->
+  <section id="arena" class="dark">
+    <div class="container">
+      <div class="section-head" style="text-align:center;">
+        <span class="section-tag">// The Arena</span>
+        <h2><span class="gradient-text">Race to Earn</span> &mdash; where the rewards come from.</h2>
+        <p class="section-sub" style="max-width: 740px; margin-left:auto; margin-right:auto;">
+          The Club&rsquo;s distributions are generated by a GameFi ecosystem &mdash; an on-chain
+          arena where outcomes turn on play, settled in USDT on Arbitrum. The arena is live
+          today, with more rolling out.
+        </p>
+      </div>
+
+      <!-- Desktop orbital -->
+      <div class="orbital">
+        <div class="orbit-ring" aria-hidden="true"></div>
+        <div class="orbit-ring ring2" aria-hidden="true"></div>
+        <div class="hub"><span class="hub-label">Race to Earn</span></div>
+
+        <div class="node live" style="left:50%; top:10%;"><span class="orb"></span><span class="node-label">Airdrops</span><span class="tag live">Live</span></div>
+        <div class="node" style="left:78%; top:22%;"><span class="orb"></span><span class="node-label">Jockey &amp; Horse Rentals</span><span class="tag soon">Soon</span></div>
+        <div class="node live" style="left:90%; top:50%;"><span class="orb"></span><span class="node-label">PVPs</span><span class="tag live">Live</span></div>
+        <div class="node live" style="left:78%; top:78%;"><span class="orb"></span><span class="node-label">League Challenges</span><span class="tag live">Live</span></div>
+        <div class="node live" style="left:50%; top:90%;"><span class="orb"></span><span class="node-label">Champion Stakes</span><span class="tag live">Live</span></div>
+        <div class="node live" style="left:22%; top:78%;"><span class="orb"></span><span class="node-label">NFTs</span><span class="tag live">Live</span></div>
+        <div class="node live" style="left:10%; top:50%;"><span class="orb"></span><span class="node-label">Tycoon Club</span><span class="tag live">Live</span></div>
+        <div class="node live" style="left:22%; top:22%;"><span class="orb"></span><span class="node-label">Grand Master Cups</span><span class="tag live">Live</span></div>
+      </div>
+
+      <!-- Mobile grid fallback -->
+      <div class="arena-grid">
+        <div class="arena-cell live"><span class="orb"></span><div><span class="nm">Race to Earn</span><span class="tag">Live &middot; Core</span></div></div>
+        <div class="arena-cell live"><span class="orb"></span><div><span class="nm">Tycoon Club</span><span class="tag">Live</span></div></div>
+        <div class="arena-cell live"><span class="orb"></span><div><span class="nm">PVPs</span><span class="tag">Live</span></div></div>
+        <div class="arena-cell live"><span class="orb"></span><div><span class="nm">League Challenges</span><span class="tag">Live</span></div></div>
+        <div class="arena-cell live"><span class="orb"></span><div><span class="nm">Champion Stakes</span><span class="tag">Live</span></div></div>
+        <div class="arena-cell live"><span class="orb"></span><div><span class="nm">Grand Master Cups</span><span class="tag">Live</span></div></div>
+        <div class="arena-cell live"><span class="orb"></span><div><span class="nm">NFTs</span><span class="tag">Live</span></div></div>
+        <div class="arena-cell live"><span class="orb"></span><div><span class="nm">Airdrops</span><span class="tag">Live</span></div></div>
+        <div class="arena-cell"><span class="orb"></span><div><span class="nm">Jockey &amp; Horse Rentals</span><span class="tag">Soon</span></div></div>
+      </div>
+
+      <p class="arena-foot">
+        * &ldquo;Race to Earn&rdquo; is the name of the Club&rsquo;s on-chain gaming arena. Rewards
+        depend on play and outcomes vary; no earnings are guaranteed. Elements marked
+        &ldquo;Soon&rdquo; are in development and not yet live.
+      </p>
+    </div>
+  </section>
+
+  <!-- THE NETWORK — two engines -->
+  <section id="network">
+    <div class="container">
+      <div class="section-head" style="text-align:center;">
+        <span class="section-tag">// Two Engines</span>
+        <h2>What a member earns is driven by <span class="gradient-text">two things</span>.</h2>
+        <p class="section-sub" style="max-width: 740px; margin-left:auto; margin-right:auto;">
+          Inside the Tycoon Club, rewards aren&rsquo;t down to a single mechanic. A member&rsquo;s
+          standing is driven by how they play &mdash; and by the strength of the network they bring
+          into the Club. Both are recorded; both settle on-chain.
+        </p>
+      </div>
+
+      <div class="dual">
+        <div class="dual-card is-yes">
+          <span class="badge">Engine 01 &middot; Play</span>
+          <h3>The Arena</h3>
+          <p>A member&rsquo;s results in the Race to Earn arena &mdash; outcomes decided by play, recorded on-chain and settled in USDT on Arbitrum. The better the play, the stronger the standing.</p>
+        </div>
+        <div class="dual-card is-yes">
+          <span class="badge">Engine 02 &middot; Network</span>
+          <h3>Your Network</h3>
+          <p>The strength of the network a member builds inside the Club. As the members they bring in take part in the arena, the member&rsquo;s own standing in the Club grows alongside the network they&rsquo;ve helped build.</p>
+        </div>
+      </div>
+
+      <p class="arena-foot">
+        * Rewards depend on participation and outcomes vary; no earnings are guaranteed. The full
+        structure of play and network rewards is disclosed to members in the Member Pack. Past
+        results are not a forecast of future results.
+      </p>
+    </div>
+  </section>
+
+  <!-- §2 ANSWERS "WHY SHOULD A MEMBER JOIN" — the Record -->
+  <section id="record" class="dark">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">// The Record</span>
+        <h2>What the Club <span class="gradient-text">has paid</span>, in figures.</h2>
+        <p class="section-sub" style="max-width: 720px;">
+          The figures below describe distributions already made. They are not a forecast. The
+          line under each tile shows what the figure is &mdash; nothing more, nothing less.
+        </p>
+      </div>
+
+      <div class="stat-strip">
+        <div class="stat-cell">
+          <div class="label">Distributed to Date</div>
+          <div class="value grad">258,026.57</div>
+          <p class="hint">USDT &middot; aggregate, Nov 2025 – Feb 2026.</p>
+        </div>
+        <div class="stat-cell">
+          <div class="label">Active Members Paid</div>
+          <div class="value">415</div>
+          <p class="hint">Members who received at least one distribution in the period.</p>
+        </div>
+        <div class="stat-cell">
+          <div class="label">February 2026</div>
+          <div class="value">45,986</div>
+          <p class="hint">USDT &middot; most recent month of record.</p>
+        </div>
+        <div class="stat-cell">
+          <div class="label">Settlement</div>
+          <div class="value grad">100% Arbitrum</div>
+          <p class="hint">All distributions settle on-chain in USDT.</p>
+        </div>
+      </div>
+
+      <div class="notice" style="margin-top: 32px;">
+        <span class="icon">!</span>
+        <div>
+          <h4>Past Results &mdash; Not a Forecast</h4>
+          <p>The figures above describe distributions already made. They are not a projection or guarantee of what any future member will receive. Individual results have varied widely &mdash; some members received many multiples of the median, others received less. Future distribution activity depends on the Club&rsquo;s operating activity and may change. Past results are not a guide to future results.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §3 ANSWERS "WHY SHOULD A MEMBER JOIN" — How It Works -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">// How It Works</span>
+        <h2>Three steps to a <span class="gradient-text">distribution</span>.</h2>
+        <p class="section-sub" style="max-width: 700px;">
+          The full distribution schedule, member terms and risk disclosures are shared with
+          admitted members in the Member Pack. Public summary below.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <span class="icon-hex">01</span>
+          <h3>Enquire</h3>
+          <p>Register an enquiry. The Club follows up directly for a private conversation. There is no automatic sign-up; the Club may decline any enquiry at its discretion.</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon-hex">02</span>
+          <h3>Take your place in the register</h3>
+          <p>If admitted, you are entered into the Club&rsquo;s private register on a fixed date. Your position is yours from that moment, for as long as your membership is active.</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon-hex">03</span>
+          <h3>Receive distribution &amp; rise</h3>
+          <p>Active members receive distributions in USDT on the published schedule, settled on Arbitrum, and rise through the Club&rsquo;s recognition system over time.</p>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top: 40px;">
+        <a class="btn btn-primary" href="access.html">Register Enquiry &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- §4 RECOGNITION TIERS (kept, refined) -->
+  <section id="recognition" class="dark">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">// Recognition</span>
+        <h2>A house system of <span class="gradient-text">standing</span>.</h2>
+        <p class="section-sub" style="max-width: 720px;">
+          Members rise through a recognition system that records sustained participation. Higher
+          recognition reflects what the member has put in &mdash; it is awarded by the Club, never
+          purchased. The specific entitlements at each level are disclosed in the Member Pack.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <span class="icon-hex">&starf;</span>
+          <h3>1-Star Tycoon</h3>
+          <p>Entry-level standing. Awarded to new members in good order from the day of admission.</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon-hex">&starf;&starf;</span>
+          <h3>2-Star Tycoon</h3>
+          <p>Recognition of sustained participation across the early months of membership.</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon-hex">&starf;&starf;&starf;</span>
+          <h3>3-Star Tycoon</h3>
+          <p>Established standing within the membership. Marks the move into the Club&rsquo;s mid tier.</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon-hex">4&starf;</span>
+          <h3>4-Star Tycoon</h3>
+          <p>Senior standing for members whose participation has been consistent and substantial.</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon-hex">5&starf;</span>
+          <h3>5-Star Tycoon</h3>
+          <p>The highest of the active standings &mdash; a recognised, long-tenured member.</p>
+        </div>
+        <div class="feature-card" style="border-color: rgba(0,224,255,0.32); background: linear-gradient(135deg, rgba(0,224,255,0.06), rgba(123,91,255,0.04));">
+          <span class="icon-hex">E</span>
+          <h3 style="color: var(--cyan-bright);">Elite Tycoon</h3>
+          <p>Honorary. Recognises long-tenured contribution to the Club.</p>
+        </div>
+        <div class="feature-card" style="border-color: rgba(0,224,255,0.32); background: linear-gradient(135deg, rgba(0,224,255,0.06), rgba(123,91,255,0.04));">
+          <span class="icon-hex">S</span>
+          <h3 style="color: var(--cyan-bright);">Supreme Tycoon</h3>
+          <p>Honorary. Reserved for the Club&rsquo;s most established members.</p>
+        </div>
+        <div class="feature-card" style="border-color: rgba(0,224,255,0.32); background: linear-gradient(135deg, rgba(0,224,255,0.06), rgba(123,91,255,0.04));">
+          <span class="icon-hex">L</span>
+          <h3 style="color: var(--cyan-bright);">Legendary Tycoon</h3>
+          <p>Honorary. The Club&rsquo;s highest standing. By invitation of the Club only.</p>
+        </div>
+      </div>
+
+      <p style="text-align: center; margin-top: 32px; color: var(--text-muted); font-style: italic; font-size: 0.9rem;">
+        Recognition is awarded by the Club. It cannot be purchased, transferred or fast-tracked.
+      </p>
+    </div>
+  </section>
+
+  <!-- §5 ANSWERS "BELONGING / TRUST" — The Register -->
+  <section id="register">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">// The Register</span>
+        <h2>Your <span class="gradient-text">place</span> is yours.</h2>
+        <p class="section-sub" style="max-width: 720px;">
+          Trust isn&rsquo;t a marketing claim. It&rsquo;s the register: a private record, held by
+          the Club, that says where each member sits and from when. The register is what makes
+          belonging real.
+        </p>
+      </div>
+
+      <div class="register-block">
+        <div class="register-card">
+          <div class="header-line">
+            <span>// The Register &middot; Sample</span>
+            <span>Private &middot; Members</span>
+          </div>
+          <div class="entry-row">
+            <span class="num">#001</span>
+            <span class="name">[name held]</span>
+            <span class="meta">Admitted &middot; Nov 2025</span>
+          </div>
+          <div class="entry-row active">
+            <span class="num">#247</span>
+            <span class="name">[your place]</span>
+            <span class="meta">Admitted &middot; on enquiry</span>
+          </div>
+          <div class="entry-row">
+            <span class="num">#412</span>
+            <span class="name">[name held]</span>
+            <span class="meta">Admitted &middot; Feb 2026</span>
+          </div>
+          <div class="entry-row">
+            <span class="num">#415</span>
+            <span class="name">[name held]</span>
+            <span class="meta">Admitted &middot; Feb 2026</span>
+          </div>
+        </div>
+        <div>
+          <p style="font-size: 1.05rem; line-height: 1.7; margin-bottom: 16px;">
+            Every admitted member is entered into the register on the day they join. The register
+            records the date of admission, the member&rsquo;s number, and the standing they hold.
+            It is <strong style="color: var(--text);">private</strong> &mdash; only the Club and
+            its members can see it.
+          </p>
+          <p style="font-size: 1rem; line-height: 1.7; color: var(--text-soft); margin-bottom: 16px;">
+            A member&rsquo;s place in the register is <strong style="color: var(--cyan);">theirs from the moment they join</strong>.
+            It is not auctioned. It is not re-issued. It cannot be bought ahead of an earlier
+            date. Members rise through the recognition system from their fixed position over
+            time.
+          </p>
+          <p style="font-size: 1rem; line-height: 1.7; color: var(--text-soft);">
+            This is what belonging means in the Club &mdash; a name, on a particular line, on a
+            particular date, held by an organisation that distributes rewards to that register on
+            a publicly verifiable ledger.
+          </p>
+        </div>
+      </div>
+
+      <p style="text-align: center; margin-top: 40px; font-family: var(--mono); font-size: 0.85rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted);">
+        Public ledger. Private register. The two together are the Club.
+      </p>
+    </div>
+  </section>
+
+  <!-- §6 ANSWERS "BLOCKCHAIN FOR VERIFICATION" -->
+  <section id="verify" class="dark">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">// Verification</span>
+        <h2>Verify <span class="gradient-text">before</span> you join.</h2>
+        <p class="section-sub" style="max-width: 720px;">
+          The Club&rsquo;s distribution history is public on-chain. Members can verify what the
+          Club has paid, when it was paid, and that it settled &mdash; before they ever join, and
+          at any time afterwards.
+        </p>
+      </div>
+
+      <div class="verify-block">
+        <p style="color: var(--text-soft); margin-bottom: 12px;">For each distribution period, members receive a verification receipt that looks like this:</p>
+
+        <div class="verify-receipt">
+          <div><span class="key">// Distribution ID</span> &nbsp; <span class="val-text">TC-2026-02-A</span></div>
+          <div><span class="key">// Period</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="val-text">February 2026</span></div>
+          <div><span class="key">// Network</span> &nbsp; &nbsp; &nbsp; &nbsp;<span class="val-text">Arbitrum One</span></div>
+          <div><span class="key">// Settled to</span> &nbsp; &nbsp; &nbsp; <span class="val-text">415 distinct member addresses</span></div>
+          <div><span class="key">// Aggregate</span> &nbsp; &nbsp; &nbsp; &nbsp;<span class="val">45,986 USDT</span></div>
+          <div><span class="key">// Verifiable at</span> &nbsp; <span class="val">arbiscan.io/address/0x&hellip;</span> &nbsp; <span class="key">(sent in Member Pack)</span></div>
+        </div>
+
+        <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.65; margin-top: 16px;">
+          The verification path is the same for everyone: look up the addresses on the Arbitrum
+          explorer, read the transactions, confirm them against the figures the Club has
+          published. For prospective members, the Club shares verification addresses on enquiry.
+          For admitted members, the addresses are listed in the Member Pack and refreshed
+          quarterly.
+        </p>
+
+        <div style="text-align: center; margin-top: 24px;">
+          <a class="btn btn-primary" href="access.html">Register Enquiry to receive the addresses &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §7 NEWS & UPDATES -->
+  <section id="news">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">// News &amp; Updates</span>
+        <h2>Latest from the <span class="gradient-text">Club</span>.</h2>
+        <p class="section-sub" style="max-width: 660px;">
+          Public announcements, distribution windows and Club updates are posted here. Admitted
+          members receive a longer-form briefing by email.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <span class="icon-hex">&para;</span>
+          <h3>February 2026 distribution complete</h3>
+          <p>The February 2026 distribution settled on schedule. Aggregate to members: 45,986 USDT on Arbitrum. The full settlement receipt is in members&rsquo; inboxes.</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon-hex">&para;</span>
+          <h3>Recognition system update</h3>
+          <p>The recognition system has been refreshed for transparency. Existing member standings remain unchanged; the public summary now reflects the active levels.</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon-hex">&para;</span>
+          <h3>Member Pack &mdash; quarterly refresh</h3>
+          <p>The current Member Pack (schedule, standing entitlements, risk disclosures, verification addresses) is sent to admitted members on induction and refreshed quarterly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §8 FINAL CTA -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">// Enquiries Open</span>
+        <h2>Read the record. Then <span class="gradient-text">decide</span>.</h2>
+        <p class="section-sub" style="max-width: 600px;">
+          There is no pitch. There is a record, a register and a Member Pack &mdash; in that
+          order. If the case lands, register an enquiry.
+        </p>
+      </div>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a class="btn btn-primary" href="access.html">Register Enquiry &rarr;</a>
+        <a class="btn btn-secondary" href="#record">See the Record</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <section style="padding-top: 0;">
+    <div class="container">
+      <div class="full-disclaimer">
+        <p><strong>Important risk information.</strong> The Tycoon Club is a private members' organisation operating a rewards distribution system. It is not an investment scheme, securities offering, or regulated financial product. The Club does not solicit deposits or hold member capital. No representation is made that any member will receive any specific distribution. Past distributions described on this page are a historical record only and are not a forecast of future results. Distributions involve the use of digital assets, including the volatility and technical risks associated with them. Nothing on this page is financial, legal, tax, or investment advice. Prospective members should take their own advice before joining.</p>
+        <p>Eligibility is determined on enquiry. Not every prospective member will be admitted, and the Club reserves the right to decline any enquiry. It is the prospective member's responsibility to confirm that joining is lawful in their personal circumstances before submitting an enquiry. The Club is not available to residents of restricted jurisdictions, including (without limitation) the United States, China, North Korea, Iran, Syria, Cuba, or any country subject to comprehensive sanctions.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="brand" style="margin-bottom: 16px;">
+          <span class="brand-mark">T</span>
+          <span>Tycoon Club</span>
+        </div>
+        <p style="font-style: italic;">A rewards distribution system, founded 2025.</p>
+      </div>
+      <div>
+        <h5>The Club</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#record">The Record</a></li>
+          <li><a href="#recognition">Recognition</a></li>
+          <li><a href="#register">The Register</a></li>
+          <li><a href="#verify">Verification</a></li>
+          <li><a href="#news">News &amp; Updates</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="access.html">Register Enquiry</a></li>
+          <li><a href="mailto:contact@tycoonclub.example">contact@tycoonclub.example</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 The Tycoon Club &middot; A Rewards Distribution System &middot; Settled on Arbitrum
+    </div>
+  </footer>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>
