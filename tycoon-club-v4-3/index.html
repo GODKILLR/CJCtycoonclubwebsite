@@ -4,28 +4,43 @@
   <script>document.documentElement.className += " js-anim";</script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tycoon Club — Build Your Community. Unlock Greater Rewards.</title>
+  <title>Tycoon Club — Build your community. Unlock greater rewards.</title>
   <meta name="description" content="Tycoon Club is a global membership ecosystem where participation, leadership and community growth are recognized and rewarded." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/styles.css" />
   <style>
-    .hero-centered .container { text-align: center; position: relative; z-index: 2; }
-    .hero-centered h1 { max-width: 940px; margin-left: auto; margin-right: auto; }
-    .hero-centered p.lead { max-width: 720px; margin: 24px auto 32px; text-align: center; }
-    .hero-centered .hero-actions { justify-content: center; }
+    /* Split hero with community network */
+    .hero-split .container { position: relative; z-index: 2; }
+    .hero-split .split-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; }
+    @media (max-width: 900px) { .hero-split .split-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; } .hero-split .hero-actions { justify-content: center; } .net-wrap { order: -1; max-width: 420px; margin: 0 auto; } }
+    .hero-split h1 { font-size: clamp(2.4rem, 5.5vw, 4rem); }
+    .hero-split .lead { max-width: 540px; }
+
+    /* Community network — neon hub (from Network Hub Animation) */
+    .net-wrap { position: relative; width: 100%; max-width: 540px; margin: 0 auto; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; }
+    .hub-halo { position: absolute; left: 50%; top: 50%; width: 92%; height: 92%; transform: translate(-50%,-50%); border-radius: 50%; background: radial-gradient(circle, rgba(0,224,255,0.22) 0%, rgba(123,91,255,0.10) 40%, transparent 70%); filter: blur(8px); animation: halo 6s ease-in-out infinite; pointer-events: none; }
+    .hub-svg { position: relative; width: 100%; height: 100%; }
+    @keyframes hubdraw   { from { stroke-dashoffset: 210; opacity: 0; } 35% { opacity: 1; } to { stroke-dashoffset: 0; opacity: .5; } }
+    @keyframes hubflow   { from { stroke-dashoffset: 250; } to { stroke-dashoffset: 0; } }
+    @keyframes hubnodeIn { from { opacity: 0; transform: scale(.35); } to { opacity: 1; transform: scale(1); } }
+    @keyframes hubfade   { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes hubfloat  { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+    @keyframes hubbreathe{ 0%,100% { transform: scale(1); opacity: .92; } 50% { transform: scale(1.05); opacity: 1; } }
+    @keyframes halo      { 0%,100% { opacity: .5; transform: translate(-50%,-50%) scale(1); } 50% { opacity: .9; transform: translate(-50%,-50%) scale(1.12); } }
+    @media (prefers-reduced-motion: reduce) { .hub-halo, .hub-svg *, .hub-svg { animation: none !important; } .hub-svg [style*="opacity:0"] { opacity: 1 !important; } }
+
     .step-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
     @media (max-width: 860px) { .step-grid { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 480px) { .step-grid { grid-template-columns: 1fr; } }
-    .step-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 24px; position: relative; }
+    .step-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 24px; }
     .step-card .step-n { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; }
     .step-card h3 { font-size: 1.15rem; margin-bottom: 8px; }
     .step-card p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.55; margin: 0; }
-    .recog-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 8px; }
+    .recog-row, .cat-list { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 8px; }
     .recog-pill { display: inline-flex; align-items: center; gap: 10px; background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 999px; padding: 12px 22px; font-weight: 600; font-size: 0.95rem; }
     .recog-pill .ic { font-size: 1.1rem; }
-    .cat-list { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 8px; }
     .cat-list span { background: rgba(0,224,255,0.06); border: 1px solid rgba(0,224,255,0.22); color: var(--text-soft); border-radius: 999px; padding: 9px 18px; font-size: 0.9rem; }
     .full-disclaimer { max-width: 980px; margin: 0 auto; padding: 28px 0 0; border-top: 1px solid var(--border); font-size: 0.84rem; line-height: 1.7; color: var(--text-muted); }
     .full-disclaimer strong { color: var(--text); font-weight: 500; }
@@ -51,21 +66,63 @@
   </header>
 
   <!-- HERO -->
-  <section class="hero hero-centered">
-    <div class="hex-orb left" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00E0FF"/><stop offset="100%" stop-color="#7B5BFF"/></linearGradient></defs><polygon points="100,20 175,60 175,140 100,180 25,140 25,60" fill="none" stroke="url(#hg1)" stroke-width="2"/><polygon points="100,50 145,75 145,125 100,150 55,125 55,75" fill="none" stroke="url(#hg1)" stroke-width="1.5" opacity="0.6"/></svg></div>
-    <div class="hex-orb right" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7B5BFF"/><stop offset="100%" stop-color="#FF5BB8"/></linearGradient></defs><polygon points="100,20 175,60 175,140 100,180 25,140 25,60" fill="none" stroke="url(#hg2)" stroke-width="2"/><polygon points="100,50 145,75 145,125 100,150 55,125 55,75" fill="url(#hg2)" opacity="0.25"/></svg></div>
-
+  <section class="hero hero-split">
     <div class="container">
-      <span class="eyebrow-pill">A Global Membership Ecosystem</span>
-      <h1>Build Your Community.<br/><span class="gradient-text">Unlock Greater Rewards.</span></h1>
-      <p class="lead">
-        Join a global ecosystem where participation, leadership and community growth are recognized
-        and rewarded. Track your progress, grow your network, celebrate achievements and unlock new
-        opportunities through Tycoon Club.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="access.html">Join Tycoon Club &rarr;</a>
-        <a class="btn btn-secondary" href="professional-players.html">Explore Professional Players</a>
+      <div class="split-grid">
+        <div>
+          <span class="eyebrow-pill">A global membership ecosystem</span>
+          <h1>Build your community.<br/><span class="gradient-text">Unlock greater rewards.</span></h1>
+          <p class="lead">
+            Join a global ecosystem where participation, leadership and community growth are
+            recognized and rewarded. Track your progress, grow your network, celebrate achievements
+            and unlock new opportunities through Tycoon Club.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="access.html">Join Tycoon Club &rarr;</a>
+            <a class="btn btn-secondary" href="professional-players.html">Explore Professional Players</a>
+          </div>
+        </div>
+
+        <!-- Community network graphic -->
+        <div class="net-wrap" aria-hidden="true">
+        <div class="hub-halo"></div>
+        <svg class="hub-svg" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A neon network of connected community members radiating from a central member.">
+          <defs>
+            <symbol id="hubperson" viewBox="0 0 24 24">
+              <circle cx="12" cy="9" r="3.5" fill="none" stroke="currentColor" stroke-width="1.7"/>
+              <path d="M5.4 19.2 a6.6 6.6 0 0 1 13.2 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+            </symbol>
+          </defs>
+          <path d="M500.0,420.0 L500.0,222.0" fill="none" stroke-linecap="round" style="stroke:#00E0FF;stroke-width:2.6;stroke-dasharray:210;stroke-dashoffset:210;opacity:0;animation:hubdraw .9s ease forwards;animation-delay:0.00s;filter:drop-shadow(0 0 5px #00E0FF)"/><path d="M500.0,420.0 L500.0,222.0" fill="none" stroke-linecap="round" style="stroke:#00E0FF;stroke-width:3;stroke-dasharray:24 226;stroke-dashoffset:250;opacity:.9;animation:hubflow 2.17s linear infinite;animation-delay:1.20s;filter:drop-shadow(0 0 6px #00E0FF)"/>
+          <path d="M556.6,443.4 L696.5,303.5" fill="none" stroke-linecap="round" style="stroke:#00E0FF;stroke-width:2.6;stroke-dasharray:210;stroke-dashoffset:210;opacity:0;animation:hubdraw .9s ease forwards;animation-delay:0.09s;filter:drop-shadow(0 0 5px #00E0FF)"/><path d="M556.6,443.4 L696.5,303.5" fill="none" stroke-linecap="round" style="stroke:#6FA8FF;stroke-width:3;stroke-dasharray:24 226;stroke-dashoffset:250;opacity:.9;animation:hubflow 2.17s linear infinite;animation-delay:1.47s;filter:drop-shadow(0 0 6px #6FA8FF)"/>
+          <path d="M580.0,500.0 L778.0,500.0" fill="none" stroke-linecap="round" style="stroke:#00E0FF;stroke-width:2.6;stroke-dasharray:210;stroke-dashoffset:210;opacity:0;animation:hubdraw .9s ease forwards;animation-delay:0.18s;filter:drop-shadow(0 0 5px #00E0FF)"/><path d="M580.0,500.0 L778.0,500.0" fill="none" stroke-linecap="round" style="stroke:#7B5BFF;stroke-width:3;stroke-dasharray:24 226;stroke-dashoffset:250;opacity:.9;animation:hubflow 2.17s linear infinite;animation-delay:1.74s;filter:drop-shadow(0 0 6px #7B5BFF)"/>
+          <path d="M556.6,556.6 L696.5,696.5" fill="none" stroke-linecap="round" style="stroke:#00E0FF;stroke-width:2.6;stroke-dasharray:210;stroke-dashoffset:210;opacity:0;animation:hubdraw .9s ease forwards;animation-delay:0.27s;filter:drop-shadow(0 0 5px #00E0FF)"/><path d="M556.6,556.6 L696.5,696.5" fill="none" stroke-linecap="round" style="stroke:#FF5BB8;stroke-width:3;stroke-dasharray:24 226;stroke-dashoffset:250;opacity:.9;animation:hubflow 2.17s linear infinite;animation-delay:2.01s;filter:drop-shadow(0 0 6px #FF5BB8)"/>
+          <path d="M500.0,580.0 L500.0,778.0" fill="none" stroke-linecap="round" style="stroke:#00E0FF;stroke-width:2.6;stroke-dasharray:210;stroke-dashoffset:210;opacity:0;animation:hubdraw .9s ease forwards;animation-delay:0.36s;filter:drop-shadow(0 0 5px #00E0FF)"/><path d="M500.0,580.0 L500.0,778.0" fill="none" stroke-linecap="round" style="stroke:#00E0FF;stroke-width:3;stroke-dasharray:24 226;stroke-dashoffset:250;opacity:.9;animation:hubflow 2.17s linear infinite;animation-delay:2.28s;filter:drop-shadow(0 0 6px #00E0FF)"/>
+          <path d="M443.4,556.6 L303.5,696.5" fill="none" stroke-linecap="round" style="stroke:#00E0FF;stroke-width:2.6;stroke-dasharray:210;stroke-dashoffset:210;opacity:0;animation:hubdraw .9s ease forwards;animation-delay:0.45s;filter:drop-shadow(0 0 5px #00E0FF)"/><path d="M443.4,556.6 L303.5,696.5" fill="none" stroke-linecap="round" style="stroke:#6FA8FF;stroke-width:3;stroke-dasharray:24 226;stroke-dashoffset:250;opacity:.9;animation:hubflow 2.17s linear infinite;animation-delay:2.55s;filter:drop-shadow(0 0 6px #6FA8FF)"/>
+          <path d="M420.0,500.0 L222.0,500.0" fill="none" stroke-linecap="round" style="stroke:#00E0FF;stroke-width:2.6;stroke-dasharray:210;stroke-dashoffset:210;opacity:0;animation:hubdraw .9s ease forwards;animation-delay:0.54s;filter:drop-shadow(0 0 5px #00E0FF)"/><path d="M420.0,500.0 L222.0,500.0" fill="none" stroke-linecap="round" style="stroke:#7B5BFF;stroke-width:3;stroke-dasharray:24 226;stroke-dashoffset:250;opacity:.9;animation:hubflow 2.17s linear infinite;animation-delay:2.83s;filter:drop-shadow(0 0 6px #7B5BFF)"/>
+          <path d="M443.4,443.4 L303.5,303.5" fill="none" stroke-linecap="round" style="stroke:#00E0FF;stroke-width:2.6;stroke-dasharray:210;stroke-dashoffset:210;opacity:0;animation:hubdraw .9s ease forwards;animation-delay:0.63s;filter:drop-shadow(0 0 5px #00E0FF)"/><path d="M443.4,443.4 L303.5,303.5" fill="none" stroke-linecap="round" style="stroke:#FF5BB8;stroke-width:3;stroke-dasharray:24 226;stroke-dashoffset:250;opacity:.9;animation:hubflow 2.17s linear infinite;animation-delay:3.10s;filter:drop-shadow(0 0 6px #FF5BB8)"/>
+          <g style="transform-box:fill-box;transform-origin:center;animation:hubbreathe 4.5s ease-in-out infinite;filter:drop-shadow(0 0 10px #00E0FF) drop-shadow(0 0 26px #00E0FF)">
+            <circle cx="500" cy="500" r="74" fill="rgba(7,16,33,0.85)" stroke="#00E0FF" stroke-width="3.4"/>
+            <use href="#hubperson" x="430" y="430" width="140" height="140" style="color:#CDFBFF"/>
+          </g>
+          <g style="transform-box:fill-box;transform-origin:center;opacity:0;animation:hubnodeIn .6s cubic-bezier(.2,.8,.3,1.4) forwards;animation-delay:0.55s"><g style="transform-box:fill-box;transform-origin:center;animation:hubfloat 6s ease-in-out infinite;animation-delay:0.00s;filter:drop-shadow(0 0 6px #00E0FF) drop-shadow(0 0 16px #00E0FF)"><circle cx="500.0" cy="170.0" r="46" fill="rgba(7,16,33,0.7)" stroke="#00E0FF" stroke-width="2.6"/><use href="#hubperson" x="458.0" y="128.0" width="84" height="84" style="color:#00E0FF"/></g></g>
+          <g style="transform-box:fill-box;transform-origin:center;opacity:0;animation:hubnodeIn .6s cubic-bezier(.2,.8,.3,1.4) forwards;animation-delay:0.64s"><g style="transform-box:fill-box;transform-origin:center;animation:hubfloat 6s ease-in-out infinite;animation-delay:0.45s;filter:drop-shadow(0 0 6px #00E0FF) drop-shadow(0 0 16px #00E0FF)"><circle cx="733.3" cy="266.7" r="46" fill="rgba(7,16,33,0.7)" stroke="#00E0FF" stroke-width="2.6"/><use href="#hubperson" x="691.3" y="224.7" width="84" height="84" style="color:#00E0FF"/></g></g>
+          <g style="transform-box:fill-box;transform-origin:center;opacity:0;animation:hubnodeIn .6s cubic-bezier(.2,.8,.3,1.4) forwards;animation-delay:0.73s"><g style="transform-box:fill-box;transform-origin:center;animation:hubfloat 6s ease-in-out infinite;animation-delay:0.90s;filter:drop-shadow(0 0 6px #00E0FF) drop-shadow(0 0 16px #00E0FF)"><circle cx="830.0" cy="500.0" r="46" fill="rgba(7,16,33,0.7)" stroke="#00E0FF" stroke-width="2.6"/><use href="#hubperson" x="788.0" y="458.0" width="84" height="84" style="color:#00E0FF"/></g></g>
+          <g style="transform-box:fill-box;transform-origin:center;opacity:0;animation:hubnodeIn .6s cubic-bezier(.2,.8,.3,1.4) forwards;animation-delay:0.82s"><g style="transform-box:fill-box;transform-origin:center;animation:hubfloat 6s ease-in-out infinite;animation-delay:1.35s;filter:drop-shadow(0 0 6px #00E0FF) drop-shadow(0 0 16px #00E0FF)"><circle cx="733.3" cy="733.3" r="46" fill="rgba(7,16,33,0.7)" stroke="#00E0FF" stroke-width="2.6"/><use href="#hubperson" x="691.3" y="691.3" width="84" height="84" style="color:#00E0FF"/></g></g>
+          <g style="transform-box:fill-box;transform-origin:center;opacity:0;animation:hubnodeIn .6s cubic-bezier(.2,.8,.3,1.4) forwards;animation-delay:0.91s"><g style="transform-box:fill-box;transform-origin:center;animation:hubfloat 6s ease-in-out infinite;animation-delay:1.80s;filter:drop-shadow(0 0 6px #00E0FF) drop-shadow(0 0 16px #00E0FF)"><circle cx="500.0" cy="830.0" r="46" fill="rgba(7,16,33,0.7)" stroke="#00E0FF" stroke-width="2.6"/><use href="#hubperson" x="458.0" y="788.0" width="84" height="84" style="color:#00E0FF"/></g></g>
+          <g style="transform-box:fill-box;transform-origin:center;opacity:0;animation:hubnodeIn .6s cubic-bezier(.2,.8,.3,1.4) forwards;animation-delay:1.00s"><g style="transform-box:fill-box;transform-origin:center;animation:hubfloat 6s ease-in-out infinite;animation-delay:2.25s;filter:drop-shadow(0 0 6px #00E0FF) drop-shadow(0 0 16px #00E0FF)"><circle cx="266.7" cy="733.3" r="46" fill="rgba(7,16,33,0.7)" stroke="#00E0FF" stroke-width="2.6"/><use href="#hubperson" x="224.7" y="691.3" width="84" height="84" style="color:#00E0FF"/></g></g>
+          <g style="transform-box:fill-box;transform-origin:center;opacity:0;animation:hubnodeIn .6s cubic-bezier(.2,.8,.3,1.4) forwards;animation-delay:1.09s"><g style="transform-box:fill-box;transform-origin:center;animation:hubfloat 6s ease-in-out infinite;animation-delay:2.70s;filter:drop-shadow(0 0 6px #00E0FF) drop-shadow(0 0 16px #00E0FF)"><circle cx="170.0" cy="500.0" r="46" fill="rgba(7,16,33,0.7)" stroke="#00E0FF" stroke-width="2.6"/><use href="#hubperson" x="128.0" y="458.0" width="84" height="84" style="color:#00E0FF"/></g></g>
+          <g style="transform-box:fill-box;transform-origin:center;opacity:0;animation:hubnodeIn .6s cubic-bezier(.2,.8,.3,1.4) forwards;animation-delay:1.18s"><g style="transform-box:fill-box;transform-origin:center;animation:hubfloat 6s ease-in-out infinite;animation-delay:3.15s;filter:drop-shadow(0 0 6px #00E0FF) drop-shadow(0 0 16px #00E0FF)"><circle cx="266.7" cy="266.7" r="46" fill="rgba(7,16,33,0.7)" stroke="#00E0FF" stroke-width="2.6"/><use href="#hubperson" x="224.7" y="224.7" width="84" height="84" style="color:#00E0FF"/></g></g>
+          <g style="opacity:0;animation:hubfade .6s forwards;animation-delay:1.20s"><circle r="7" fill="#ffffff" style="filter:drop-shadow(0 0 6px #00E0FF) drop-shadow(0 0 16px #00E0FF)"><animateMotion path="M500.0,420.0 L500.0,222.0" dur="2.17s" begin="1.20s" repeatCount="indefinite" rotate="auto"/><animate attributeName="opacity" values="0;1;1;0.2;0" keyTimes="0;0.12;0.72;0.95;1" dur="2.17s" begin="1.20s" repeatCount="indefinite"/><animate attributeName="r" values="2.5;7;7;2.5" keyTimes="0;0.15;0.85;1" dur="2.17s" begin="1.20s" repeatCount="indefinite"/></circle></g>
+          <g style="opacity:0;animation:hubfade .6s forwards;animation-delay:1.47s"><circle r="7" fill="#ffffff" style="filter:drop-shadow(0 0 6px #6FA8FF) drop-shadow(0 0 16px #6FA8FF)"><animateMotion path="M556.6,443.4 L696.5,303.5" dur="2.17s" begin="1.47s" repeatCount="indefinite" rotate="auto"/><animate attributeName="opacity" values="0;1;1;0.2;0" keyTimes="0;0.12;0.72;0.95;1" dur="2.17s" begin="1.47s" repeatCount="indefinite"/><animate attributeName="r" values="2.5;7;7;2.5" keyTimes="0;0.15;0.85;1" dur="2.17s" begin="1.47s" repeatCount="indefinite"/></circle></g>
+          <g style="opacity:0;animation:hubfade .6s forwards;animation-delay:1.74s"><circle r="7" fill="#ffffff" style="filter:drop-shadow(0 0 6px #7B5BFF) drop-shadow(0 0 16px #7B5BFF)"><animateMotion path="M580.0,500.0 L778.0,500.0" dur="2.17s" begin="1.74s" repeatCount="indefinite" rotate="auto"/><animate attributeName="opacity" values="0;1;1;0.2;0" keyTimes="0;0.12;0.72;0.95;1" dur="2.17s" begin="1.74s" repeatCount="indefinite"/><animate attributeName="r" values="2.5;7;7;2.5" keyTimes="0;0.15;0.85;1" dur="2.17s" begin="1.74s" repeatCount="indefinite"/></circle></g>
+          <g style="opacity:0;animation:hubfade .6s forwards;animation-delay:2.01s"><circle r="7" fill="#ffffff" style="filter:drop-shadow(0 0 6px #FF5BB8) drop-shadow(0 0 16px #FF5BB8)"><animateMotion path="M556.6,556.6 L696.5,696.5" dur="2.17s" begin="2.01s" repeatCount="indefinite" rotate="auto"/><animate attributeName="opacity" values="0;1;1;0.2;0" keyTimes="0;0.12;0.72;0.95;1" dur="2.17s" begin="2.01s" repeatCount="indefinite"/><animate attributeName="r" values="2.5;7;7;2.5" keyTimes="0;0.15;0.85;1" dur="2.17s" begin="2.01s" repeatCount="indefinite"/></circle></g>
+          <g style="opacity:0;animation:hubfade .6s forwards;animation-delay:2.28s"><circle r="7" fill="#ffffff" style="filter:drop-shadow(0 0 6px #00E0FF) drop-shadow(0 0 16px #00E0FF)"><animateMotion path="M500.0,580.0 L500.0,778.0" dur="2.17s" begin="2.28s" repeatCount="indefinite" rotate="auto"/><animate attributeName="opacity" values="0;1;1;0.2;0" keyTimes="0;0.12;0.72;0.95;1" dur="2.17s" begin="2.28s" repeatCount="indefinite"/><animate attributeName="r" values="2.5;7;7;2.5" keyTimes="0;0.15;0.85;1" dur="2.17s" begin="2.28s" repeatCount="indefinite"/></circle></g>
+          <g style="opacity:0;animation:hubfade .6s forwards;animation-delay:2.55s"><circle r="7" fill="#ffffff" style="filter:drop-shadow(0 0 6px #6FA8FF) drop-shadow(0 0 16px #6FA8FF)"><animateMotion path="M443.4,556.6 L303.5,696.5" dur="2.17s" begin="2.55s" repeatCount="indefinite" rotate="auto"/><animate attributeName="opacity" values="0;1;1;0.2;0" keyTimes="0;0.12;0.72;0.95;1" dur="2.17s" begin="2.55s" repeatCount="indefinite"/><animate attributeName="r" values="2.5;7;7;2.5" keyTimes="0;0.15;0.85;1" dur="2.17s" begin="2.55s" repeatCount="indefinite"/></circle></g>
+          <g style="opacity:0;animation:hubfade .6s forwards;animation-delay:2.83s"><circle r="7" fill="#ffffff" style="filter:drop-shadow(0 0 6px #7B5BFF) drop-shadow(0 0 16px #7B5BFF)"><animateMotion path="M420.0,500.0 L222.0,500.0" dur="2.17s" begin="2.83s" repeatCount="indefinite" rotate="auto"/><animate attributeName="opacity" values="0;1;1;0.2;0" keyTimes="0;0.12;0.72;0.95;1" dur="2.17s" begin="2.83s" repeatCount="indefinite"/><animate attributeName="r" values="2.5;7;7;2.5" keyTimes="0;0.15;0.85;1" dur="2.17s" begin="2.83s" repeatCount="indefinite"/></circle></g>
+          <g style="opacity:0;animation:hubfade .6s forwards;animation-delay:3.10s"><circle r="7" fill="#ffffff" style="filter:drop-shadow(0 0 6px #FF5BB8) drop-shadow(0 0 16px #FF5BB8)"><animateMotion path="M443.4,443.4 L303.5,303.5" dur="2.17s" begin="3.10s" repeatCount="indefinite" rotate="auto"/><animate attributeName="opacity" values="0;1;1;0.2;0" keyTimes="0;0.12;0.72;0.95;1" dur="2.17s" begin="3.10s" repeatCount="indefinite"/><animate attributeName="r" values="2.5;7;7;2.5" keyTimes="0;0.15;0.85;1" dur="2.17s" begin="3.10s" repeatCount="indefinite"/></circle></g>
+        </svg>
+      </div>
       </div>
     </div>
   </section>
@@ -74,29 +131,29 @@
   <section>
     <div class="container">
       <div class="section-head">
-        <span class="section-tag">// Why Join</span>
+        <span class="section-tag">Why join</span>
         <h2>Why join <span class="gradient-text">Tycoon Club</span>?</h2>
         <p class="section-sub" style="max-width: 700px;">Tycoon Club is an exclusive membership ecosystem designed to empower individuals through community, collaboration and recognition.</p>
       </div>
       <div class="feature-grid">
         <div class="feature-card">
           <span class="icon-hex">&#9783;</span>
-          <h3>Community Growth</h3>
+          <h3>Community growth</h3>
           <p>Expand your network, connect with members worldwide, and build a thriving global community.</p>
         </div>
         <div class="feature-card">
           <span class="icon-hex">&#9636;</span>
-          <h3>Transparent Rewards</h3>
+          <h3>Transparent rewards</h3>
           <p>Monitor your rewards, activity and historical performance through a secure and transparent dashboard.</p>
         </div>
         <div class="feature-card">
           <span class="icon-hex">&#9733;</span>
-          <h3>Recognition &amp; Achievements</h3>
+          <h3>Recognition &amp; achievements</h3>
           <p>Celebrate milestones, unlock achievements, and earn recognition as you progress within the ecosystem.</p>
         </div>
         <div class="feature-card">
           <span class="icon-hex">&#9819;</span>
-          <h3>Professional Players Marketplace</h3>
+          <h3>Professional Players marketplace</h3>
           <p>Connect with verified Professional Players, or apply to become one and offer your expertise to the community.</p>
         </div>
       </div>
@@ -107,8 +164,8 @@
   <section class="dark">
     <div class="container">
       <div class="section-head">
-        <span class="section-tag">// Your Growth Journey</span>
-        <h2>Join &rarr; Connect &rarr; Grow &rarr; <span class="gradient-text">Get Recognized</span></h2>
+        <span class="section-tag">Your growth journey</span>
+        <h2>Join &rarr; connect &rarr; grow &rarr; <span class="gradient-text">get recognized</span></h2>
       </div>
       <div class="step-grid">
         <div class="step-card">
@@ -128,7 +185,7 @@
         </div>
         <div class="step-card">
           <div class="step-n">Step 04</div>
-          <h3>Get Recognized</h3>
+          <h3>Get recognized</h3>
           <p>Achieve milestones, climb the leaderboard, and earn recognition within the ecosystem.</p>
         </div>
       </div>
@@ -139,19 +196,19 @@
   <section>
     <div class="container">
       <div class="section-head">
-        <span class="section-tag">// Community Recognition</span>
+        <span class="section-tag">Community recognition</span>
         <h2>Celebrating those who <span class="gradient-text">lead and grow</span>.</h2>
         <p class="section-sub" style="max-width: 680px;">Celebrating the members who continue to inspire, lead and grow the Tycoon Club ecosystem.</p>
       </div>
       <div class="recog-row">
-        <span class="recog-pill"><span class="ic">&#127942;</span> Top Community Leaders</span>
-        <span class="recog-pill"><span class="ic">&#128640;</span> Fastest Growing Networks</span>
-        <span class="recog-pill"><span class="ic">&#11088;</span> Elite Members</span>
-        <span class="recog-pill"><span class="ic">&#127757;</span> Global Ambassadors</span>
-        <span class="recog-pill"><span class="ic">&#128142;</span> Rising Stars</span>
+        <span class="recog-pill"><span class="ic">&#127942;</span> Top community leaders</span>
+        <span class="recog-pill"><span class="ic">&#128640;</span> Fastest growing networks</span>
+        <span class="recog-pill"><span class="ic">&#11088;</span> Elite members</span>
+        <span class="recog-pill"><span class="ic">&#127757;</span> Global ambassadors</span>
+        <span class="recog-pill"><span class="ic">&#128142;</span> Rising stars</span>
       </div>
       <div style="text-align:center; margin-top: 40px;">
-        <a class="btn btn-secondary" href="recognition.html">View Recognition Board &rarr;</a>
+        <a class="btn btn-secondary" href="recognition.html">View recognition board &rarr;</a>
       </div>
     </div>
   </section>
@@ -160,13 +217,13 @@
   <section class="dark">
     <div class="container">
       <div class="section-head">
-        <span class="section-tag">// Professional Players Marketplace</span>
+        <span class="section-tag">Professional Players marketplace</span>
         <h2>Connect with the <span class="gradient-text">right people</span>.</h2>
-        <p class="section-sub" style="max-width: 720px;">Whether you're an experienced player looking to monetize your expertise, or a member seeking gameplay management support, the Professional Players Marketplace connects the right people.</p>
+        <p class="section-sub" style="max-width: 720px;">Whether you're an experienced player looking to monetize your expertise, or a member seeking gameplay management support, the Professional Players marketplace connects the right people.</p>
       </div>
       <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
-        <a class="btn btn-primary" href="professional-players.html#become">Become a Professional Player &rarr;</a>
-        <a class="btn btn-secondary" href="professional-players.html#find">Find a Professional Player</a>
+        <a class="btn btn-primary" href="become-a-professional-player.html">Become a player &rarr;</a>
+        <a class="btn btn-secondary" href="find-a-professional-player.html">Find a player</a>
       </div>
     </div>
   </section>
@@ -175,18 +232,18 @@
   <section>
     <div class="container">
       <div class="section-head">
-        <span class="section-tag">// Stay Updated</span>
+        <span class="section-tag">Stay updated</span>
         <h2>Stay <span class="gradient-text">updated</span>.</h2>
         <p class="section-sub" style="max-width: 680px;">Get the latest platform announcements, feature releases, community news and important updates.</p>
       </div>
       <div class="cat-list">
-        <span>Platform Updates</span>
-        <span>Community News</span>
-        <span>New Features</span>
-        <span>Events &amp; Announcements</span>
+        <span>Platform updates</span>
+        <span>Community news</span>
+        <span>New features</span>
+        <span>Events &amp; announcements</span>
       </div>
       <div style="text-align:center; margin-top: 40px;">
-        <a class="btn btn-secondary" href="news.html">View All Updates &rarr;</a>
+        <a class="btn btn-secondary" href="news.html">View all updates &rarr;</a>
       </div>
     </div>
   </section>
@@ -198,7 +255,7 @@
         <p style="font-style: italic;">A global membership ecosystem.</p>
       </div>
       <div>
-        <h5>Quick Links</h5>
+        <h5>Quick links</h5>
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="professional-players.html">Professional Players</a></li>
@@ -210,19 +267,19 @@
       <div>
         <h5>Legal</h5>
         <ul>
-          <li><a href="#disclaimer">Terms of Service</a></li>
-          <li><a href="#disclaimer">Privacy Policy</a></li>
-          <li><a href="#disclaimer">Risk Disclosure</a></li>
-          <li><a href="#disclaimer">Professional Player Terms</a></li>
-          <li><a href="#disclaimer">Community Guidelines</a></li>
+          <li><a href="#disclaimer">Terms of service</a></li>
+          <li><a href="#disclaimer">Privacy policy</a></li>
+          <li><a href="#disclaimer">Risk disclosure</a></li>
+          <li><a href="#disclaimer">Professional Player terms</a></li>
+          <li><a href="#disclaimer">Community guidelines</a></li>
         </ul>
       </div>
     </div>
     <div class="full-disclaimer" id="disclaimer">
       <p><strong>Tycoon Club is a private membership platform.</strong> Membership and participation do not guarantee rewards, financial returns or specific outcomes. Rewards and benefits are subject to program rules, eligibility requirements and applicable policies. Members are responsible for ensuring compliance with applicable local laws and regulations.</p>
-      <p class="legal-row">Terms of Service &middot; Privacy Policy &middot; Cookie Policy &middot; Risk Disclosure &middot; Professional Player Terms &middot; Community Guidelines</p>
+      <p class="legal-row">Terms of service &middot; Privacy policy &middot; Cookie policy &middot; Risk disclosure &middot; Professional Player terms &middot; Community guidelines</p>
     </div>
-    <div class="footer-bottom">&copy; 2026 Tycoon Club &middot; A Global Membership Ecosystem</div>
+    <div class="footer-bottom">&copy; 2026 Tycoon Club &middot; A global membership ecosystem</div>
   </footer>
 
   <script src="assets/script.js"></script>

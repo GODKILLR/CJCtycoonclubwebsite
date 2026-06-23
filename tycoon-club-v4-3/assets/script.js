@@ -62,3 +62,58 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// ---- Parallax scroll (shared across all pages) ----
+document.addEventListener("DOMContentLoaded", () => {
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const canTranslate = window.CSS && CSS.supports && CSS.supports("translate", "0px");
+  if (reduce || !canTranslate) return;
+
+  // Site-wide drifting background depth layer
+  const bg = document.createElement("div");
+  bg.className = "parallax-bg";
+  bg.setAttribute("aria-hidden", "true");
+  bg.innerHTML =
+    '<span class="pbg-blob a"></span><span class="pbg-blob b"></span><span class="pbg-blob c"></span>';
+  document.body.appendChild(bg);
+
+  const drift = [
+    { el: bg.querySelector(".pbg-blob.a"), speed: 0.14 },
+    { el: bg.querySelector(".pbg-blob.b"), speed: -0.09 },
+    { el: bg.querySelector(".pbg-blob.c"), speed: 0.06 },
+  ];
+
+  // Decorative + opt-in targets, moved relative to viewport center.
+  // Driven via the independent `translate` property so it composes with any
+  // existing `transform` animation (hex-orb float, hub-halo centering) instead
+  // of clobbering it.
+  const centered = [];
+  const add = (sel, speed) =>
+    document.querySelectorAll(sel).forEach((el) => centered.push({ el, speed }));
+  add(".hex-orb.left", 0.18);
+  add(".hex-orb.right", -0.14);
+  add(".hex-orb.small", 0.24);
+  add(".hub-halo", 0.1);
+  document.querySelectorAll("[data-parallax]").forEach((el) =>
+    centered.push({ el, speed: parseFloat(el.getAttribute("data-parallax")) || 0.12 })
+  );
+
+  let ticking = false;
+  const update = () => {
+    const y = window.pageYOffset || document.documentElement.scrollTop || 0;
+    const vh = window.innerHeight;
+    for (const d of drift) d.el.style.translate = "0 " + (y * d.speed).toFixed(1) + "px";
+    for (const c of centered) {
+      const r = c.el.getBoundingClientRect();
+      const fromCenter = r.top + r.height / 2 - vh / 2;
+      c.el.style.translate = "0 " + (-fromCenter * c.speed).toFixed(1) + "px";
+    }
+    ticking = false;
+  };
+  const onScroll = () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  update();
+});

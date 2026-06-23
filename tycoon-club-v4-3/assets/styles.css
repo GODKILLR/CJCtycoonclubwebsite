@@ -773,3 +773,13 @@ footer::before {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* ---- Parallax depth layer (shared, injected by script.js) ---- */
+.parallax-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.pbg-blob { position: absolute; border-radius: 50%; filter: blur(90px); will-change: translate; }
+.pbg-blob.a { width: 48vmax; height: 48vmax; top: -12%; left: -12%; background: radial-gradient(circle, rgba(0,224,255,0.20), transparent 65%); }
+.pbg-blob.b { width: 42vmax; height: 42vmax; top: 28%; right: -14%; background: radial-gradient(circle, rgba(123,91,255,0.20), transparent 65%); }
+.pbg-blob.c { width: 38vmax; height: 38vmax; bottom: -14%; left: 22%; background: radial-gradient(circle, rgba(255,91,184,0.14), transparent 65%); }
+.hex-orb, .hub-halo, [data-parallax] { will-change: translate; }
+@media (prefers-reduced-motion: reduce) { .parallax-bg { display: none; } }
