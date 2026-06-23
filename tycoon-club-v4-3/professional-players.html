@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script>document.documentElement.className += " js-anim";</script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Professional Players — Tycoon Club</title>
+  <meta name="description" content="Join the Tycoon Club Professional Players Marketplace. Become a verified Professional Player or find one to support your gameplay." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .hero-centered .container { text-align: center; position: relative; z-index: 2; }
+    .hero-centered h1 { max-width: 900px; margin-left: auto; margin-right: auto; }
+    .hero-centered p.lead { max-width: 680px; margin: 24px auto 32px; text-align: center; }
+    .hero-centered .hero-actions { justify-content: center; }
+    .benefit-list { list-style: none; padding: 0; max-width: 760px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 640px) { .benefit-list { grid-template-columns: 1fr; } }
+    .benefit-list li { display: flex; gap: 12px; align-items: flex-start; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; color: var(--text-soft); font-size: 0.95rem; }
+    .benefit-list li::before { content: '\2713'; color: var(--cyan); font-weight: 700; flex-shrink: 0; }
+    .req-list { list-style: none; padding: 0; max-width: 720px; margin: 0 auto; }
+    .req-list li { padding: 14px 0; border-bottom: 1px dashed var(--border); color: var(--text-soft); display: flex; gap: 12px; }
+    .req-list li:last-child { border-bottom: none; }
+    .req-list li::before { content: '\2022'; color: var(--cyan); }
+    /* form */
+    .pp-form { max-width: 820px; margin: 0 auto; }
+    .fieldset { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 18px; }
+    .fieldset h3 { font-size: 1.1rem; margin-bottom: 18px; color: var(--text); }
+    .fld-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 600px) { .fld-grid { grid-template-columns: 1fr; } }
+    .fld { margin-bottom: 4px; }
+    .fld label { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 8px; }
+    .fld input, .fld textarea, .fld select { width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text); border-radius: 10px; padding: 12px 14px; font-size: 0.96rem; font-family: var(--body); outline: none; }
+    .fld input:focus, .fld textarea:focus, .fld select:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(0,224,255,0.16); }
+    /* search filters */
+    .filters { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; max-width: 820px; margin: 0 auto 40px; }
+    .filters span { background: rgba(0,224,255,0.06); border: 1px solid rgba(0,224,255,0.22); color: var(--text-soft); border-radius: 999px; padding: 9px 16px; font-size: 0.86rem; }
+    /* player card */
+    .player-card { max-width: 540px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: var(--radius-lg); padding: 32px; position: relative; overflow: hidden; }
+    .player-card::before { content: ''; position: absolute; top: 0; left: 24px; right: 24px; height: 2px; background: var(--grad); }
+    .player-head { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; }
+    .player-avatar { width: 64px; height: 64px; flex-shrink: 0; background: var(--grad); clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%); display: flex; align-items: center; justify-content: center; color: var(--bg); font-family: var(--display); font-weight: 800; font-size: 1.2rem; }
+    .player-head h3 { font-size: 1.3rem; margin-bottom: 2px; }
+    .player-verified { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); }
+    .player-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px; margin-bottom: 22px; }
+    .player-stats .row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px dashed var(--border); font-size: 0.9rem; }
+    .player-stats .row .k { color: var(--text-muted); }
+    .player-stats .row .v { color: var(--text); font-weight: 500; }
+    .player-stats .row .v.cyan { color: var(--cyan); }
+    .player-actions { display: flex; gap: 12px; }
+    .player-actions .btn { flex: 1; justify-content: center; }
+    .full-disclaimer { max-width: 980px; margin: 0 auto; padding: 28px 0 0; border-top: 1px solid var(--border); font-size: 0.84rem; line-height: 1.7; color: var(--text-muted); }
+    .full-disclaimer strong { color: var(--text); font-weight: 500; }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">T</span><span>Tycoon Club</span></a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="professional-players.html">Professional Players</a>
+        <a href="recognition.html">Recognition</a>
+        <a href="news.html">News &amp; Updates</a>
+        <a href="access.html">Login</a>
+      </nav>
+      <a class="nav-cta" href="access.html">Join Tycoon Club</a>
+      <button class="mobile-toggle" aria-label="Open menu">&#9776;</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero hero-centered">
+    <div class="hex-orb left" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00E0FF"/><stop offset="100%" stop-color="#7B5BFF"/></linearGradient></defs><polygon points="100,20 175,60 175,140 100,180 25,140 25,60" fill="none" stroke="url(#hg1)" stroke-width="2"/></svg></div>
+    <div class="hex-orb right" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7B5BFF"/><stop offset="100%" stop-color="#FF5BB8"/></linearGradient></defs><polygon points="100,20 175,60 175,140 100,180 25,140 25,60" fill="url(#hg2)" opacity="0.2"/></svg></div>
+    <div class="container">
+      <span class="eyebrow-pill">Professional Players Marketplace</span>
+      <h1>Turn Your Expertise<br/>Into <span class="gradient-text">Opportunity</span>.</h1>
+      <p class="lead">Join the Tycoon Club Professional Players Marketplace and offer your gameplay expertise to members across the ecosystem.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#become">Become a Professional Player &rarr;</a>
+        <a class="btn btn-secondary" href="#find">Find a Professional Player</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 1 — TWO WAYS -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">// Two Ways to Participate</span>
+        <h2>Pick your <span class="gradient-text">side</span> of the marketplace.</h2>
+      </div>
+      <div class="dual">
+        <div class="dual-card is-yes">
+          <span class="badge">Become</span>
+          <h3>Become a Professional Player</h3>
+          <p style="color: var(--text-soft);">Apply to become a verified Professional Player, build your reputation, and provide gameplay management services to members.</p>
+          <div style="margin-top: 20px;"><a class="btn btn-secondary" href="#become">Apply &rarr;</a></div>
+        </div>
+        <div class="dual-card">
+          <span class="badge">Find</span>
+          <h3>Find a Professional Player</h3>
+          <p style="color: var(--text-soft);">Browse verified player profiles, review their experience, compare requirements, and choose the player that best fits your needs.</p>
+          <div style="margin-top: 20px;"><a class="btn btn-secondary" href="#find">Browse &rarr;</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2 — BECOME -->
+  <section id="become" class="dark">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">// Become a Professional Player</span>
+        <h2>Monetize your skills. <span class="gradient-text">Build your reputation.</span></h2>
+        <p class="section-sub" style="max-width: 720px;">Tycoon Club enables experienced players to showcase their expertise, connect with members, and provide gameplay management services.</p>
+      </div>
+      <ul class="benefit-list">
+        <li>Build your public player profile</li>
+        <li>Connect with members globally</li>
+        <li>Set your own service terms</li>
+        <li>Define your preferred reward-sharing percentage</li>
+        <li>Grow your reputation through ratings and reviews</li>
+        <li>Expand your player portfolio</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SECTION 3 — ELIGIBILITY -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">// Eligibility Requirements</span>
+        <h2>What you need to <span class="gradient-text">apply</span>.</h2>
+        <p class="section-sub" style="max-width: 640px;">Applicants must satisfy the following requirements:</p>
+      </div>
+      <ul class="req-list">
+        <li>Verified Tycoon Club account</li>
+        <li>Minimum gameplay experience requirements</li>
+        <li>Minimum NFT asset ownership requirements</li>
+        <li>Good account standing</li>
+        <li>No history of policy violations</li>
+        <li>Acceptance of Professional Player Terms &amp; Conditions</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SECTION 4 — APPLY FORM -->
+  <section class="dark" id="apply">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">// Apply</span>
+        <h2>Apply to become a <span class="gradient-text">Professional Player</span>.</h2>
+      </div>
+
+      <form class="pp-form" novalidate onsubmit="event.preventDefault(); this.querySelector('.pp-done').hidden=false; this.querySelector('.pp-done').scrollIntoView({behavior:'smooth',block:'center'});">
+        <div class="fieldset">
+          <h3>Personal Information</h3>
+          <div class="fld-grid">
+            <div class="fld"><label>Full Name</label><input type="text" autocomplete="name" /></div>
+            <div class="fld"><label>Username</label><input type="text" /></div>
+            <div class="fld"><label>Country</label><input type="text" autocomplete="country-name" /></div>
+            <div class="fld"><label>Email Address</label><input type="email" autocomplete="email" /></div>
+            <div class="fld"><label>Telegram ID</label><input type="text" /></div>
+            <div class="fld"><label>Discord ID</label><input type="text" /></div>
+          </div>
+        </div>
+
+        <div class="fieldset">
+          <h3>Gameplay Information</h3>
+          <div class="fld-grid">
+            <div class="fld"><label>Years of Experience</label><input type="number" min="0" /></div>
+            <div class="fld"><label>Total Races Participated</label><input type="number" min="0" /></div>
+            <div class="fld"><label>Current Ranking</label><input type="text" /></div>
+            <div class="fld"><label>Win Rate (%)</label><input type="number" min="0" max="100" /></div>
+            <div class="fld"><label>NFT Assets Owned</label><input type="number" min="0" /></div>
+          </div>
+        </div>
+
+        <div class="fieldset">
+          <h3>Service Preferences</h3>
+          <div class="fld-grid">
+            <div class="fld"><label>Minimum NFT Requirement</label><input type="number" min="0" /></div>
+            <div class="fld"><label>Preferred Reward Sharing (%)</label><input type="number" min="0" max="100" /></div>
+            <div class="fld"><label>Max Accounts Managed</label><input type="number" min="0" /></div>
+            <div class="fld"><label>Minimum Service Duration</label><input type="text" placeholder="e.g. 1 month" /></div>
+            <div class="fld"><label>Preferred Languages</label><input type="text" placeholder="e.g. English, Chinese" /></div>
+          </div>
+        </div>
+
+        <div class="fieldset">
+          <h3>Additional Information</h3>
+          <div class="fld" style="margin-bottom: 16px;"><label>Short Biography</label><textarea rows="3"></textarea></div>
+          <div class="fld-grid">
+            <div class="fld"><label>Previous Achievements</label><input type="text" /></div>
+            <div class="fld"><label>Social Media Profiles</label><input type="text" /></div>
+            <div class="fld"><label>Streaming Channels</label><input type="text" /></div>
+          </div>
+        </div>
+
+        <div style="margin-top: 8px;">
+          <button class="btn btn-primary btn-block" type="submit">Submit Application</button>
+        </div>
+        <p class="pp-done" hidden style="margin-top: 18px; text-align:center; color: var(--cyan); font-weight: 600;">
+          Application received. All Professional Player applications undergo review before approval &mdash; we&rsquo;ll be in touch by email.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- SECTION 5 — FIND -->
+  <section id="find">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">// Find a Professional Player</span>
+        <h2>Discover the <span class="gradient-text">right match</span>.</h2>
+        <p class="section-sub" style="max-width: 680px;">Browse verified Professional Players and discover the right match for your requirements.</p>
+      </div>
+
+      <div class="filters">
+        <span>Country</span><span>Language</span><span>Ranking</span><span>Win Rate</span>
+        <span>Reward Sharing %</span><span>Minimum NFT Requirement</span><span>Availability Status</span>
+      </div>
+
+      <div class="player-card">
+        <div class="player-head">
+          <div class="player-avatar">AR</div>
+          <div>
+            <h3>Alex Racing Pro</h3>
+            <span class="player-verified">&#10003; Verified Professional Player</span>
+          </div>
+        </div>
+        <div class="player-stats">
+          <div class="row"><span class="k">Country</span><span class="v">Singapore</span></div>
+          <div class="row"><span class="k">Experience</span><span class="v">3 Years</span></div>
+          <div class="row"><span class="k">Win Rate</span><span class="v cyan">68%</span></div>
+          <div class="row"><span class="k">Min NFT</span><span class="v">5 Horses</span></div>
+          <div class="row"><span class="k">Reward Share</span><span class="v cyan">30%</span></div>
+          <div class="row"><span class="k">Accounts Managed</span><span class="v">18</span></div>
+          <div class="row"><span class="k">Languages</span><span class="v">English, Chinese</span></div>
+          <div class="row"><span class="k">Rating</span><span class="v">&#9733; 4.9 / 5</span></div>
+        </div>
+        <div class="player-actions">
+          <a class="btn btn-secondary" href="#find">View Profile</a>
+          <a class="btn btn-primary" href="access.html">Request Service</a>
+        </div>
+        <p style="text-align:center; margin: 16px 0 0; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan);">Status: Available</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6 — HOW IT WORKS -->
+  <section class="dark">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">// How It Works</span>
+        <h2>Five steps to <span class="gradient-text">service</span>.</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card"><span class="icon-hex">01</span><h3>Browse</h3><p>Browse verified Professional Players.</p></div>
+        <div class="feature-card"><span class="icon-hex">02</span><h3>Review</h3><p>Review player profiles, experience and service requirements.</p></div>
+        <div class="feature-card"><span class="icon-hex">03</span><h3>Request</h3><p>Submit a service request.</p></div>
+        <div class="feature-card"><span class="icon-hex">04</span><h3>Accept</h3><p>The Professional Player reviews and accepts the request.</p></div>
+        <div class="feature-card"><span class="icon-hex">05</span><h3>Begin</h3><p>Service begins according to mutually agreed terms.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7 — TRUST & VERIFICATION -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">// Trust &amp; Verification</span>
+        <h2>Verified <span class="gradient-text">before</span> listed.</h2>
+        <p class="section-sub" style="max-width: 700px;">All Professional Player applications undergo a review process before being approved for listing. Verification may include:</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card"><span class="icon-hex">&#10003;</span><h3>Identity verification</h3><p>Confirming the applicant is who they say they are.</p></div>
+        <div class="feature-card"><span class="icon-hex">&#9876;</span><h3>Gameplay performance review</h3><p>Reviewing stated experience and performance history.</p></div>
+        <div class="feature-card"><span class="icon-hex">&#9670;</span><h3>Account standing review</h3><p>Checking the account is in good standing.</p></div>
+        <div class="feature-card"><span class="icon-hex">&#9878;</span><h3>Compliance review</h3><p>Ensuring the applicant meets the platform&rsquo;s policies.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="brand" style="margin-bottom: 16px;"><span class="brand-mark">T</span><span>Tycoon Club</span></div>
+        <p style="font-style: italic;">A global membership ecosystem.</p>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="professional-players.html">Professional Players</a></li>
+          <li><a href="recognition.html">Recognition</a></li>
+          <li><a href="news.html">News &amp; Updates</a></li>
+          <li><a href="access.html">Login</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="#disclaimer">Terms of Service</a></li>
+          <li><a href="#disclaimer">Privacy Policy</a></li>
+          <li><a href="#disclaimer">Risk Disclosure</a></li>
+          <li><a href="#disclaimer">Professional Player Terms</a></li>
+          <li><a href="#disclaimer">Community Guidelines</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="full-disclaimer" id="disclaimer">
+      <p><strong>Tycoon Club is a private membership platform.</strong> Membership and participation do not guarantee rewards, financial returns or specific outcomes. Rewards and benefits are subject to program rules, eligibility requirements and applicable policies. Members are responsible for ensuring compliance with applicable local laws and regulations.</p>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Tycoon Club &middot; A Global Membership Ecosystem</div>
+  </footer>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>
