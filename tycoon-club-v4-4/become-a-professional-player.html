@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script>document.documentElement.className += " js-anim";</script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Become a Professional Player — Tycoon Club</title>
+  <meta name="description" content="Apply to become a verified Tycoon Club Professional Player. Monetize your skills, build your reputation and offer gameplay management services to members." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .hero-centered .container { text-align: center; position: relative; z-index: 2; }
+    .hero-centered h1 { max-width: 900px; margin-left: auto; margin-right: auto; }
+    .hero-centered p.lead { max-width: 680px; margin: 24px auto 32px; text-align: center; }
+    .hero-centered .hero-actions { justify-content: center; }
+    .crumb { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 22px; }
+    .crumb a { color: var(--cyan); }
+
+    .benefit-list { list-style: none; padding: 0; max-width: 760px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 640px) { .benefit-list { grid-template-columns: 1fr; } }
+    .benefit-list li { display: flex; gap: 12px; align-items: flex-start; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; color: var(--text-soft); font-size: 0.95rem; }
+    .benefit-list li::before { content: '\2713'; color: var(--cyan); font-weight: 700; flex-shrink: 0; }
+    .req-list { list-style: none; padding: 0; max-width: 720px; margin: 0 auto; }
+    .req-list li { padding: 14px 0; border-bottom: 1px dashed var(--border); color: var(--text-soft); display: flex; gap: 12px; }
+    .req-list li:last-child { border-bottom: none; }
+    .req-list li::before { content: '\2022'; color: var(--cyan); }
+
+    .fieldset { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+    .fieldset h3 { font-size: 1.1rem; margin-bottom: 6px; color: var(--text); }
+    .fieldset .fs-sub { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; }
+    .fld-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 600px) { .fld-grid { grid-template-columns: 1fr; } }
+    .fld { margin-bottom: 4px; }
+    .fld label { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 8px; }
+    .fld input, .fld textarea, .fld select { width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text); border-radius: 10px; padding: 12px 14px; font-size: 0.96rem; font-family: var(--body); outline: none; }
+    .fld input:focus, .fld textarea:focus, .fld select:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(244,196,48,0.16); }
+
+    /* Apply wizard */
+    .wizard { max-width: 760px; margin: 0 auto; }
+    .wizard form { overflow: hidden; }
+    .wz-progress { margin-bottom: 26px; }
+    .wz-bar { height: 4px; background: var(--border); border-radius: 999px; overflow: hidden; }
+    .wz-bar span { display: block; height: 100%; width: 25%; background: var(--grad); border-radius: 999px; transition: width 0.4s cubic-bezier(0.2,0.7,0.2,1); }
+    .wz-steps { display: flex; justify-content: space-between; margin-top: 12px; gap: 6px; }
+    .wz-step { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); flex: 1; text-align: center; transition: color 0.3s ease; }
+    .wz-step.active { color: var(--cyan); }
+    .wz-step.done { color: var(--text-soft); }
+    .wz-panel { display: none; }
+    .wz-panel.active { display: block; animation: wzslide 0.42s cubic-bezier(0.2,0.7,0.2,1); }
+    .wz-panel.active.back { animation: wzslideback 0.42s cubic-bezier(0.2,0.7,0.2,1); }
+    @keyframes wzslide { from { opacity: 0; transform: translateX(-44px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes wzslideback { from { opacity: 0; transform: translateX(44px); } to { opacity: 1; transform: translateX(0); } }
+    .wz-nav { display: flex; gap: 12px; margin-top: 8px; }
+    .wz-nav .wz-next, .wz-nav .wz-submit { margin-left: auto; }
+    @media (prefers-reduced-motion: reduce) { .wz-panel.active, .wz-panel.active.back { animation: none; } }
+
+    .full-disclaimer { max-width: 980px; margin: 0 auto; padding: 28px 0 0; border-top: 1px solid var(--border); font-size: 0.84rem; line-height: 1.7; color: var(--text-muted); }
+    .full-disclaimer strong { color: var(--text); font-weight: 500; }
+    .cross { text-align: center; }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">T</span><span>Tycoon Club</span></a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="professional-players.html">Professional Players</a>
+        <a href="recognition.html">Recognition</a>
+        <a href="news.html">News &amp; Updates</a>
+        <a href="access.html">Login</a>
+      </nav>
+      <a class="nav-cta" href="access.html">Join Tycoon Club</a>
+      <button class="mobile-toggle" aria-label="Open menu">&#9776;</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero hero-centered">
+    <div class="hex-orb left" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4C430"/><stop offset="100%" stop-color="#D9913F"/></linearGradient></defs><polygon points="100,20 175,60 175,140 100,180 25,140 25,60" fill="none" stroke="url(#hg1)" stroke-width="2"/></svg></div>
+    <div class="container">
+      <span class="crumb"><a href="professional-players.html">&larr; Professional Players</a> &middot; For players</span>
+      <h1>Become a <span class="gradient-text">Professional Player</span>.</h1>
+      <p class="lead">Monetize your skills, build your reputation, and offer gameplay management services to members across the ecosystem.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#apply">Start your application &rarr;</a>
+        <a class="btn btn-secondary" href="find-a-professional-player.html">Looking to find a player?</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE OPPORTUNITY -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">The opportunity</span>
+        <h2>Monetize your skills, <span class="gradient-text">build your reputation</span>.</h2>
+        <p class="section-sub" style="max-width: 720px;">Tycoon Club lets experienced players showcase their expertise, connect with members, and provide gameplay management services.</p>
+      </div>
+      <ul class="benefit-list">
+        <li>Build your public player profile</li>
+        <li>Connect with members globally</li>
+        <li>Set your own service terms</li>
+        <li>Define your preferred reward-sharing percentage</li>
+        <li>Grow your reputation through ratings and reviews</li>
+        <li>Expand your player portfolio</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ELIGIBILITY -->
+  <section class="dark">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Eligibility</span>
+        <h2>What you need to <span class="gradient-text">qualify</span>.</h2>
+        <p class="section-sub" style="max-width: 640px;">Applicants must satisfy the following requirements:</p>
+      </div>
+      <ul class="req-list">
+        <li>Verified Tycoon Club account</li>
+        <li>Minimum gameplay experience requirements</li>
+        <li>Minimum NFT asset ownership requirements</li>
+        <li>Good account standing</li>
+        <li>No history of policy violations</li>
+        <li>Acceptance of Professional Player Terms &amp; Conditions</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- APPLY (wizard) -->
+  <section id="apply">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Your application</span>
+        <h2>Apply in <span class="gradient-text">four steps</span>.</h2>
+        <p class="section-sub" style="max-width: 640px;">Everything below is reviewed before approval. The more complete your application, the faster the review.</p>
+      </div>
+
+      <div class="wizard" id="apply-wizard">
+        <div class="wz-progress">
+          <div class="wz-bar"><span></span></div>
+          <div class="wz-steps">
+            <span class="wz-step active">1 &middot; Personal</span>
+            <span class="wz-step">2 &middot; Gameplay</span>
+            <span class="wz-step">3 &middot; Service</span>
+            <span class="wz-step">4 &middot; Additional</span>
+          </div>
+        </div>
+
+        <form novalidate onsubmit="return tcApplySubmit(event);">
+          <div class="wz-panel active" data-step="1">
+            <div class="fieldset">
+              <h3>1 &middot; Personal information</h3>
+              <p class="fs-sub">How members and the review team reach you.</p>
+              <div class="fld-grid">
+                <div class="fld"><label>Full name</label><input type="text" autocomplete="name" /></div>
+                <div class="fld"><label>Username</label><input type="text" /></div>
+                <div class="fld"><label>Country</label><input type="text" autocomplete="country-name" /></div>
+                <div class="fld"><label>Email address</label><input type="email" autocomplete="email" /></div>
+                <div class="fld"><label>Telegram ID</label><input type="text" /></div>
+                <div class="fld"><label>Discord ID</label><input type="text" /></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wz-panel" data-step="2">
+            <div class="fieldset">
+              <h3>2 &middot; Gameplay information</h3>
+              <p class="fs-sub">Your track record, used to verify your experience.</p>
+              <div class="fld-grid">
+                <div class="fld"><label>Years of experience</label><input type="number" min="0" /></div>
+                <div class="fld"><label>Total races participated</label><input type="number" min="0" /></div>
+                <div class="fld"><label>Current ranking</label><input type="text" /></div>
+                <div class="fld"><label>Win rate (%)</label><input type="number" min="0" max="100" /></div>
+                <div class="fld"><label>NFT assets owned</label><input type="number" min="0" /></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wz-panel" data-step="3">
+            <div class="fieldset">
+              <h3>3 &middot; Service preferences</h3>
+              <p class="fs-sub">The terms you want to offer members.</p>
+              <div class="fld-grid">
+                <div class="fld"><label>Minimum NFT requirement</label><input type="number" min="0" /></div>
+                <div class="fld"><label>Preferred reward sharing (%)</label><input type="number" min="0" max="100" /></div>
+                <div class="fld"><label>Max accounts managed</label><input type="number" min="0" /></div>
+                <div class="fld"><label>Minimum service duration</label><input type="text" placeholder="e.g. 1 month" /></div>
+                <div class="fld"><label>Preferred languages</label><input type="text" placeholder="e.g. English, Chinese" /></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wz-panel" data-step="4">
+            <div class="fieldset">
+              <h3>4 &middot; Additional information</h3>
+              <p class="fs-sub">Optional, but it helps members choose you.</p>
+              <div class="fld" style="margin-bottom: 16px;"><label>Short biography</label><textarea rows="3"></textarea></div>
+              <div class="fld-grid">
+                <div class="fld"><label>Previous achievements</label><input type="text" /></div>
+                <div class="fld"><label>Social media profiles</label><input type="text" /></div>
+                <div class="fld"><label>Streaming channels</label><input type="text" /></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wz-nav">
+            <button type="button" class="btn btn-secondary wz-back" hidden>&larr; Back</button>
+            <button type="button" class="btn btn-primary wz-next">Next step &rarr;</button>
+            <button type="submit" class="btn btn-primary wz-submit" hidden>Submit application</button>
+          </div>
+        </form>
+
+        <p class="pp-done" hidden style="margin-top: 18px; text-align:center; color: var(--cyan); font-weight: 600;">
+          Application received. All Professional Player applications undergo review before approval &mdash; we&rsquo;ll be in touch by email.
+        </p>
+      </div>
+
+      <script>
+        (function () {
+          var wiz = document.getElementById('apply-wizard');
+          if (!wiz) return;
+          var panels = [].slice.call(wiz.querySelectorAll('.wz-panel'));
+          var steps = [].slice.call(wiz.querySelectorAll('.wz-step'));
+          var bar = wiz.querySelector('.wz-bar span');
+          var back = wiz.querySelector('.wz-back');
+          var next = wiz.querySelector('.wz-next');
+          var submitBtn = wiz.querySelector('.wz-submit');
+          var i = 0;
+          function show(idx, dir, scroll) {
+            panels.forEach(function (p) { p.classList.remove('active', 'back'); });
+            var p = panels[idx];
+            void p.offsetWidth;
+            p.classList.add('active');
+            if (dir === 'back') p.classList.add('back');
+            steps.forEach(function (s, n) { s.classList.toggle('active', n === idx); s.classList.toggle('done', n < idx); });
+            bar.style.width = ((idx + 1) / panels.length * 100) + '%';
+            back.hidden = idx === 0;
+            next.hidden = idx === panels.length - 1;
+            submitBtn.hidden = idx !== panels.length - 1;
+            i = idx;
+            if (scroll) wiz.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+          next.addEventListener('click', function () { if (i < panels.length - 1) show(i + 1, 'next', true); });
+          back.addEventListener('click', function () { if (i > 0) show(i - 1, 'back', true); });
+          show(0, 'next', false);
+        })();
+        function tcApplySubmit(e) {
+          e.preventDefault();
+          var wiz = document.getElementById('apply-wizard');
+          wiz.querySelector('.wz-progress').style.display = 'none';
+          wiz.querySelector('form').style.display = 'none';
+          var d = wiz.querySelector('.pp-done');
+          d.hidden = false;
+          d.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return false;
+        }
+      </script>
+    </div>
+  </section>
+
+  <!-- CROSS LINK -->
+  <section class="dark">
+    <div class="container cross">
+      <div class="section-head" style="margin-bottom: 24px;">
+        <span class="section-tag">Other path</span>
+        <h2>Looking to <span class="gradient-text">find</span> a player instead?</h2>
+      </div>
+      <a class="btn btn-secondary" href="find-a-professional-player.html">Find a Professional Player &rarr;</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="brand" style="margin-bottom: 16px;"><span class="brand-mark">T</span><span>Tycoon Club</span></div>
+        <p style="font-style: italic;">A global membership ecosystem.</p>
+      </div>
+      <div>
+        <h5>Quick links</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="professional-players.html">Professional Players</a></li>
+          <li><a href="find-a-professional-player.html">Find a player</a></li>
+          <li><a href="recognition.html">Recognition</a></li>
+          <li><a href="news.html">News &amp; Updates</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="#disclaimer">Terms of service</a></li>
+          <li><a href="#disclaimer">Privacy policy</a></li>
+          <li><a href="#disclaimer">Risk disclosure</a></li>
+          <li><a href="#disclaimer">Professional Player terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="full-disclaimer" id="disclaimer">
+      <p><strong>Tycoon Club is a private membership platform.</strong> Membership and participation do not guarantee rewards, financial returns or specific outcomes. Rewards and benefits are subject to program rules, eligibility requirements and applicable policies. Members are responsible for ensuring compliance with applicable local laws and regulations.</p>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Tycoon Club &middot; A global membership ecosystem</div>
+  </footer>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>

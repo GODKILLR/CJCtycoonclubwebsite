@@ -18,8 +18,8 @@
     .crumb { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 22px; }
     .crumb a { color: var(--cyan); }
     /* Search-first hero */
-    .hero-search { display: flex; align-items: center; gap: 8px; max-width: 620px; margin: 4px auto 18px; background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 999px; padding: 7px 7px 7px 18px; box-shadow: 0 16px 40px -22px rgba(0,224,255,0.4); }
-    .hero-search:focus-within { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(0,224,255,0.16), 0 16px 40px -22px rgba(0,224,255,0.4); }
+    .hero-search { display: flex; align-items: center; gap: 8px; max-width: 620px; margin: 4px auto 18px; background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 999px; padding: 7px 7px 7px 18px; box-shadow: 0 16px 40px -22px rgba(244,196,48,0.4); }
+    .hero-search:focus-within { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(244,196,48,0.16), 0 16px 40px -22px rgba(244,196,48,0.4); }
     .hs-ico { display: flex; color: var(--text-muted); }
     .hs-ico svg { width: 18px; height: 18px; }
     .hero-search input { flex: 1; min-width: 0; background: none; border: 0; outline: none; color: var(--text); font-family: var(--body); font-size: 0.98rem; padding: 8px 4px; }
@@ -34,7 +34,7 @@
 
     .filter-bar { display: flex; align-items: center; gap: 16px; max-width: 1000px; margin: 0 auto 18px; flex-wrap: wrap; }
     .filter-btn { display: inline-flex; align-items: center; gap: 9px; background: var(--bg-card); border: 1px solid var(--border-strong); color: var(--text); border-radius: 999px; padding: 10px 20px; font-weight: 600; font-size: 0.9rem; font-family: inherit; cursor: pointer; transition: border-color .2s ease, background .2s ease; }
-    .filter-btn:hover { border-color: var(--cyan); background: rgba(0,224,255,0.05); }
+    .filter-btn:hover { border-color: var(--cyan); background: rgba(244,196,48,0.05); }
     .filter-btn svg { width: 16px; height: 16px; }
     .filter-menu-wrap { position: relative; }
     .filter-menu { position: absolute; top: calc(100% + 10px); left: 0; z-index: 50; width: 330px; max-width: 86vw; max-height: 62vh; overflow-y: auto; background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 16px; padding: 18px 18px 6px; box-shadow: 0 26px 54px -22px rgba(0,0,0,0.7); display: none; gap: 16px; }
@@ -53,21 +53,23 @@
     .chip { display: inline-flex; align-items: center; gap: 9px; background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text); border-radius: 999px; padding: 7px 7px 7px 16px; font-size: 0.86rem; font-weight: 500; }
     .chip button { width: 19px; height: 19px; border-radius: 50%; border: 0; background: rgba(255,255,255,0.12); color: var(--text); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 0.82rem; line-height: 1; padding: 0; transition: background .18s ease, color .18s ease; }
     .chip button:hover { background: var(--cyan); color: var(--bg); }
-    .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: 18px; max-width: 1120px; margin: 0 auto; }
+    .grid-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; max-width: 1180px; margin: 0 auto; }
+    @media (max-width: 1080px) { .grid-cards { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .grid-cards { grid-template-columns: 1fr; } }
     .player-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: var(--radius-lg); padding: 0; position: relative; overflow: hidden; transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
-    .player-card:hover { transform: translateY(-4px); border-color: rgba(0,224,255,0.45); box-shadow: 0 22px 48px -26px rgba(0,224,255,0.32); }
+    .player-card:hover { transform: translateY(-4px); border-color: rgba(244,196,48,0.45); box-shadow: 0 22px 48px -26px rgba(244,196,48,0.32); }
     /* visual cover */
     .player-cover { position: relative; height: 132px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-    .player-cover.cov1 { background: linear-gradient(135deg, rgba(0,224,255,0.16), rgba(123,91,255,0.22)), radial-gradient(120% 120% at 30% 18%, rgba(0,224,255,0.30), transparent 60%); }
-    .player-cover.cov2 { background: linear-gradient(135deg, rgba(123,91,255,0.16), rgba(255,91,184,0.22)), radial-gradient(120% 120% at 70% 18%, rgba(123,91,255,0.32), transparent 60%); }
-    .player-cover.cov3 { background: linear-gradient(135deg, rgba(0,224,255,0.16), rgba(255,91,184,0.22)), radial-gradient(120% 120% at 50% 18%, rgba(255,91,184,0.26), transparent 60%); }
-    .player-cover.cov4 { background: linear-gradient(135deg, rgba(94,155,255,0.16), rgba(123,91,255,0.22)), radial-gradient(120% 120% at 40% 18%, rgba(94,155,255,0.30), transparent 60%); }
+    .player-cover.cov1 { background: linear-gradient(135deg, rgba(244,196,48,0.16), rgba(217,145,63,0.22)), radial-gradient(120% 120% at 30% 18%, rgba(244,196,48,0.30), transparent 60%); }
+    .player-cover.cov2 { background: linear-gradient(135deg, rgba(217,145,63,0.16), rgba(200,116,46,0.22)), radial-gradient(120% 120% at 70% 18%, rgba(217,145,63,0.32), transparent 60%); }
+    .player-cover.cov3 { background: linear-gradient(135deg, rgba(244,196,48,0.16), rgba(200,116,46,0.22)), radial-gradient(120% 120% at 50% 18%, rgba(200,116,46,0.26), transparent 60%); }
+    .player-cover.cov4 { background: linear-gradient(135deg, rgba(232,184,92,0.16), rgba(217,145,63,0.22)), radial-gradient(120% 120% at 40% 18%, rgba(232,184,92,0.30), transparent 60%); }
     .player-cover::after { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.10) 1px, transparent 1px); background-size: 16px 16px; opacity: .5; }
-    .cover-art { position: relative; z-index: 1; width: 76px; height: 76px; background: var(--grad); clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%); display: flex; align-items: center; justify-content: center; color: var(--bg); font-family: var(--display); font-weight: 800; font-size: 1.5rem; box-shadow: 0 8px 24px -6px rgba(0,224,255,0.5); }
-    .cover-badge { position: absolute; top: 12px; left: 12px; z-index: 2; font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); background: rgba(7,8,26,0.7); border: 1px solid rgba(0,224,255,0.3); border-radius: 999px; padding: 5px 10px; }
-    .fav { position: absolute; top: 10px; right: 10px; z-index: 2; width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.18); background: rgba(7,8,26,0.6); color: #fff; cursor: pointer; font-size: 1rem; line-height: 1; display: flex; align-items: center; justify-content: center; transition: background .2s ease, color .2s ease, transform .2s ease, border-color .2s ease; }
-    .fav:hover { transform: scale(1.1); border-color: #FF5BB8; }
-    .fav.on { color: #FF5BB8; border-color: #FF5BB8; }
+    .cover-art { position: relative; z-index: 1; width: 76px; height: 76px; background: var(--grad); clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%); display: flex; align-items: center; justify-content: center; color: var(--bg); font-family: var(--display); font-weight: 800; font-size: 1.5rem; box-shadow: 0 8px 24px -6px rgba(244,196,48,0.5); }
+    .cover-badge { position: absolute; top: 12px; left: 12px; z-index: 2; font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); background: rgba(20,16,11,0.7); border: 1px solid rgba(244,196,48,0.3); border-radius: 999px; padding: 5px 10px; }
+    .fav { position: absolute; top: 10px; right: 10px; z-index: 2; width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.18); background: rgba(20,16,11,0.6); color: #fff; cursor: pointer; font-size: 1rem; line-height: 1; display: flex; align-items: center; justify-content: center; transition: background .2s ease, color .2s ease, transform .2s ease, border-color .2s ease; }
+    .fav:hover { transform: scale(1.1); border-color: #C8742E; }
+    .fav.on { color: #C8742E; border-color: #C8742E; }
     .player-body { padding: 20px 22px 22px; }
     .player-title { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
     .player-title h3 { font-size: 1.18rem; margin: 0; }
@@ -103,7 +105,7 @@
     .howcar-card h3 { font-size: 1.8rem; margin-bottom: 12px; color: var(--text); }
     .howcar-card p { color: var(--text-muted); max-width: 420px; font-size: 1.02rem; margin: 0; }
     .howcar-arrow { flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--border-strong); background: var(--bg-card); color: var(--text); font-size: 1.6rem; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color .2s ease, background .2s ease, color .2s ease; }
-    .howcar-arrow:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,224,255,0.06); }
+    .howcar-arrow:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(244,196,48,0.06); }
     .howcar-dots { display: flex; justify-content: center; gap: 10px; margin-top: 24px; }
     .howcar-dot { width: 9px; height: 9px; border-radius: 50%; border: 0; padding: 0; background: var(--border-strong); cursor: pointer; transition: background .2s ease, transform .2s ease; }
     .howcar-dot.active { background: var(--cyan); transform: scale(1.35); }
@@ -133,7 +135,7 @@
 
   <!-- HERO -->
   <section class="hero hero-centered">
-    <div class="hex-orb left" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00E0FF"/><stop offset="100%" stop-color="#7B5BFF"/></linearGradient></defs><polygon points="100,20 175,60 175,140 100,180 25,140 25,60" fill="none" stroke="url(#hg1)" stroke-width="2"/></svg></div>
+    <div class="hex-orb left" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4C430"/><stop offset="100%" stop-color="#D9913F"/></linearGradient></defs><polygon points="100,20 175,60 175,140 100,180 25,140 25,60" fill="none" stroke="url(#hg1)" stroke-width="2"/></svg></div>
     <div class="container">
       <span class="crumb"><a href="professional-players.html">&larr; Professional Players</a> &middot; For members</span>
       <h1>Find your perfect <span class="gradient-text">Professional Player</span>.</h1>
@@ -304,6 +306,102 @@
               <div class="row"><span class="k">Minimum NFT</span><span class="v">7 horses</span></div>
               <div class="row"><span class="k">Reward share</span><span class="v cyan">32%</span></div>
               <div class="row"><span class="k">Accounts managed</span><span class="v">15</span></div>
+            </div>
+            <div class="player-actions">
+              <a class="btn btn-secondary" href="#browse">View profile</a>
+              <a class="btn btn-primary" href="access.html">Request service</a>
+            </div>
+            <p class="pstatus">Status: available</p>
+          </div>
+        </article>
+
+        <article class="player-card" data-search="priya nair india english hindi available">
+          <div class="player-cover cov1">
+            <button type="button" class="fav" aria-label="Save player">&#9825;</button>
+            <span class="cover-badge">&#10003; Verified</span>
+            <span class="cover-art">PN</span>
+          </div>
+          <div class="player-body">
+            <div class="player-title"><h3>Priya Nair</h3><span class="rating">&#9733; 4.8</span></div>
+            <div class="player-sub">India &middot; English, Hindi</div>
+            <div class="player-stats">
+              <div class="row"><span class="k">Experience</span><span class="v">4 years</span></div>
+              <div class="row"><span class="k">Win rate</span><span class="v cyan">69%</span></div>
+              <div class="row"><span class="k">Minimum NFT</span><span class="v">5 horses</span></div>
+              <div class="row"><span class="k">Reward share</span><span class="v cyan">29%</span></div>
+              <div class="row"><span class="k">Accounts managed</span><span class="v">16</span></div>
+            </div>
+            <div class="player-actions">
+              <a class="btn btn-secondary" href="#browse">View profile</a>
+              <a class="btn btn-primary" href="access.html">Request service</a>
+            </div>
+            <p class="pstatus">Status: available</p>
+          </div>
+        </article>
+
+        <article class="player-card" data-search="yuki tanaka japan japanese english available">
+          <div class="player-cover cov2">
+            <button type="button" class="fav" aria-label="Save player">&#9825;</button>
+            <span class="cover-badge">&#10003; Verified</span>
+            <span class="cover-art">YT</span>
+          </div>
+          <div class="player-body">
+            <div class="player-title"><h3>Yuki Tanaka</h3><span class="rating">&#9733; 4.9</span></div>
+            <div class="player-sub">Japan &middot; Japanese, English</div>
+            <div class="player-stats">
+              <div class="row"><span class="k">Experience</span><span class="v">7 years</span></div>
+              <div class="row"><span class="k">Win rate</span><span class="v cyan">76%</span></div>
+              <div class="row"><span class="k">Minimum NFT</span><span class="v">9 horses</span></div>
+              <div class="row"><span class="k">Reward share</span><span class="v cyan">34%</span></div>
+              <div class="row"><span class="k">Accounts managed</span><span class="v">11</span></div>
+            </div>
+            <div class="player-actions">
+              <a class="btn btn-secondary" href="#browse">View profile</a>
+              <a class="btn btn-primary" href="access.html">Request service</a>
+            </div>
+            <p class="pstatus">Status: available</p>
+          </div>
+        </article>
+
+        <article class="player-card" data-search="omar haddad united arab emirates uae arabic english limited">
+          <div class="player-cover cov3">
+            <button type="button" class="fav" aria-label="Save player">&#9825;</button>
+            <span class="cover-badge">&#10003; Verified</span>
+            <span class="cover-art">OH</span>
+          </div>
+          <div class="player-body">
+            <div class="player-title"><h3>Omar Haddad</h3><span class="rating">&#9733; 4.7</span></div>
+            <div class="player-sub">United Arab Emirates &middot; Arabic, English</div>
+            <div class="player-stats">
+              <div class="row"><span class="k">Experience</span><span class="v">5 years</span></div>
+              <div class="row"><span class="k">Win rate</span><span class="v cyan">72%</span></div>
+              <div class="row"><span class="k">Minimum NFT</span><span class="v">6 horses</span></div>
+              <div class="row"><span class="k">Reward share</span><span class="v cyan">31%</span></div>
+              <div class="row"><span class="k">Accounts managed</span><span class="v">14</span></div>
+            </div>
+            <div class="player-actions">
+              <a class="btn btn-secondary" href="#browse">View profile</a>
+              <a class="btn btn-primary" href="access.html">Request service</a>
+            </div>
+            <p class="pstatus">Status: limited</p>
+          </div>
+        </article>
+
+        <article class="player-card" data-search="mia andersson sweden swedish english available">
+          <div class="player-cover cov4">
+            <button type="button" class="fav" aria-label="Save player">&#9825;</button>
+            <span class="cover-badge">&#10003; Verified</span>
+            <span class="cover-art">MA</span>
+          </div>
+          <div class="player-body">
+            <div class="player-title"><h3>Mia Andersson</h3><span class="rating">&#9733; 4.8</span></div>
+            <div class="player-sub">Sweden &middot; Swedish, English</div>
+            <div class="player-stats">
+              <div class="row"><span class="k">Experience</span><span class="v">5 years</span></div>
+              <div class="row"><span class="k">Win rate</span><span class="v cyan">73%</span></div>
+              <div class="row"><span class="k">Minimum NFT</span><span class="v">7 horses</span></div>
+              <div class="row"><span class="k">Reward share</span><span class="v cyan">30%</span></div>
+              <div class="row"><span class="k">Accounts managed</span><span class="v">17</span></div>
             </div>
             <div class="player-actions">
               <a class="btn btn-secondary" href="#browse">View profile</a>
