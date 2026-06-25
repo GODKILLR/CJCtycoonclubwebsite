@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="assets/styles.css?v=3" />
   <style>
     .auth-shell { max-width: 480px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: var(--radius-lg); padding: 40px; position: relative; overflow: hidden; }
     .auth-shell::before { content: ''; position: absolute; top: 0; left: 24px; right: 24px; height: 2px; background: var(--grad); }
@@ -35,7 +35,13 @@
       <a class="brand" href="index.html"><span class="brand-mark">T</span><span>Tycoon Club</span></a>
       <nav class="nav-links">
         <a href="index.html">Home</a>
-        <a href="professional-players.html">Professional Players</a>
+        <div class="nav-dd">
+          <a href="professional-players.html" class="nav-dd-toggle">Professional Player Program</a>
+          <div class="nav-dd-menu">
+            <a href="become-a-professional-player.html">Become a Professional Player</a>
+            <a href="find-a-professional-player.html">Find a Professional Player</a>
+          </div>
+        </div>
         <a href="recognition.html">Recognition</a>
         <a href="news.html">News &amp; Updates</a>
         <a href="access.html">Login</a>
@@ -148,6 +154,6 @@
       }
     }
   </script>
-  <script src="assets/script.js"></script>
+  <script src="assets/script.js?v=3"></script>
 </body>
 </html>

@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="assets/styles.css?v=3" />
   <style>
     .hero-centered .container { text-align: center; position: relative; z-index: 2; }
     .hero-centered h1 { max-width: 900px; margin-left: auto; margin-right: auto; }
@@ -47,7 +47,7 @@
     .filter-clear { background: none; border: 0; color: var(--cyan); font-weight: 600; font-size: 0.9rem; font-family: inherit; cursor: pointer; padding: 6px 2px; }
     .filter-clear:hover { color: var(--cyan-bright); text-decoration: underline; }
     .filter-sort { margin-left: auto; position: relative; }
-    .filter-sort select { appearance: none; -webkit-appearance: none; background-color: var(--bg-card); border: 1px solid var(--border-strong); color: var(--text); border-radius: 999px; padding: 10px 40px 10px 20px; font-size: 0.9rem; font-family: inherit; cursor: pointer; outline: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%2300E0FF" stroke-width="3" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>'); background-repeat: no-repeat; background-position: right 16px center; }
+    .filter-sort select { appearance: none; -webkit-appearance: none; background-color: var(--bg-card); border: 1px solid var(--border-strong); color: var(--text); border-radius: 999px; padding: 10px 40px 10px 20px; font-size: 0.9rem; font-family: inherit; cursor: pointer; outline: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%23F4C430" stroke-width="3" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>'); background-repeat: no-repeat; background-position: right 16px center; }
     .filter-sort select:hover { border-color: var(--cyan); }
     .filter-chips { display: flex; flex-wrap: wrap; gap: 10px; max-width: 1000px; margin: 0 auto 40px; }
     .chip { display: inline-flex; align-items: center; gap: 9px; background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text); border-radius: 999px; padding: 7px 7px 7px 16px; font-size: 0.86rem; font-weight: 500; }
@@ -123,7 +123,13 @@
       <a class="brand" href="index.html"><span class="brand-mark">T</span><span>Tycoon Club</span></a>
       <nav class="nav-links">
         <a href="index.html">Home</a>
-        <a href="professional-players.html">Professional Players</a>
+        <div class="nav-dd">
+          <a href="professional-players.html" class="nav-dd-toggle">Professional Player Program</a>
+          <div class="nav-dd-menu">
+            <a href="become-a-professional-player.html">Become a Professional Player</a>
+            <a href="find-a-professional-player.html">Find a Professional Player</a>
+          </div>
+        </div>
         <a href="recognition.html">Recognition</a>
         <a href="news.html">News &amp; Updates</a>
         <a href="access.html">Login</a>
@@ -155,40 +161,8 @@
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
-  <section>
-    <div class="container">
-      <div class="section-head">
-        <span class="section-tag">How it works</span>
-        <h2>From browse to <span class="gradient-text">service</span>, in five steps.</h2>
-      </div>
-      <div class="howcar-wrap">
-        <div class="howcar" id="howcar">
-          <button type="button" class="howcar-arrow prev" aria-label="Previous step">&#8249;</button>
-          <div class="howcar-viewport">
-            <div class="howcar-track">
-              <article class="howcar-card"><span class="howcar-hex">01</span><div class="howcar-step">Step 01 of 05</div><h3>Browse</h3><p>Browse verified Professional Players.</p></article>
-              <article class="howcar-card"><span class="howcar-hex">02</span><div class="howcar-step">Step 02 of 05</div><h3>Review</h3><p>Review profiles, experience and service requirements.</p></article>
-              <article class="howcar-card"><span class="howcar-hex">03</span><div class="howcar-step">Step 03 of 05</div><h3>Request</h3><p>Submit a service request.</p></article>
-              <article class="howcar-card"><span class="howcar-hex">04</span><div class="howcar-step">Step 04 of 05</div><h3>Accept</h3><p>The player reviews and accepts the request.</p></article>
-              <article class="howcar-card"><span class="howcar-hex">05</span><div class="howcar-step">Step 05 of 05</div><h3>Begin</h3><p>Service begins on mutually agreed terms.</p></article>
-            </div>
-          </div>
-          <button type="button" class="howcar-arrow next" aria-label="Next step">&#8250;</button>
-        </div>
-        <div class="howcar-dots" id="howcar-dots">
-          <button type="button" class="howcar-dot active" aria-label="Go to step 1"></button>
-          <button type="button" class="howcar-dot" aria-label="Go to step 2"></button>
-          <button type="button" class="howcar-dot" aria-label="Go to step 3"></button>
-          <button type="button" class="howcar-dot" aria-label="Go to step 4"></button>
-          <button type="button" class="howcar-dot" aria-label="Go to step 5"></button>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- BROWSE -->
-  <section class="dark" id="browse">
+  <section id="browse">
     <div class="container">
       <div class="section-head">
         <span class="section-tag">Browse players</span>
@@ -415,6 +389,38 @@
     </div>
   </section>
 
+  <!-- HOW IT WORKS -->
+  <section class="dark">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">How it works</span>
+        <h2>From browse to <span class="gradient-text">service</span>, in five steps.</h2>
+      </div>
+      <div class="howcar-wrap">
+        <div class="howcar" id="howcar">
+          <button type="button" class="howcar-arrow prev" aria-label="Previous step">&#8249;</button>
+          <div class="howcar-viewport">
+            <div class="howcar-track">
+              <article class="howcar-card"><span class="howcar-hex">01</span><div class="howcar-step">Step 01 of 05</div><h3>Browse</h3><p>Browse verified Professional Players.</p></article>
+              <article class="howcar-card"><span class="howcar-hex">02</span><div class="howcar-step">Step 02 of 05</div><h3>Review</h3><p>Review profiles, experience and service requirements.</p></article>
+              <article class="howcar-card"><span class="howcar-hex">03</span><div class="howcar-step">Step 03 of 05</div><h3>Request</h3><p>Submit a service request.</p></article>
+              <article class="howcar-card"><span class="howcar-hex">04</span><div class="howcar-step">Step 04 of 05</div><h3>Accept</h3><p>The player reviews and accepts the request.</p></article>
+              <article class="howcar-card"><span class="howcar-hex">05</span><div class="howcar-step">Step 05 of 05</div><h3>Begin</h3><p>Service begins on mutually agreed terms.</p></article>
+            </div>
+          </div>
+          <button type="button" class="howcar-arrow next" aria-label="Next step">&#8250;</button>
+        </div>
+        <div class="howcar-dots" id="howcar-dots">
+          <button type="button" class="howcar-dot active" aria-label="Go to step 1"></button>
+          <button type="button" class="howcar-dot" aria-label="Go to step 2"></button>
+          <button type="button" class="howcar-dot" aria-label="Go to step 3"></button>
+          <button type="button" class="howcar-dot" aria-label="Go to step 4"></button>
+          <button type="button" class="howcar-dot" aria-label="Go to step 5"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- TRUST & VERIFICATION -->
   <section>
     <div class="container">
@@ -475,7 +481,7 @@
     <div class="footer-bottom">&copy; 2026 Tycoon Club &middot; A global membership ecosystem</div>
   </footer>
 
-  <script src="assets/script.js"></script>
+  <script src="assets/script.js?v=3"></script>
   <script>
     (function () {
       var car = document.getElementById('howcar');

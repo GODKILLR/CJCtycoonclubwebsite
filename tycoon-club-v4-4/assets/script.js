@@ -14,6 +14,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const href = a.getAttribute("href");
     if (href === path) a.classList.add("active");
   });
+  // Keep the "Professional Player Program" menu highlighted across its sub-pages
+  const programPages = ["professional-players.html", "become-a-professional-player.html", "find-a-professional-player.html"];
+  if (programPages.includes(path)) {
+    const toggle = document.querySelector(".nav-dd-toggle");
+    if (toggle) toggle.classList.add("active");
+  }
+
+  // Nav dropdown: open on hover/focus with a small close delay so moving the
+  // pointer across the gap to the menu doesn't drop it (more reliable than CSS :hover).
+  document.querySelectorAll(".nav-dd").forEach((dd) => {
+    let closeTimer;
+    const open = () => { clearTimeout(closeTimer); dd.classList.add("open"); };
+    const close = () => { closeTimer = setTimeout(() => dd.classList.remove("open"), 180); };
+    dd.addEventListener("mouseenter", open);
+    dd.addEventListener("mouseleave", close);
+    dd.addEventListener("focusin", open);
+    dd.addEventListener("focusout", close);
+  });
 
   // Access form — reveal info packet only after all acknowledgments pass
   const form = document.getElementById("access-form");

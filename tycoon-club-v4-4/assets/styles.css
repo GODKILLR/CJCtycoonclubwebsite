@@ -155,6 +155,17 @@ p { margin: 0 0 1em; color: var(--text-soft); font-size: 1rem; line-height: 1.65
 }
 .nav-links a:hover, .nav-links a.active { color: var(--cyan); }
 
+/* Nav dropdown — Professional Player Program */
+.nav-dd { position: relative; display: inline-flex; align-items: center; }
+.nav-dd-toggle { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.nav-dd-toggle::after { content: ''; width: 6px; height: 6px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translateY(-2px); opacity: 0.6; transition: transform 0.2s ease, opacity 0.2s ease; }
+.nav-dd:hover .nav-dd-toggle::after, .nav-dd:focus-within .nav-dd-toggle::after, .nav-dd.open .nav-dd-toggle::after { transform: rotate(225deg) translateY(0); opacity: 1; }
+.nav-dd-menu { position: absolute; top: 100%; left: -8px; margin-top: 12px; min-width: 256px; background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 14px; padding: 8px; box-shadow: 0 26px 54px -22px rgba(0, 0, 0, 0.7); display: flex; flex-direction: column; gap: 2px; opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s; z-index: 200; }
+.nav-dd-menu::before { content: ''; position: absolute; top: -14px; left: 0; right: 0; height: 14px; }
+.nav-dd:hover .nav-dd-menu, .nav-dd:focus-within .nav-dd-menu, .nav-dd.open .nav-dd-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.nav-dd-menu a { display: block; padding: 11px 14px; border-radius: 9px; font-size: 0.92rem; font-weight: 500; color: var(--text-soft); white-space: nowrap; }
+.nav-dd-menu a:hover { background: rgba(244, 196, 48, 0.08); color: var(--cyan); }
+
 .nav-cta {
   display: inline-flex;
   align-items: center;
@@ -759,6 +770,11 @@ footer::before {
   .nav-links.is-open { display: flex; }
   .nav-links a { padding: 14px 0; border-bottom: 1px solid var(--border); }
   .nav-links a:last-child { border-bottom: 0; }
+  .nav-dd { flex-direction: column; align-items: stretch; width: 100%; }
+  .nav-dd-toggle::after { display: none; }
+  .nav-dd-menu { position: static; opacity: 1; visibility: visible; transform: none; margin: 0; padding: 0 0 0 16px; min-width: 0; background: transparent; border: 0; box-shadow: none; }
+  .nav-dd-menu::before { display: none; }
+  .nav-dd-menu a { font-size: 0.88rem; color: var(--text-muted); }
   .mobile-toggle { display: inline-flex; }
   .nav-cta { display: none; }
   section { padding: 64px 0; }
