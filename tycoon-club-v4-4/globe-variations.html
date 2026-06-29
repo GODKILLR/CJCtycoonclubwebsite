@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Globe variations — Tycoon Club</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg: #14100B; --card: #1C1710; --gold: #F4C430; --text: #F6F1E7; --muted: rgba(246,241,231,0.55); }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; padding: 40px 24px 80px; }
+    h1 { font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; text-align: center; margin-bottom: 6px; }
+    .sub { text-align: center; color: var(--muted); margin-bottom: 40px; font-size: 0.95rem; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; max-width: 1100px; margin: 0 auto; }
+    @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+    .card { background: var(--card); border: 1px solid rgba(244,196,48,0.18); border-radius: 20px; padding: 24px; }
+    .tag { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+    .card h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; margin: 6px 0 4px; }
+    .card p { color: var(--muted); font-size: 0.85rem; margin-bottom: 16px; }
+    .mount { position: relative; width: 100%; max-width: 440px; margin: 0 auto; }
+    /* globe primitives */
+    .gl-stage { position: relative; width: 100%; aspect-ratio: 1/1; }
+    .gl-halo { position: absolute; left: 50%; top: 50%; width: 96%; height: 96%; transform: translate(-50%,-50%); border-radius: 50%; filter: blur(6px); animation: ghalo 7s ease-in-out infinite; pointer-events: none; }
+    .gl-sphere { position: absolute; inset: 10%; border-radius: 50%; box-shadow: inset -22px -28px 64px rgba(0,0,0,.6), inset 20px 18px 54px rgba(245,215,150,.14), 0 0 60px rgba(244,196,48,.18); }
+    .gl-canvas, .gl-pins { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .gl-pins { overflow: visible; }
+    @keyframes ghalo { 0%,100% { opacity: .5; transform: translate(-50%,-50%) scale(1); } 50% { opacity: .85; transform: translate(-50%,-50%) scale(1.08); } }
+    @media (prefers-reduced-motion: reduce) { .gl-halo { animation: none; } }
+    .use-btn { display: block; text-align: center; margin: 18px auto 0; max-width: 440px; padding: 12px 18px; border-radius: 999px; background: linear-gradient(135deg, #F4C430, #C8742E); color: #14100B; font-weight: 700; text-decoration: none; font-family: "Space Grotesk", sans-serif; }
+    .use-btn:hover { filter: brightness(1.08); }
+  </style>
+</head>
+<body>
+  <h1>Globe variations</h1>
+  <p class="sub">Brown sphere &middot; black continents &middot; crowded member network. Tell me which number you want on the home page (or mix-and-match settings).</p>
+
+  <!-- shared circular clip for member photos -->
+  <svg width="0" height="0" style="position:absolute"><defs><clipPath id="glpinclip"><circle cx="0" cy="0" r="12"/></clipPath></defs></svg>
+
+  <div class="grid">
+    <div class="card">
+      <span class="tag">Variation 1</span>
+      <h2>Golden brown &middot; black map</h2>
+      <p>Warm brown sphere, solid black continents, ~30 faces. The literal request.</p>
+      <div class="mount" id="m1"></div>
+      <a class="use-btn" href="logo-picker.html?g=1">Choose this globe &rarr;</a>
+    </div>
+    <div class="card">
+      <span class="tag">Variation 2</span>
+      <h2>Espresso &middot; black map</h2>
+      <p>Deeper coffee-brown sphere, near-black land, brighter gold rim. More premium / subtle.</p>
+      <div class="mount" id="m2"></div>
+      <a class="use-btn" href="logo-picker.html?g=2">Choose this globe &rarr;</a>
+    </div>
+    <div class="card">
+      <span class="tag">Variation 3</span>
+      <h2>Brown &middot; black map &middot; network links</h2>
+      <p>Same brown, plus faint gold lines connecting nearby members &mdash; reads as a network.</p>
+      <div class="mount" id="m3"></div>
+      <a class="use-btn" href="logo-picker.html?g=3">Choose this globe &rarr;</a>
+    </div>
+    <div class="card">
+      <span class="tag">Variation 4</span>
+      <h2>Bronze &middot; dense crowd</h2>
+      <p>Reddish bronze sphere, ~42 faces &mdash; the most crowded / populated look.</p>
+      <div class="mount" id="m4"></div>
+      <a class="use-btn" href="logo-picker.html?g=4">Choose this globe &rarr;</a>
+    </div>
+  </div>
+
+  <script src="assets/globe-lab.js"></script>
+  <script>
+    makeGlobe(document.getElementById('m1'), {
+      sphere: 'radial-gradient(circle at 36% 30%, #8a5a26 0%, #6b431c 38%, #46290f 72%, #2a1809 100%)',
+      land: [12, 9, 6], pinCount: 30, speed: 0.8
+    });
+    makeGlobe(document.getElementById('m2'), {
+      sphere: 'radial-gradient(circle at 36% 30%, #6e4a24 0%, #4d3216 40%, #30200d 74%, #1c1206 100%)',
+      land: [7, 7, 7], rim: 'rgba(255,224,150,0.95)', rimGlow: 'rgba(244,196,48,0.75)',
+      grat: 'rgba(244,210,150,0.13)', pinCount: 30, speed: 0.75
+    });
+    makeGlobe(document.getElementById('m3'), {
+      sphere: 'radial-gradient(circle at 36% 30%, #8a5a26 0%, #6b431c 38%, #46290f 72%, #2a1809 100%)',
+      land: [12, 9, 6], pinCount: 32, links: true, linkDeg: 30, linkColor: 'rgba(244,196,48,0.18)', speed: 0.8
+    });
+    makeGlobe(document.getElementById('m4'), {
+      sphere: 'radial-gradient(circle at 36% 30%, #9a5a2a 0%, #743c18 40%, #4a2510 74%, #2a1408 100%)',
+      land: [14, 10, 7], pinCount: 42, speed: 0.85
+    });
+  </script>
+</body>
+</html>

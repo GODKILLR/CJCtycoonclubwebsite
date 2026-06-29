@@ -799,3 +799,8 @@ footer::before {
 .pbg-blob.c { width: 38vmax; height: 38vmax; bottom: -14%; left: 22%; background: radial-gradient(circle, rgba(200,116,46,0.14), transparent 65%); }
 .hex-orb, .hub-halo, [data-parallax] { will-change: translate; }
 @media (prefers-reduced-motion: reduce) { .parallax-bg { display: none; } }
+
+
+/* Brand logo (logo picker) */
+.brand-logo { height: 44px; width: auto; display: block; }
+@media (max-width: 820px) { .brand-logo { height: 38px; } }

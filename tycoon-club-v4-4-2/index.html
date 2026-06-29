@@ -14,12 +14,12 @@
     /* Split hero with community network */
     .hero-split .container { position: relative; z-index: 2; }
     .hero-split .split-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; }
-    @media (max-width: 900px) { .hero-split .split-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; } .hero-split .hero-actions { justify-content: center; } .net-wrap { order: -1; max-width: 420px; margin: 0 auto; } }
+    @media (max-width: 900px) { .hero-split .split-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; } .hero-split .hero-actions { justify-content: center; } .net-wrap { order: -1; max-width: 460px; margin: 0 auto; } }
     .hero-split h1 { font-size: clamp(2.4rem, 5.5vw, 4rem); }
     .hero-split .lead { max-width: 540px; }
 
     /* Community network — neon hub (from Network Hub Animation) */
-    .net-wrap { position: relative; width: 100%; max-width: 540px; margin: 0 auto; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; }
+    .net-wrap { position: relative; width: 100%; max-width: 600px; margin: 0 auto; }
     .hub-halo { position: absolute; left: 50%; top: 50%; width: 92%; height: 92%; transform: translate(-50%,-50%); border-radius: 50%; background: radial-gradient(circle, rgba(244,196,48,0.22) 0%, rgba(217,145,63,0.10) 40%, transparent 70%); filter: blur(8px); animation: halo 6s ease-in-out infinite; pointer-events: none; }
     .hub-svg { position: relative; width: 100%; height: 100%; }
     @keyframes hubdraw   { from { stroke-dashoffset: 210; opacity: 0; } 35% { opacity: 1; } to { stroke-dashoffset: 0; opacity: .5; } }
@@ -69,15 +69,15 @@
       .lb-head span:nth-child(3), .lb-row .lb-net { display: none; }
       .lb-name small { font-size: 0.6rem; }
     }
-    /* Revolving globe (home hero) */
-    .globe-stage { position: absolute; inset: 0; }
-    .globe-halo { position: absolute; left: 50%; top: 50%; width: 96%; height: 96%; transform: translate(-50%,-50%); border-radius: 50%; background: radial-gradient(circle, rgba(244,196,48,0.16) 0%, rgba(217,145,63,0.07) 42%, transparent 70%); filter: blur(6px); animation: ghalo 7s ease-in-out infinite; pointer-events: none; }
-    .globe-sphere { position: absolute; inset: 10%; border-radius: 50%; background: radial-gradient(circle at 36% 30%, #C8923A 0%, #9a6a26 38%, #5e3f15 72%, #34230f 100%); box-shadow: inset -22px -28px 64px rgba(0,0,0,.55), inset 20px 18px 54px rgba(245,215,150,.22), 0 0 64px rgba(244,196,48,.20); }
-    .globe-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .globe-pins { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-    @keyframes ghalo { 0%,100% { opacity: .5; transform: translate(-50%,-50%) scale(1); } 50% { opacity: .8; transform: translate(-50%,-50%) scale(1.08); } }
-    @keyframes gshine { 0% { transform: scale(.55); opacity: .85; } 100% { transform: scale(2.1); opacity: 0; } }
-    @media (prefers-reduced-motion: reduce) { .globe-pins .ring, .globe-halo { animation: none; } }
+        /* Revolving globe (home hero) */
+    .globe-mount { position: relative; width: 100%; }
+    .gl-stage { position: relative; width: 100%; aspect-ratio: 1/1; }
+    .gl-halo { position: absolute; left: 50%; top: 50%; width: 96%; height: 96%; transform: translate(-50%,-50%); border-radius: 50%; filter: blur(6px); animation: ghalo 7s ease-in-out infinite; pointer-events: none; }
+    .gl-sphere { position: absolute; inset: 10%; border-radius: 50%; box-shadow: inset -22px -28px 64px rgba(0,0,0,.6), inset 20px 18px 54px rgba(245,215,150,.14), 0 0 60px rgba(244,196,48,.18); }
+    .gl-canvas, .gl-pins { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .gl-pins { overflow: visible; }
+    @keyframes ghalo { 0%,100% { opacity: .5; transform: translate(-50%,-50%) scale(1); } 50% { opacity: .85; transform: translate(-50%,-50%) scale(1.08); } }
+    @media (prefers-reduced-motion: reduce) { .gl-halo { animation: none; } }
   </style>
 </head>
 <body>
@@ -121,19 +121,8 @@
 
         <!-- Community network graphic -->
         <div class="net-wrap" aria-hidden="true">
-        <div class="globe-stage">
-          <div class="globe-halo"></div>
-          <div class="globe-sphere"></div>
-          <canvas id="globe-canvas" class="globe-canvas"></canvas>
-          <svg id="globe-pins" class="globe-pins" viewBox="0 0 600 600" role="img" aria-label="A revolving globe with members connected worldwide.">
-            <defs>
-              <symbol id="gperson" viewBox="0 0 24 24">
-                <circle cx="12" cy="9" r="3.5" fill="none" stroke="currentColor" stroke-width="1.9"/>
-                <path d="M5.4 19.2 a6.6 6.6 0 0 1 13.2 0" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
-              </symbol>
-            </defs>
-          </svg>
-        </div>
+        <div id="globe-mount" class="globe-mount"></div>
+        <svg width="0" height="0" style="position:absolute"><defs><clipPath id="glpinclip"><circle cx="0" cy="0" r="12"/></clipPath></defs></svg>
       </div>
       </div>
     </div>
@@ -339,6 +328,16 @@
   </footer>
 
   <script src="assets/script.js?v=3"></script>
-  <script src="assets/globe.js?v=1"></script>
+  <script src="assets/globe-lab.js?v=2"></script>
+  <script>
+    (function(){
+      var S={1:'radial-gradient(circle at 36% 30%, #8a5a26 0%, #6b431c 38%, #46290f 72%, #2a1809 100%)',2:'radial-gradient(circle at 36% 30%, #6e4a24 0%, #4d3216 40%, #30200d 74%, #1c1206 100%)',3:'radial-gradient(circle at 36% 30%, #8a5a26 0%, #6b431c 38%, #46290f 72%, #2a1809 100%)',4:'radial-gradient(circle at 36% 30%, #9a5a2a 0%, #743c18 40%, #4a2510 74%, #2a1408 100%)'};
+      var C={1:{land:[12,9,6],pinCount:30,speed:0.8},2:{land:[7,7,7],rim:'rgba(255,224,150,0.95)',rimGlow:'rgba(244,196,48,0.75)',grat:'rgba(244,210,150,0.13)',pinCount:30,speed:0.75},3:{land:[12,9,6],pinCount:32,links:true,linkDeg:30,linkColor:'rgba(244,196,48,0.18)',speed:0.8},4:{land:[14,10,7],pinCount:42,speed:0.85}};
+      var g=(new URLSearchParams(location.search).get('g'))||'1'; if(!C[g])g='1';
+      var cfg=C[g]; cfg.sphere=S[g];
+      var m=document.getElementById('globe-mount');
+      if(m&&window.makeGlobe) makeGlobe(m,cfg);
+    })();
+  </script>
 </body>
 </html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Choose your logo — Tycoon Club</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg: #14100B; --card: #1C1710; --gold: #F4C430; --text: #F6F1E7; --muted: rgba(246,241,231,0.55); }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; padding: 40px 24px 80px; }
+    h1 { font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; text-align: center; margin-bottom: 6px; }
+    .sub { text-align: center; color: var(--muted); margin-bottom: 12px; font-size: 0.95rem; }
+    .back { display: block; text-align: center; color: var(--gold); text-decoration: none; font-size: 0.85rem; margin-bottom: 36px; }
+    .back:hover { text-decoration: underline; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; max-width: 920px; margin: 0 auto; }
+    @media (max-width: 680px) { .grid { grid-template-columns: 1fr; } }
+    .card { background: var(--card); border: 1px solid rgba(244,196,48,0.18); border-radius: 20px; padding: 24px; text-align: center; transition: border-color .2s ease, transform .2s ease; }
+    .card:hover { border-color: rgba(244,196,48,0.5); transform: translateY(-3px); }
+    .tag { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+    .card h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 6px 0 18px; font-weight: 600; }
+    .logo-tile { background: radial-gradient(circle at 50% 40%, #20190f, #14100B); border: 1px solid rgba(244,196,48,0.12); border-radius: 14px; height: 150px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+    .logo-tile img { max-height: 84px; max-width: 78%; }
+    .use-btn { display: inline-block; padding: 12px 26px; border-radius: 999px; background: linear-gradient(135deg, #F4C430, #C8742E); color: #14100B; font-weight: 700; text-decoration: none; font-family: 'Space Grotesk', sans-serif; }
+    .use-btn:hover { filter: brightness(1.08); }
+  </style>
+</head>
+<body>
+  <h1>Choose your logo</h1>
+  <p class="sub">Pick the brand mark for your Tycoon&nbsp;Club site. Your globe choice is carried through.</p>
+  <a class="back" id="back" href="globe-variations.html">&larr; Back to globe options</a>
+
+  <div class="grid">
+    <div class="card">
+      <span class="tag">Logo 1</span>
+      <h2>Peaks</h2>
+      <div class="logo-tile"><img src="assets/logo1.png" alt="Logo 1" /></div>
+      <a class="use-btn" data-logo="1" href="#">Use this logo &rarr;</a>
+    </div>
+    <div class="card">
+      <span class="tag">Logo 2</span>
+      <h2>Skyline</h2>
+      <div class="logo-tile"><img src="assets/logo2.png" alt="Logo 2" /></div>
+      <a class="use-btn" data-logo="2" href="#">Use this logo &rarr;</a>
+    </div>
+    <div class="card">
+      <span class="tag">Logo 3</span>
+      <h2>TC Monogram</h2>
+      <div class="logo-tile"><img src="assets/logo3.png" alt="Logo 3" /></div>
+      <a class="use-btn" data-logo="3" href="#">Use this logo &rarr;</a>
+    </div>
+    <div class="card">
+      <span class="tag">Logo 4</span>
+      <h2>Summit</h2>
+      <div class="logo-tile"><img src="assets/logo4.png" alt="Logo 4" /></div>
+      <a class="use-btn" data-logo="4" href="#">Use this logo &rarr;</a>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var g = new URLSearchParams(location.search).get('g') || '1';
+      if (!/^[1-4]$/.test(g)) g = '1';
+      document.getElementById('back').href = 'globe-variations.html';
+      document.querySelectorAll('.use-btn').forEach(function (a) {
+        a.href = 'index.html?g=' + g + '&logo=' + a.getAttribute('data-logo');
+      });
+    })();
+  </script>
+</body>
+</html>

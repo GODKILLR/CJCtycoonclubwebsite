@@ -135,3 +135,15 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", onScroll);
   update();
 });
+
+// Logo variant: swap the brand mark to the chosen logo (?logo=1..4, remembered)
+(function () {
+  var p = new URLSearchParams(location.search), logo = p.get('logo');
+  if (logo) { try { localStorage.setItem('tc_logo', logo); } catch (e) {} }
+  else { try { logo = localStorage.getItem('tc_logo'); } catch (e) {} }
+  if (!logo || !/^[1-4]$/.test(logo)) return;
+  var src = 'assets/logo' + logo + '.png';
+  document.querySelectorAll('.brand').forEach(function (b) {
+    b.innerHTML = '<img class="brand-logo" src="' + src + '" alt="Tycoon Club" />';
+  });
+})();
