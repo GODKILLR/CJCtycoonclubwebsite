@@ -167,7 +167,7 @@
       }
 
       if (links.length) {
-        ctx.lineWidth = 0.8; ctx.strokeStyle = cfg.linkColor || 'rgba(244,196,48,0.16)'; ctx.beginPath();
+        ctx.lineWidth = cfg.linkWidth || 0.8; ctx.strokeStyle = cfg.linkColor || 'rgba(244,196,48,0.16)'; ctx.beginPath();
         for (var L = 0; L < links.length; L++) {
           var pa = pts[links[L][0]], pb = pts[links[L][1]];
           if (pa.Z > 0.06 && pb.Z > 0.06) { ctx.moveTo(pa.sx, pa.sy); ctx.lineTo(pb.sx, pb.sy); }

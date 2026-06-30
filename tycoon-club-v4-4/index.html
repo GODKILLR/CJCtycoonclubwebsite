@@ -328,11 +328,11 @@
   </footer>
 
   <script src="assets/script.js?v=4"></script>
-  <script src="assets/globe-lab.js?v=2"></script>
+  <script src="assets/globe-lab.js?v=3"></script>
   <script>
     (function(){
       var S={1:'radial-gradient(circle at 36% 30%, #8a5a26 0%, #6b431c 38%, #46290f 72%, #2a1809 100%)',2:'radial-gradient(circle at 36% 30%, #6e4a24 0%, #4d3216 40%, #30200d 74%, #1c1206 100%)',3:'radial-gradient(circle at 36% 30%, #8a5a26 0%, #6b431c 38%, #46290f 72%, #2a1809 100%)',4:'radial-gradient(circle at 36% 30%, #9a5a2a 0%, #743c18 40%, #4a2510 74%, #2a1408 100%)'};
-      var C={1:{land:[12,9,6],pinCount:30,speed:0.8},2:{land:[7,7,7],rim:'rgba(255,224,150,0.95)',rimGlow:'rgba(244,196,48,0.75)',grat:'rgba(244,210,150,0.13)',pinCount:30,speed:0.75},3:{land:[12,9,6],pinCount:32,links:true,linkDeg:30,linkColor:'rgba(244,196,48,0.18)',speed:0.8},4:{land:[14,10,7],pinCount:42,speed:0.85}};
+      var C={1:{land:[12,9,6],pinCount:30,speed:0.8,links:true,linkDeg:32,linkColor:'rgba(244,196,48,0.34)',linkWidth:1.15},2:{land:[7,7,7],rim:'rgba(255,224,150,0.95)',rimGlow:'rgba(244,196,48,0.75)',grat:'rgba(244,210,150,0.13)',pinCount:30,speed:0.75},3:{land:[12,9,6],pinCount:32,links:true,linkDeg:30,linkColor:'rgba(244,196,48,0.18)',speed:0.8},4:{land:[14,10,7],pinCount:42,speed:0.85}};
       var qp=new URLSearchParams(location.search); var g=qp.get('g'); if(g){try{localStorage.setItem('tc_globe',g);}catch(e){}} else {try{g=localStorage.getItem('tc_globe');}catch(e){}} if(!g||!C[g])g='1';
       var cfg=C[g]; cfg.sphere=S[g];
       var m=document.getElementById('globe-mount');
