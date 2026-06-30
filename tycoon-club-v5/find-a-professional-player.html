@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script>document.documentElement.className += " js-anim";</script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Find a Professional Player — Tycoon Club</title>
+  <meta name="description" content="Browse verified Tycoon Club Professional Players. Compare experience and terms, and request the player that fits your needs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css?v=4" />
+  <style>
+    .hero-centered .container { text-align: center; position: relative; z-index: 2; }
+    .hero-centered h1 { max-width: 900px; margin-left: auto; margin-right: auto; }
+    .hero-centered p.lead { max-width: 680px; margin: 24px auto 32px; text-align: center; }
+    .hero-centered .hero-actions { justify-content: center; }
+    .crumb { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 22px; }
+    .crumb a { color: var(--cyan); }
+    /* Search-first hero */
+    .hero-search { display: flex; align-items: center; gap: 8px; max-width: 620px; margin: 4px auto 18px; background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 999px; padding: 7px 7px 7px 18px; box-shadow: 0 16px 40px -22px rgba(244,196,48,0.4); }
+    .hero-search:focus-within { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(244,196,48,0.16), 0 16px 40px -22px rgba(244,196,48,0.4); }
+    .hs-ico { display: flex; color: var(--text-muted); }
+    .hs-ico svg { width: 18px; height: 18px; }
+    .hero-search input { flex: 1; min-width: 0; background: none; border: 0; outline: none; color: var(--text); font-family: var(--body); font-size: 0.98rem; padding: 8px 4px; }
+    .hero-search input::placeholder { color: var(--text-muted); }
+    .hero-search input::-webkit-search-cancel-button { -webkit-appearance: none; }
+    .hs-btn { flex-shrink: 0; border-radius: 999px; padding: 11px 22px; }
+    .trending { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 14px; margin-bottom: 4px; }
+    .trending-label { font-weight: 600; color: var(--text-soft); font-size: 0.9rem; }
+    .trend { background: none; border: 0; color: var(--text-muted); font-family: inherit; font-size: 0.9rem; cursor: pointer; padding: 4px 2px; transition: color .15s ease; }
+    .trend:hover { color: var(--cyan); }
+    .search-empty { text-align: center; color: var(--text-muted); max-width: 460px; margin: 8px auto 0; display: none; }
+
+    .filter-bar { display: flex; align-items: center; gap: 16px; max-width: 1000px; margin: 0 auto 18px; flex-wrap: wrap; }
+    .filter-btn { display: inline-flex; align-items: center; gap: 9px; background: var(--bg-card); border: 1px solid var(--border-strong); color: var(--text); border-radius: 999px; padding: 10px 20px; font-weight: 600; font-size: 0.9rem; font-family: inherit; cursor: pointer; transition: border-color .2s ease, background .2s ease; }
+    .filter-btn:hover { border-color: var(--cyan); background: rgba(244,196,48,0.05); }
+    .filter-btn svg { width: 16px; height: 16px; }
+    .filter-menu-wrap { position: relative; }
+    .filter-menu { position: absolute; top: calc(100% + 10px); left: 0; z-index: 50; width: 330px; max-width: 86vw; max-height: 62vh; overflow-y: auto; background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 16px; padding: 18px 18px 6px; box-shadow: 0 26px 54px -22px rgba(0,0,0,0.7); display: none; gap: 16px; }
+    .filter-menu.open { display: grid; }
+    .fm-group h6 { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 10px; }
+    .fm-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+    .fm-opts button { background: var(--bg); border: 1px solid var(--border); color: var(--text-soft); border-radius: 999px; padding: 7px 14px; font-size: 0.82rem; font-family: inherit; cursor: pointer; transition: border-color .15s ease, color .15s ease, background .15s ease; }
+    .fm-opts button:hover { border-color: var(--cyan); color: var(--text); }
+    .fm-opts button.active { background: var(--grad); border-color: transparent; color: var(--bg); font-weight: 600; }
+    .filter-clear { background: none; border: 0; color: var(--cyan); font-weight: 600; font-size: 0.9rem; font-family: inherit; cursor: pointer; padding: 6px 2px; }
+    .filter-clear:hover { color: var(--cyan-bright); text-decoration: underline; }
+    .filter-sort { margin-left: auto; position: relative; }
+    .filter-sort select { appearance: none; -webkit-appearance: none; background-color: var(--bg-card); border: 1px solid var(--border-strong); color: var(--text); border-radius: 999px; padding: 10px 40px 10px 20px; font-size: 0.9rem; font-family: inherit; cursor: pointer; outline: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%23F4C430" stroke-width="3" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>'); background-repeat: no-repeat; background-position: right 16px center; }
+    .filter-sort select:hover { border-color: var(--cyan); }
+    .filter-chips { display: flex; flex-wrap: wrap; gap: 10px; max-width: 1000px; margin: 0 auto 40px; }
+    .chip { display: inline-flex; align-items: center; gap: 9px; background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text); border-radius: 999px; padding: 7px 7px 7px 16px; font-size: 0.86rem; font-weight: 500; }
+    .chip button { width: 19px; height: 19px; border-radius: 50%; border: 0; background: rgba(255,255,255,0.12); color: var(--text); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 0.82rem; line-height: 1; padding: 0; transition: background .18s ease, color .18s ease; }
+    .chip button:hover { background: var(--cyan); color: var(--bg); }
+    .grid-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; max-width: 1180px; margin: 0 auto; }
+    @media (max-width: 1080px) { .grid-cards { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .grid-cards { grid-template-columns: 1fr; } }
+    .player-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: var(--radius-lg); padding: 0; position: relative; overflow: hidden; transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+    .player-card:hover { transform: translateY(-4px); border-color: rgba(244,196,48,0.45); box-shadow: 0 22px 48px -26px rgba(244,196,48,0.32); }
+    /* visual cover */
+    .player-cover { position: relative; height: 132px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .player-cover.cov1 { background: linear-gradient(135deg, rgba(244,196,48,0.16), rgba(217,145,63,0.22)), radial-gradient(120% 120% at 30% 18%, rgba(244,196,48,0.30), transparent 60%); }
+    .player-cover.cov2 { background: linear-gradient(135deg, rgba(217,145,63,0.16), rgba(200,116,46,0.22)), radial-gradient(120% 120% at 70% 18%, rgba(217,145,63,0.32), transparent 60%); }
+    .player-cover.cov3 { background: linear-gradient(135deg, rgba(244,196,48,0.16), rgba(200,116,46,0.22)), radial-gradient(120% 120% at 50% 18%, rgba(200,116,46,0.26), transparent 60%); }
+    .player-cover.cov4 { background: linear-gradient(135deg, rgba(232,184,92,0.16), rgba(217,145,63,0.22)), radial-gradient(120% 120% at 40% 18%, rgba(232,184,92,0.30), transparent 60%); }
+    .player-cover::after { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.10) 1px, transparent 1px); background-size: 16px 16px; opacity: .5; }
+    .cover-art { position: relative; z-index: 1; width: 76px; height: 76px; background: var(--grad); clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%); display: flex; align-items: center; justify-content: center; color: var(--bg); font-family: var(--display); font-weight: 800; font-size: 1.5rem; box-shadow: 0 8px 24px -6px rgba(244,196,48,0.5); }
+    .cover-badge { position: absolute; top: 12px; left: 12px; z-index: 2; font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); background: rgba(20,16,11,0.7); border: 1px solid rgba(244,196,48,0.3); border-radius: 999px; padding: 5px 10px; }
+    .fav { position: absolute; top: 10px; right: 10px; z-index: 2; width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.18); background: rgba(20,16,11,0.6); color: #fff; cursor: pointer; font-size: 1rem; line-height: 1; display: flex; align-items: center; justify-content: center; transition: background .2s ease, color .2s ease, transform .2s ease, border-color .2s ease; }
+    .fav:hover { transform: scale(1.1); border-color: #C8742E; }
+    .fav.on { color: #C8742E; border-color: #C8742E; }
+    .player-body { padding: 20px 22px 22px; }
+    .player-title { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+    .player-title h3 { font-size: 1.18rem; margin: 0; }
+    .player-title .rating { font-size: 0.86rem; color: var(--text-soft); white-space: nowrap; }
+    .player-sub { font-size: 0.82rem; color: var(--text-muted); margin: 4px 0 16px; }
+    .player-head { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+    .player-avatar { width: 56px; height: 56px; flex-shrink: 0; background: var(--grad); clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%); display: flex; align-items: center; justify-content: center; color: var(--bg); font-family: var(--display); font-weight: 800; font-size: 1.1rem; }
+    .player-head h3 { font-size: 1.2rem; margin-bottom: 2px; }
+    .player-verified { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); }
+    .player-stats { margin-bottom: 20px; }
+    .player-stats .row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed var(--border); font-size: 0.88rem; }
+    .player-stats .row:last-child { border-bottom: none; }
+    .player-stats .row .k { color: var(--text-muted); }
+    .player-stats .row .v { color: var(--text); font-weight: 500; }
+    .player-stats .row .v.cyan { color: var(--cyan); }
+    .player-actions { display: flex; gap: 10px; }
+    .player-actions .btn { flex: 1; justify-content: center; padding: 11px 14px; }
+    .pstatus { text-align: center; margin: 14px 0 0; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); }
+
+    .full-disclaimer { max-width: 980px; margin: 0 auto; padding: 28px 0 0; border-top: 1px solid var(--border); font-size: 0.84rem; line-height: 1.7; color: var(--text-muted); }
+    .full-disclaimer strong { color: var(--text); font-weight: 500; }
+    .cross { text-align: center; }
+
+    /* How it works — carousel */
+    .howcar-wrap { max-width: 760px; margin: 8px auto 0; }
+    .howcar { position: relative; display: flex; align-items: center; gap: 14px; }
+    .howcar-viewport { overflow: hidden; flex: 1; border-radius: var(--radius-lg); }
+    .howcar-track { display: flex; transition: transform 0.5s cubic-bezier(.4,0,.2,1); }
+    .howcar-card { flex: 0 0 100%; box-sizing: border-box; background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: var(--radius-lg); padding: 52px 44px; text-align: center; position: relative; overflow: hidden; min-height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .howcar-card::before { content: ''; position: absolute; top: 0; left: 24px; right: 24px; height: 2px; background: var(--grad); }
+    .howcar-hex { width: 88px; height: 88px; background: var(--grad); clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%); display: flex; align-items: center; justify-content: center; color: var(--bg); font-family: var(--display); font-weight: 800; font-size: 1.9rem; margin-bottom: 22px; }
+    .howcar-step { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); margin-bottom: 12px; }
+    .howcar-card h3 { font-size: 1.8rem; margin-bottom: 12px; color: var(--text); }
+    .howcar-card p { color: var(--text-muted); max-width: 420px; font-size: 1.02rem; margin: 0; }
+    .howcar-arrow { flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--border-strong); background: var(--bg-card); color: var(--text); font-size: 1.6rem; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color .2s ease, background .2s ease, color .2s ease; }
+    .howcar-arrow:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(244,196,48,0.06); }
+    .howcar-dots { display: flex; justify-content: center; gap: 10px; margin-top: 24px; }
+    .howcar-dot { width: 9px; height: 9px; border-radius: 50%; border: 0; padding: 0; background: var(--border-strong); cursor: pointer; transition: background .2s ease, transform .2s ease; }
+    .howcar-dot.active { background: var(--cyan); transform: scale(1.35); }
+    @media (max-width: 560px) {
+      .howcar { gap: 8px; }
+      .howcar-card { padding: 42px 22px; min-height: 270px; }
+      .howcar-arrow { width: 40px; height: 40px; font-size: 1.3rem; }
+      .howcar-card h3 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html"><img class="brand-logo" src="assets/logo1.png" alt="Tycoon Club" /></a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <div class="nav-dd">
+          <a href="professional-players.html" class="nav-dd-toggle">Professional Player Program</a>
+          <div class="nav-dd-menu">
+            <a href="become-a-professional-player.html">Become a Professional Player</a>
+            <a href="find-a-professional-player.html">Find a Professional Player</a>
+          </div>
+        </div>
+        <a href="recognition.html">Recognition</a>
+        <a href="news.html">News &amp; Updates</a>
+        <a href="access.html">Login</a>
+      </nav>
+      <a class="nav-cta" href="access.html">Join Tycoon Club</a>
+      <button class="mobile-toggle" aria-label="Open menu">&#9776;</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero hero-centered" style="padding-bottom: 24px;">
+    <div class="hex-orb left" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4C430"/><stop offset="100%" stop-color="#D9913F"/></linearGradient></defs><polygon points="100,20 175,60 175,140 100,180 25,140 25,60" fill="none" stroke="url(#hg1)" stroke-width="2"/></svg></div>
+    <div class="container">
+      <span class="crumb"><a href="professional-players.html">&larr; Professional Players</a> &middot; For members</span>
+      <h1>Find your perfect <span class="gradient-text">Professional Player</span>.</h1>
+      <p class="lead">Search verified Professional Players by name, country or language &mdash; or browse the full marketplace below.</p>
+      <form class="hero-search" id="player-search-form" role="search">
+        <span class="hs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg></span>
+        <input type="search" id="player-search" placeholder="Search by name, country or language&hellip;" aria-label="Search players" autocomplete="off" />
+        <button type="submit" class="btn btn-primary hs-btn">Find players</button>
+      </form>
+      <div class="trending">
+        <span class="trending-label">Trending:</span>
+        <button type="button" class="trend" data-q="available">available now</button>
+        <button type="button" class="trend" data-q="singapore">singapore</button>
+        <button type="button" class="trend" data-q="english">english</button>
+        <button type="button" class="trend" data-q="korea">south korea</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BROWSE -->
+  <section id="browse" style="padding-top: 8px;">
+    <div class="container">
+      <div class="filter-bar">
+        <div class="filter-menu-wrap">
+          <button type="button" class="filter-btn" id="filter-toggle" aria-haspopup="true" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
+            Filters
+          </button>
+          <div class="filter-menu" id="filter-menu" hidden></div>
+        </div>
+        <button type="button" class="filter-clear" id="chips-clear">Clear all</button>
+        <label class="filter-sort">
+          <select aria-label="Sort players by">
+            <option>Sort by</option>
+            <option>Highest win rate</option>
+            <option>Most experience</option>
+            <option>Lowest reward share</option>
+            <option>Most accounts managed</option>
+            <option>Highest rated</option>
+          </select>
+        </label>
+      </div>
+      <div class="filter-chips" id="filter-chips"></div>
+
+      <div class="grid-cards">
+        <article class="player-card" data-search="alex racing pro singapore english chinese available">
+          <div class="player-cover cov1">
+            <button type="button" class="fav" aria-label="Save player">&#9825;</button>
+            <span class="cover-badge">&#10003; Verified</span>
+            <span class="cover-art">AR</span>
+          </div>
+          <div class="player-body">
+            <div class="player-title"><h3>Alex Racing Pro</h3><span class="rating">&#9733; 4.9</span></div>
+            <div class="player-sub">Singapore &middot; English, Chinese</div>
+            <div class="player-stats">
+              <div class="row"><span class="k">Experience</span><span class="v">3 years</span></div>
+              <div class="row"><span class="k">Win rate</span><span class="v cyan">68%</span></div>
+              <div class="row"><span class="k">Minimum NFT</span><span class="v">5 horses</span></div>
+              <div class="row"><span class="k">Reward share</span><span class="v cyan">30%</span></div>
+              <div class="row"><span class="k">Accounts managed</span><span class="v">18</span></div>
+            </div>
+            <div class="player-actions">
+              <a class="btn btn-secondary" href="#browse">View profile</a>
+              <a class="btn btn-primary" href="access.html">Request service</a>
+            </div>
+            <p class="pstatus">Status: available</p>
+          </div>
+        </article>
+
+        <article class="player-card" data-search="maya knight united kingdom england english available">
+          <div class="player-cover cov2">
+            <button type="button" class="fav" aria-label="Save player">&#9825;</button>
+            <span class="cover-badge">&#10003; Verified</span>
+            <span class="cover-art">MK</span>
+          </div>
+          <div class="player-body">
+            <div class="player-title"><h3>Maya Knight</h3><span class="rating">&#9733; 4.8</span></div>
+            <div class="player-sub">United Kingdom &middot; English</div>
+            <div class="player-stats">
+              <div class="row"><span class="k">Experience</span><span class="v">5 years</span></div>
+              <div class="row"><span class="k">Win rate</span><span class="v cyan">74%</span></div>
+              <div class="row"><span class="k">Minimum NFT</span><span class="v">8 horses</span></div>
+              <div class="row"><span class="k">Reward share</span><span class="v cyan">35%</span></div>
+              <div class="row"><span class="k">Accounts managed</span><span class="v">12</span></div>
+            </div>
+            <div class="player-actions">
+              <a class="btn btn-secondary" href="#browse">View profile</a>
+              <a class="btn btn-primary" href="access.html">Request service</a>
+            </div>
+            <p class="pstatus">Status: available</p>
+          </div>
+        </article>
+
+        <article class="player-card" data-search="jin seo south korea korean english limited">
+          <div class="player-cover cov3">
+            <button type="button" class="fav" aria-label="Save player">&#9825;</button>
+            <span class="cover-badge">&#10003; Verified</span>
+            <span class="cover-art">JS</span>
+          </div>
+          <div class="player-body">
+            <div class="player-title"><h3>Jin Seo</h3><span class="rating">&#9733; 4.9</span></div>
+            <div class="player-sub">South Korea &middot; Korean, English</div>
+            <div class="player-stats">
+              <div class="row"><span class="k">Experience</span><span class="v">4 years</span></div>
+              <div class="row"><span class="k">Win rate</span><span class="v cyan">71%</span></div>
+              <div class="row"><span class="k">Minimum NFT</span><span class="v">6 horses</span></div>
+              <div class="row"><span class="k">Reward share</span><span class="v cyan">28%</span></div>
+              <div class="row"><span class="k">Accounts managed</span><span class="v">20</span></div>
+            </div>
+            <div class="player-actions">
+              <a class="btn btn-secondary" href="#browse">View profile</a>
+              <a class="btn btn-primary" href="access.html">Request service</a>
+            </div>
+            <p class="pstatus">Status: limited</p>
+          </div>
+        </article>
+
+        <article class="player-card" data-search="diego fernandez spain spanish english available">
+          <div class="player-cover cov4">
+            <button type="button" class="fav" aria-label="Save player">&#9825;</button>
+            <span class="cover-badge">&#10003; Verified</span>
+            <span class="cover-art">DF</span>
+          </div>
+          <div class="player-body">
+            <div class="player-title"><h3>Diego Fern&aacute;ndez</h3><span class="rating">&#9733; 4.7</span></div>
+            <div class="player-sub">Spain &middot; Spanish, English</div>
+            <div class="player-stats">
+              <div class="row"><span class="k">Experience</span><span class="v">6 years</span></div>
+              <div class="row"><span class="k">Win rate</span><span class="v cyan">70%</span></div>
+              <div class="row"><span class="k">Minimum NFT</span><span class="v">7 horses</span></div>
+              <div class="row"><span class="k">Reward share</span><span class="v cyan">32%</span></div>
+              <div class="row"><span class="k">Accounts managed</span><span class="v">15</span></div>
+            </div>
+            <div class="player-actions">
+              <a class="btn btn-secondary" href="#browse">View profile</a>
+              <a class="btn btn-primary" href="access.html">Request service</a>
+            </div>
+            <p class="pstatus">Status: available</p>
+          </div>
+        </article>
+
+        <article class="player-card" data-search="priya nair india english hindi available">
+          <div class="player-cover cov1">
+            <button type="button" class="fav" aria-label="Save player">&#9825;</button>
+            <span class="cover-badge">&#10003; Verified</span>
+            <span class="cover-art">PN</span>
+          </div>
+          <div class="player-body">
+            <div class="player-title"><h3>Priya Nair</h3><span class="rating">&#9733; 4.8</span></div>
+            <div class="player-sub">India &middot; English, Hindi</div>
+            <div class="player-stats">
+              <div class="row"><span class="k">Experience</span><span class="v">4 years</span></div>
+              <div class="row"><span class="k">Win rate</span><span class="v cyan">69%</span></div>
+              <div class="row"><span class="k">Minimum NFT</span><span class="v">5 horses</span></div>
+              <div class="row"><span class="k">Reward share</span><span class="v cyan">29%</span></div>
+              <div class="row"><span class="k">Accounts managed</span><span class="v">16</span></div>
+            </div>
+            <div class="player-actions">
+              <a class="btn btn-secondary" href="#browse">View profile</a>
+              <a class="btn btn-primary" href="access.html">Request service</a>
+            </div>
+            <p class="pstatus">Status: available</p>
+          </div>
+        </article>
+
+        <article class="player-card" data-search="yuki tanaka japan japanese english available">
+          <div class="player-cover cov2">
+            <button type="button" class="fav" aria-label="Save player">&#9825;</button>
+            <span class="cover-badge">&#10003; Verified</span>
+            <span class="cover-art">YT</span>
+          </div>
+          <div class="player-body">
+            <div class="player-title"><h3>Yuki Tanaka</h3><span class="rating">&#9733; 4.9</span></div>
+            <div class="player-sub">Japan &middot; Japanese, English</div>
+            <div class="player-stats">
+              <div class="row"><span class="k">Experience</span><span class="v">7 years</span></div>
+              <div class="row"><span class="k">Win rate</span><span class="v cyan">76%</span></div>
+              <div class="row"><span class="k">Minimum NFT</span><span class="v">9 horses</span></div>
+              <div class="row"><span class="k">Reward share</span><span class="v cyan">34%</span></div>
+              <div class="row"><span class="k">Accounts managed</span><span class="v">11</span></div>
+            </div>
+            <div class="player-actions">
+              <a class="btn btn-secondary" href="#browse">View profile</a>
+              <a class="btn btn-primary" href="access.html">Request service</a>
+            </div>
+            <p class="pstatus">Status: available</p>
+          </div>
+        </article>
+
+        <article class="player-card" data-search="omar haddad united arab emirates uae arabic english limited">
+          <div class="player-cover cov3">
+            <button type="button" class="fav" aria-label="Save player">&#9825;</button>
+            <span class="cover-badge">&#10003; Verified</span>
+            <span class="cover-art">OH</span>
+          </div>
+          <div class="player-body">
+            <div class="player-title"><h3>Omar Haddad</h3><span class="rating">&#9733; 4.7</span></div>
+            <div class="player-sub">United Arab Emirates &middot; Arabic, English</div>
+            <div class="player-stats">
+              <div class="row"><span class="k">Experience</span><span class="v">5 years</span></div>
+              <div class="row"><span class="k">Win rate</span><span class="v cyan">72%</span></div>
+              <div class="row"><span class="k">Minimum NFT</span><span class="v">6 horses</span></div>
+              <div class="row"><span class="k">Reward share</span><span class="v cyan">31%</span></div>
+              <div class="row"><span class="k">Accounts managed</span><span class="v">14</span></div>
+            </div>
+            <div class="player-actions">
+              <a class="btn btn-secondary" href="#browse">View profile</a>
+              <a class="btn btn-primary" href="access.html">Request service</a>
+            </div>
+            <p class="pstatus">Status: limited</p>
+          </div>
+        </article>
+
+        <article class="player-card" data-search="mia andersson sweden swedish english available">
+          <div class="player-cover cov4">
+            <button type="button" class="fav" aria-label="Save player">&#9825;</button>
+            <span class="cover-badge">&#10003; Verified</span>
+            <span class="cover-art">MA</span>
+          </div>
+          <div class="player-body">
+            <div class="player-title"><h3>Mia Andersson</h3><span class="rating">&#9733; 4.8</span></div>
+            <div class="player-sub">Sweden &middot; Swedish, English</div>
+            <div class="player-stats">
+              <div class="row"><span class="k">Experience</span><span class="v">5 years</span></div>
+              <div class="row"><span class="k">Win rate</span><span class="v cyan">73%</span></div>
+              <div class="row"><span class="k">Minimum NFT</span><span class="v">7 horses</span></div>
+              <div class="row"><span class="k">Reward share</span><span class="v cyan">30%</span></div>
+              <div class="row"><span class="k">Accounts managed</span><span class="v">17</span></div>
+            </div>
+            <div class="player-actions">
+              <a class="btn btn-secondary" href="#browse">View profile</a>
+              <a class="btn btn-primary" href="access.html">Request service</a>
+            </div>
+            <p class="pstatus">Status: available</p>
+          </div>
+        </article>
+      </div>
+      <p class="search-empty" id="search-empty">No players match your search. Try a different name, country or language.</p>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="dark">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">How it works</span>
+        <h2>From browse to <span class="gradient-text">service</span>, in five steps.</h2>
+      </div>
+      <div class="howcar-wrap">
+        <div class="howcar" id="howcar">
+          <button type="button" class="howcar-arrow prev" aria-label="Previous step">&#8249;</button>
+          <div class="howcar-viewport">
+            <div class="howcar-track">
+              <article class="howcar-card"><span class="howcar-hex">01</span><div class="howcar-step">Step 01 of 05</div><h3>Browse</h3><p>Browse verified Professional Players.</p></article>
+              <article class="howcar-card"><span class="howcar-hex">02</span><div class="howcar-step">Step 02 of 05</div><h3>Review</h3><p>Review profiles, experience and service requirements.</p></article>
+              <article class="howcar-card"><span class="howcar-hex">03</span><div class="howcar-step">Step 03 of 05</div><h3>Request</h3><p>Submit a service request.</p></article>
+              <article class="howcar-card"><span class="howcar-hex">04</span><div class="howcar-step">Step 04 of 05</div><h3>Accept</h3><p>The player reviews and accepts the request.</p></article>
+              <article class="howcar-card"><span class="howcar-hex">05</span><div class="howcar-step">Step 05 of 05</div><h3>Begin</h3><p>Service begins on mutually agreed terms.</p></article>
+            </div>
+          </div>
+          <button type="button" class="howcar-arrow next" aria-label="Next step">&#8250;</button>
+        </div>
+        <div class="howcar-dots" id="howcar-dots">
+          <button type="button" class="howcar-dot active" aria-label="Go to step 1"></button>
+          <button type="button" class="howcar-dot" aria-label="Go to step 2"></button>
+          <button type="button" class="howcar-dot" aria-label="Go to step 3"></button>
+          <button type="button" class="howcar-dot" aria-label="Go to step 4"></button>
+          <button type="button" class="howcar-dot" aria-label="Go to step 5"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST & VERIFICATION -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Trust &amp; verification</span>
+        <h2>Every listing is <span class="gradient-text">reviewed first</span>.</h2>
+        <p class="section-sub" style="max-width: 700px;">All Professional Player applications undergo a review process before being approved for listing. Verification may include:</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card"><span class="icon-hex">&#10003;</span><h3>Identity verification</h3><p>Confirming the applicant is who they say they are.</p></div>
+        <div class="feature-card"><span class="icon-hex">&#9876;</span><h3>Gameplay performance review</h3><p>Reviewing stated experience and performance history.</p></div>
+        <div class="feature-card"><span class="icon-hex">&#9670;</span><h3>Account standing review</h3><p>Checking the account is in good standing.</p></div>
+        <div class="feature-card"><span class="icon-hex">&#9878;</span><h3>Compliance review</h3><p>Ensuring the applicant meets the platform&rsquo;s policies.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CROSS LINK -->
+  <section class="dark">
+    <div class="container cross">
+      <div class="section-head" style="margin-bottom: 24px;">
+        <span class="section-tag">Other path</span>
+        <h2>Want to <span class="gradient-text">become</span> a player instead?</h2>
+      </div>
+      <a class="btn btn-secondary" href="become-a-professional-player.html">Become a Professional Player &rarr;</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="brand" style="margin-bottom: 16px;"><img class="brand-logo" src="assets/logo1.png" alt="Tycoon Club" /></div>
+        <p style="font-style: italic;">A global membership ecosystem.</p>
+      </div>
+      <div>
+        <h5>Quick links</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="professional-players.html">Professional Players</a></li>
+          <li><a href="become-a-professional-player.html">Become a player</a></li>
+          <li><a href="recognition.html">Recognition</a></li>
+          <li><a href="news.html">News &amp; Updates</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="#disclaimer">Terms of service</a></li>
+          <li><a href="#disclaimer">Privacy policy</a></li>
+          <li><a href="#disclaimer">Risk disclosure</a></li>
+          <li><a href="#disclaimer">Professional Player terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="full-disclaimer" id="disclaimer">
+      <p><strong>Tycoon Club is a private membership platform.</strong> Membership and participation do not guarantee rewards, financial returns or specific outcomes. Rewards and benefits are subject to program rules, eligibility requirements and applicable policies. Members are responsible for ensuring compliance with applicable local laws and regulations.</p>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Tycoon Club &middot; A global membership ecosystem</div>
+  </footer>
+
+  <script src="assets/script.js?v=4"></script>
+  <script>
+    (function () {
+      var car = document.getElementById('howcar');
+      if (!car) return;
+      var track = car.querySelector('.howcar-track');
+      var count = track.children.length;
+      var dots = document.querySelectorAll('#howcar-dots .howcar-dot');
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var i = 0, timer = null;
+      function go(n) {
+        i = (n + count) % count;
+        track.style.transform = 'translateX(' + (-i * 100) + '%)';
+        dots.forEach(function (d, k) { d.classList.toggle('active', k === i); });
+      }
+      function start() { if (reduce) return; stop(); timer = setInterval(function () { go(i + 1); }, 4200); }
+      function stop() { if (timer) { clearInterval(timer); timer = null; } }
+      car.querySelector('.next').addEventListener('click', function () { go(i + 1); start(); });
+      car.querySelector('.prev').addEventListener('click', function () { go(i - 1); start(); });
+      dots.forEach(function (d, k) { d.addEventListener('click', function () { go(k); start(); }); });
+      car.addEventListener('mouseenter', stop);
+      car.addEventListener('mouseleave', start);
+      go(0); start();
+    })();
+
+    // Filters dropdown + chips
+    (function () {
+      var toggle = document.getElementById('filter-toggle');
+      var menu = document.getElementById('filter-menu');
+      var chipsEl = document.getElementById('filter-chips');
+      var clearBtn = document.getElementById('chips-clear');
+      if (!toggle || !menu || !chipsEl) return;
+
+      var GROUPS = [
+        { name: 'Availability', opts: ['Available now'] },
+        { name: 'Verification', opts: ['Verified'] },
+        { name: 'Country', opts: ['Singapore', 'United Kingdom', 'South Korea', 'Japan', 'India', 'Spain'] },
+        { name: 'Language', opts: ['English', 'Chinese', 'Korean'] },
+        { name: 'Win rate', opts: ['Win rate 60%+', 'Win rate 70%+'] },
+        { name: 'Reward share', opts: ['Reward share ≤ 30%', 'Reward share ≤ 35%'] },
+        { name: 'Min NFT', opts: ['Min NFT ≤ 5', 'Min NFT ≤ 8'] },
+        { name: 'Experience', opts: ['Experience 3y+', 'Experience 5y+'] },
+      ];
+      var active = ['Verified', 'Available now', 'English', 'Singapore', 'Win rate 60%+', 'Reward share ≤ 30%', 'Min NFT ≤ 5', 'Experience 3y+'];
+
+      // Build the menu
+      GROUPS.forEach(function (g) {
+        var grp = document.createElement('div'); grp.className = 'fm-group';
+        var h = document.createElement('h6'); h.textContent = g.name; grp.appendChild(h);
+        var ow = document.createElement('div'); ow.className = 'fm-opts';
+        g.opts.forEach(function (label) {
+          var b = document.createElement('button');
+          b.type = 'button'; b.textContent = label; b.setAttribute('data-label', label);
+          ow.appendChild(b);
+        });
+        grp.appendChild(ow); menu.appendChild(grp);
+      });
+      var optBtns = menu.querySelectorAll('.fm-opts button');
+
+      function render() {
+        chipsEl.innerHTML = '';
+        active.forEach(function (l) {
+          var s = document.createElement('span'); s.className = 'chip';
+          s.appendChild(document.createTextNode(l + ' '));
+          var x = document.createElement('button');
+          x.type = 'button'; x.setAttribute('aria-label', 'Remove ' + l); x.innerHTML = '&times;';
+          x.addEventListener('click', function () { toggleLabel(l); });
+          s.appendChild(x); chipsEl.appendChild(s);
+        });
+        optBtns.forEach(function (b) {
+          b.classList.toggle('active', active.indexOf(b.getAttribute('data-label')) >= 0);
+        });
+      }
+      function toggleLabel(l) {
+        var i = active.indexOf(l);
+        if (i >= 0) active.splice(i, 1); else active.push(l);
+        render();
+      }
+      menu.addEventListener('click', function (e) {
+        var b = e.target.closest('.fm-opts button');
+        if (b) { toggleLabel(b.getAttribute('data-label')); close(); }
+      });
+      clearBtn.addEventListener('click', function () { active = []; render(); });
+
+      // Open / close
+      function isOpen() { return menu.classList.contains('open'); }
+      function close() { menu.classList.remove('open'); menu.hidden = true; toggle.setAttribute('aria-expanded', 'false'); }
+      function open() { menu.classList.add('open'); menu.hidden = false; toggle.setAttribute('aria-expanded', 'true'); }
+      toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        isOpen() ? close() : open();
+      });
+      document.addEventListener('click', function (e) {
+        if (isOpen() && !menu.contains(e.target) && !toggle.contains(e.target)) close();
+      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+
+      render();
+    })();
+
+    // Search-first hero: filter cards, trending shortcuts, favorite toggle
+    (function () {
+      var input = document.getElementById('player-search');
+      var grid = document.querySelector('.grid-cards');
+      if (!input || !grid) return;
+      var cards = [].slice.call(grid.querySelectorAll('.player-card'));
+      var empty = document.getElementById('search-empty');
+      var browse = document.getElementById('browse');
+
+      function apply(q) {
+        q = (q || '').trim().toLowerCase();
+        var shown = 0;
+        cards.forEach(function (c) {
+          var hay = (c.getAttribute('data-search') || '').toLowerCase();
+          var match = !q || hay.indexOf(q) >= 0;
+          c.style.display = match ? '' : 'none';
+          if (match) shown++;
+        });
+        if (empty) empty.style.display = shown ? 'none' : 'block';
+      }
+      function toBrowse() { if (browse) browse.scrollIntoView({ behavior: 'smooth' }); }
+
+      input.addEventListener('input', function () { apply(input.value); });
+      var form = document.getElementById('player-search-form');
+      if (form) form.addEventListener('submit', function (e) { e.preventDefault(); apply(input.value); toBrowse(); });
+
+      document.querySelectorAll('.trend').forEach(function (b) {
+        b.addEventListener('click', function () {
+          input.value = b.getAttribute('data-q');
+          apply(input.value);
+          toBrowse();
+        });
+      });
+
+      grid.addEventListener('click', function (e) {
+        var f = e.target.closest('.fav');
+        if (!f) return;
+        e.preventDefault();
+        f.classList.toggle('on');
+        f.innerHTML = f.classList.contains('on') ? '&#9829;' : '&#9825;';
+      });
+    })();
+  </script>
+</body>
+</html>
